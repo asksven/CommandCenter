@@ -5,10 +5,11 @@ import java.util.List;
 
 import com.asksven.systemsettings.valueobjects.Command;
 import com.asksven.systemsettings.valueobjects.CommandDBHelper;
-import com.asksven.systemsettings.valueobjects.Preferences;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,7 +20,7 @@ import android.widget.Toast;
 import android.widget.RatingBar.OnRatingBarChangeListener;
 
 
-public class ActCommandDetails extends Activity
+public class CommandDetailsActivity extends Activity
 {
 	private int m_iPosition = -1;
 	
@@ -29,7 +30,6 @@ public class ActCommandDetails extends Activity
 	{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dlg_command);
-        final Preferences myPrefs = new Preferences(this);
         
         Bundle extras = getIntent().getExtras();
 
@@ -51,7 +51,7 @@ public class ActCommandDetails extends Activity
         
         if (m_iPosition != -1)
         {
-        	CommandDBHelper myDB = new CommandDBHelper(ActCommandDetails.this);
+        	CommandDBHelper myDB = new CommandDBHelper(CommandDetailsActivity.this);
         	Command myRecord = myDB.fetchCommandByKey(m_iPosition);
         	        	
         	myId.setText(String.valueOf(myRecord.getId()));
@@ -96,7 +96,7 @@ public class ActCommandDetails extends Activity
 	           if (!strName.equals(""))
 	           {
 	        	   // Save the result
-	        	   CommandDBHelper myDB = new CommandDBHelper(ActCommandDetails.this);
+	        	   CommandDBHelper myDB = new CommandDBHelper(CommandDetailsActivity.this);
 	        	   if (m_iPosition != -1)
 	        	   {
 	        		   myDB.updateCommand(Integer.parseInt(myId.getText().toString()) , 
@@ -166,9 +166,12 @@ public class ActCommandDetails extends Activity
 				   			0,
 				   			myStatusRegex.toString(),
 				   			0);
-	        	   
-	        	   String s=myCmd.execute(myPrefs.getHasRoot());
-	        	   Toast.makeText(ActCommandDetails.this, "Result:" + s, Toast.LENGTH_SHORT).show();
+
+	        	   SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+	               boolean bHasRoot = preferences.getBoolean("hasRoot", false);
+
+	        	   String s=myCmd.execute(bHasRoot);
+	        	   Toast.makeText(CommandDetailsActivity.this, "Result:" + s, Toast.LENGTH_SHORT).show();
 	        	   
 	           }
             }

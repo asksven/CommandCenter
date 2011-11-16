@@ -1,12 +1,13 @@
 package com.asksven.systemsettings;
 
 import com.asksven.systemsettings.valueobjects.Command;
-import com.asksven.systemsettings.valueobjects.Preferences;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 /**
@@ -23,10 +24,10 @@ public class IntentHandler extends BroadcastReceiver
 	@Override
 	public void onReceive(Context context, Intent intent)
 	{
-		Preferences myPrefs = new Preferences(context);
-        
-        
-        if ((intent.getAction().equals(Intents.ACTION_COMMAND)) && (myPrefs.getAllowCommand()))
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        boolean bAllowRemote = preferences.getBoolean("allowRemoteCommands", false);
+
+        if ((intent.getAction().equals(Intents.ACTION_COMMAND)) && (bAllowRemote))
         {
         	Log.d(getClass().getSimpleName(), "Received Broadcast ACTION_COMMAND");
         	if ( intent.hasExtra(Intents.EXTRA_COMMAND) )

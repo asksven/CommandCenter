@@ -16,7 +16,7 @@ import android.widget.TextView;
  * @author sven
  *
  */
-public class ActAbout extends Activity 
+public class AboutActivity extends Activity 
 {
 	
 	/** Called when the activity is first created. */
@@ -46,7 +46,7 @@ public class ActAbout extends Activity
         TextView txtVersion = (TextView) findViewById(R.id.Version);
         try
         {
-        	ComponentName comp = new ComponentName(this, ActAbout.class);
+        	ComponentName comp = new ComponentName(this, AboutActivity.class);
             PackageInfo oInfo = this.getPackageManager().getPackageInfo(comp.getPackageName(), 0);
             txtVersion.setText(oInfo.versionName);
         }

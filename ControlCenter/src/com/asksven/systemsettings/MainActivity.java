@@ -8,8 +8,10 @@ import android.app.ListActivity;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -30,11 +32,8 @@ import com.asksven.systemsettings.exec.ExecResult;
 import com.asksven.systemsettings.valueobjects.Command;
 import com.asksven.systemsettings.valueobjects.CommandDBHelper;
 import com.asksven.systemsettings.valueobjects.CommandListAdapter;
-import com.asksven.systemsettings.valueobjects.Preferences;
 
-
-
-public class Main extends ListActivity
+public class MainActivity extends ListActivity
 {
 	private CommandDBHelper m_myDB = null;
     private List<Command> m_myItems;
@@ -57,9 +56,11 @@ public class Main extends ListActivity
         super.onCreate(savedInstanceState);
         unregisterForContextMenu(getListView()); 
         m_myDB = new CommandDBHelper(this);
-
-        Preferences myPrefs = new Preferences(this);
-        if (!myPrefs.getShowFavorites())
+        
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        boolean bShowFavs = preferences.getBoolean("showOnlyFavorites", false);
+        
+        if (!bShowFavs)
         {
         	m_myItems = m_myDB.fetchAllRows();
         }
@@ -129,20 +130,20 @@ public class Main extends ListActivity
     {
     	if (item.getTitle().equals("Preferences"))
     	{
-    		Intent intent = new Intent(this, com.asksven.systemsettings.ActPreferences.class);
+    		Intent intent = new Intent(this, PreferencesActivity.class);
    			startActivityForResult(intent, DIALOG_PREFERENCES_ID);
     		return true;
     	}
     	else if (item.getTitle().equals("Add"))
     	{
-    		Intent intent = new Intent(Main.this, com.asksven.systemsettings.ActCommandDetails.class);
+    		Intent intent = new Intent(MainActivity.this, com.asksven.systemsettings.CommandDetailsActivity.class);
     	    // pass no data to the dialog -> add
     	    startActivity(intent);   
     	    return true;    		
     	}
     	else if (item.getTitle().equals("About"))
     	{
-    		Intent intent = new Intent(Main.this, com.asksven.systemsettings.ActAbout.class);
+    		Intent intent = new Intent(MainActivity.this, com.asksven.systemsettings.AboutActivity.class);
     	    // pass no data to the dialog -> add
     	    startActivity(intent);   
     	    return true;    		
@@ -179,7 +180,7 @@ public class Main extends ListActivity
     	    	if (m_myCommand != null)
     	    	{
     	    		Log.i(getClass().getSimpleName(), "Command was edited: " + m_myCommand.getId());
-    	    		Intent intent = new Intent(Main.this, com.asksven.systemsettings.ActCommandDetails.class);
+    	    		Intent intent = new Intent(MainActivity.this, com.asksven.systemsettings.CommandDetailsActivity.class);
     	    	    // pass some extra data to the dialog
     	    	    intent.putExtra("key", m_myCommand.getId());
     	    	    startActivity(intent);    	    
@@ -221,8 +222,10 @@ public class Main extends ListActivity
 			m_myDB = new CommandDBHelper(this);
 		}
 
-        Preferences myPrefs = new Preferences(this);
-        if (!myPrefs.getShowFavorites())
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        boolean bShowFavs = preferences.getBoolean("showOnlyFavorites", false);
+
+        if (!bShowFavs)
         {
         	m_myItems = m_myDB.fetchAllRows();
         }
@@ -240,11 +243,13 @@ public class Main extends ListActivity
     protected void onListItemClick  (ListView l, View v, int position, long id)
     {
     	m_myCommand = m_myItems.get(position);
-		Preferences myPrefs = new Preferences(this);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        boolean bExecOnTap = preferences.getBoolean("execOnSelect", true);
+
     	if (m_myCommand != null)
     	{
     		Log.i(getClass().getSimpleName(), "Command was clicked: " + m_myCommand.getId());
-    		if (myPrefs.getExecOnSelect())
+    		if (bExecOnTap)
     		{
     			executeCommand();
     			refreshList(position);
@@ -252,7 +257,7 @@ public class Main extends ListActivity
     		else
     		{
     			Log.i(getClass().getSimpleName(), "Editing command");
-	    		Intent intent = new Intent(Main.this, com.asksven.systemsettings.ActCommandDetails.class);
+	    		Intent intent = new Intent(MainActivity.this, com.asksven.systemsettings.CommandDetailsActivity.class);
 	    	    // pass some extra data to the dialog
 	    	    intent.putExtra("key", position);
 	    	    startActivity(intent);    	    
@@ -263,7 +268,9 @@ public class Main extends ListActivity
     /** execute the selected command */
     private void executeCommand()
     {
-    	final Preferences myPrefs = new Preferences(this);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        final boolean bHasRoot = preferences.getBoolean("hasRoot", false);
+        
 		if (!m_myCommand.getCommandValues().equals(""))
 		{
 			// handle whatever values are defined for the command
@@ -337,8 +344,8 @@ public class Main extends ListActivity
 				    	CharSequence[] tokens = strSelection.split("\\:");
 				    	strSelection = (String) tokens[0];
 				    	
-				        m_myCommand.execute(strSelection, myPrefs.getHasRoot());
-				        Toast.makeText(Main.this, "Executing " + m_myCommand.getCommand(), Toast.LENGTH_LONG).show();
+				        m_myCommand.execute(strSelection, bHasRoot);
+				        Toast.makeText(MainActivity.this, "Executing " + m_myCommand.getCommand(), Toast.LENGTH_LONG).show();
 		    			refreshList(-1);
 				    }
 				});
@@ -347,8 +354,8 @@ public class Main extends ListActivity
 		}
 		else
 		{
-			m_myCommand.execute(myPrefs.getHasRoot());
-			Toast.makeText(Main.this, "Executing " + m_myCommand.getCommand(), Toast.LENGTH_LONG).show();
+			m_myCommand.execute(bHasRoot);
+			Toast.makeText(MainActivity.this, "Executing " + m_myCommand.getCommand(), Toast.LENGTH_LONG).show();
 
 		}
 	
@@ -376,8 +383,10 @@ public class Main extends ListActivity
 						{
 							strFilename = strFilename.substring(7);
 						}
-						Preferences myPrefs = new Preferences(this);
-						m_myCommand.execute(strFilename, myPrefs.getHasRoot());
+				        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+				        boolean bHasRoot = preferences.getBoolean("hasRoot", false);
+
+						m_myCommand.execute(strFilename, bHasRoot);
 						
 					}				
 					
