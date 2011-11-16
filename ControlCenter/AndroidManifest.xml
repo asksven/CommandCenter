@@ -13,6 +13,7 @@
         </activity>
         <activity android:name=".PreferencesActivity" android:label="Preferences"></activity>
 		<activity android:name=".CommandDetailsActivity" android:label="Commands"></activity>
+		<activity android:name=".BasicActivity" android:label="Commands"></activity>
 		<activity android:name=".AboutActivity" android:label="About"></activity>
 		<receiver android:name=".IntentHandler">
 			<intent-filter>
