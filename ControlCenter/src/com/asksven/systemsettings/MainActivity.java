@@ -15,6 +15,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -38,10 +39,6 @@ public class MainActivity extends ListActivity
 	private CommandDBHelper m_myDB = null;
     private List<Command> m_myItems;
     private Command m_myCommand = null;
-    
-    static final int DIALOG_PREFERENCES_ID 	= 0;
-    static final int DIALOG_COMMAND_ID 		= 1;
-    static final int DIALOG_ABOUT_ID 		= 2;
     
     static final int CONTEXT_EDIT_ID 		= 100;
     static final int CONTEXT_DELETE_ID 		= 101;
@@ -103,18 +100,17 @@ public class MainActivity extends ListActivity
                 
     }
     
-    // Called only the first time the options menu is displayed.
-    // Create the menu entries.
-    // Menu adds items in the order shown.
+    /** 
+     * Add menu items
+     * 
+     * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+     */
     public boolean onCreateOptionsMenu(Menu menu)
-    {
-        super.onCreateOptionsMenu(menu);
-        menu.add("Preferences");
-        menu.add("Add");
-        menu.add("About");
-
+    {  
+    	MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.mainmenu, menu);
         return true;
-    }
+    }  
 
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo info)
     {
@@ -128,43 +124,38 @@ public class MainActivity extends ListActivity
     // handle menu selected
     public boolean onOptionsItemSelected(MenuItem item)
     {
-    	if (item.getTitle().equals("Preferences"))
-    	{
-    		Intent intent = new Intent(this, PreferencesActivity.class);
-   			startActivityForResult(intent, DIALOG_PREFERENCES_ID);
-    		return true;
-    	}
-    	else if (item.getTitle().equals("Add"))
-    	{
-    		Intent intent = new Intent(MainActivity.this, com.asksven.systemsettings.CommandDetailsActivity.class);
-    	    // pass no data to the dialog -> add
-    	    startActivity(intent);   
-    	    return true;    		
-    	}
-    	else if (item.getTitle().equals("About"))
-    	{
-    		Intent intent = new Intent(MainActivity.this, com.asksven.systemsettings.AboutActivity.class);
-    	    // pass no data to the dialog -> add
-    	    startActivity(intent);   
-    	    return true;    		
-    	}
-    	
-    	else if (item.getTitle().equals("Test"))
-    	{
-    		ExecResult myRes = Exec.execPrint("su -c cat /data/dropbear/.ssh/authorized_keys");
-    		String strLine = "";
-    		if (myRes.getSuccess())
-    		{
-    			strLine = myRes.getResultLine();
-    		}
-    	    return true;
-    		
-    	}
+        switch (item.getItemId())
+        {  
+	        case R.id.preferences:  
+	    		Intent intent = new Intent(this, PreferencesActivity.class);
+	   			startActivityForResult(intent, item.getItemId());
+	    		break;
+	        case R.id.add:	
+	        	Intent intent2 = new Intent(MainActivity.this, CommandDetailsActivity.class);
+	        	// pass no data to the dialog -> add
+	        	startActivity(intent2);   
+	        	break;    		
+	        case R.id.about:
+	        	Intent intent3 = new Intent(MainActivity.this, AboutActivity.class);
+    	    	// pass no data to the dialog -> add
+    	    	startActivity(intent3);   
+    	    	break;
+	        case R.id.fragment:
+	        	Intent intent4 = new Intent(MainActivity.this, BasicActivity.class);
+    	    	// pass no data to the dialog -> add
+    	    	startActivity(intent4);   
+    	    	break;
 
-    	else
-    	{
-    		return false;
+	        case R.id.test:	
+	    		ExecResult myRes = Exec.execPrint("su -c cat /data/dropbear/.ssh/authorized_keys");
+	    		String strLine = "";
+	    		if (myRes.getSuccess())
+	    		{
+	    			strLine = myRes.getResultLine();
+	    		}
+	    	    break;
     	}
+        return true;
     }
 
     @Override
