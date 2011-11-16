@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<com.asksven.frameworkapp.widget.CheckableFrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <TextView
+            android:id="@android:id/text1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:minHeight="?android:attr/listPreferredItemHeight"
+            android:gravity="center_vertical"
+    />
+</com.asksven.frameworkapp.widget.CheckableFrameLayout>
