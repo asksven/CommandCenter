@@ -26,24 +26,7 @@ public class AboutActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dlg_about);
         
-        // setup handler for Ok button
-        Button btnOk = (Button) findViewById(R.id.ButtonOK);
-        btnOk.setOnClickListener(new View.OnClickListener() {
-           public void onClick(View arg0) {
-	           setResult(RESULT_OK);
-	           finish();
-           }
-        });
-        
-        TextView txtURL = (TextView) findViewById(R.id.TextViewURL);
-        txtURL.setOnClickListener(new View.OnClickListener() {
-           public void onClick(View arg0) {
-        	   Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.app_home)));
-        	   startActivity(intent); 
-           }
-        });
-
-        TextView txtVersion = (TextView) findViewById(R.id.Version);
+        TextView txtVersion = (TextView) findViewById(R.id.textViewVersion);
         try
         {
         	ComponentName comp = new ComponentName(this, AboutActivity.class);
