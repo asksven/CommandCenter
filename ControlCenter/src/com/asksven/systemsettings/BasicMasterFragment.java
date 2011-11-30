@@ -44,11 +44,6 @@ public class BasicMasterFragment extends ListFragment
     {
         super.onActivityCreated(savedInstanceState);
 
-//        // Populate list with our static array of titles.
-//        setListAdapter(new ArrayAdapter<String>(getActivity(),
-//                R.layout.simple_list_item_checkable_1,
-//                android.R.id.text1, SimpleData.TITLES));
-
         // populate list with our commands, based on preferences
         m_myDB = new CommandDBHelper(getActivity());
         
