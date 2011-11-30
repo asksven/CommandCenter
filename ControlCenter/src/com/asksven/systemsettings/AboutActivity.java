@@ -24,7 +24,7 @@ public class AboutActivity extends Activity
     public void onCreate(Bundle savedInstanceState) {
 		
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dlg_about);
+        setContentView(R.layout.about);
         
         TextView txtVersion = (TextView) findViewById(R.id.textViewVersion);
         try
