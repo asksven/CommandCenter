@@ -91,7 +91,8 @@ public class BasicMasterFragment extends ListFragment
     @Override
     public void onListItemClick(ListView l, View v, int position, long id)
     {
-        showDetails(position);
+    	m_myCommand = m_myItems.get(position);
+        showDetails(m_myCommand.getId());
     }
 
     /**
@@ -99,23 +100,23 @@ public class BasicMasterFragment extends ListFragment
      * displaying a fragment in-place in the current UI, or starting a
      * whole new activity in which it is displayed.
      */
-    void showDetails(int index)
+    void showDetails(int key)
     {
-        mCurCheckPosition = index;
+        mCurCheckPosition = key;
 
         if (mDualPane)
         {
             // We can display everything in-place with fragments, so update
             // the list to highlight the selected item and show the data.
-            getListView().setItemChecked(index, true);
+            getListView().setItemChecked(key, true);
 
             // Check what fragment is currently shown, replace if needed.
             BasicDetailsFragment details = (BasicDetailsFragment)
                     getFragmentManager().findFragmentById(R.id.details);
-            if (details == null || details.getShownIndex() != index)
+            if (details == null || details.getShownKey() != m_myCommand.getId())
             {
                 // Make new fragment to show this selection.
-                details = BasicDetailsFragment.newInstance(index);
+                details = BasicDetailsFragment.newInstance(key);
 
                 // Execute a transaction, replacing any existing fragment
                 // with this one inside the frame.
@@ -132,7 +133,7 @@ public class BasicMasterFragment extends ListFragment
             // the dialog fragment with selected text.
             Intent intent = new Intent();
             intent.setClass(getActivity(), BasicDetailsActivity.class);
-            intent.putExtra("index", index);
+            intent.putExtra("index", key);
             startActivity(intent);
         }
     }

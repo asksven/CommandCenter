@@ -5,12 +5,18 @@ package com.asksven.systemsettings;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
+import com.asksven.systemsettings.valueobjects.Command;
+import com.asksven.systemsettings.valueobjects.CommandDBHelper;
 import com.asksven.systemsettings.valueobjects.SimpleData;
 /**
  * @author sven
@@ -39,9 +45,9 @@ public class BasicDetailsFragment extends Fragment
         return f;
     }
 
-    public int getShownIndex()
+    public int getShownKey()
     {
-        return getArguments().getInt("index", 0);
+        return getArguments().getInt("index", -1);
     }
 
     @Override
@@ -60,13 +66,36 @@ public class BasicDetailsFragment extends Fragment
             return null;
         }
 
-        ScrollView scroller = new ScrollView(getActivity());
-        TextView text = new TextView(getActivity());
-        int padding = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                4, getActivity().getResources().getDisplayMetrics());
-        text.setPadding(padding, padding, padding, padding);
-        scroller.addView(text);
-        text.setText(SimpleData.DIALOGUE[getShownIndex()]);
-        return scroller;
+        View v = inflater.inflate(R.layout.dlg_command, container, false);
+
+        EditText myId = (EditText) v.findViewById(R.id.EditId);
+        EditText myName = (EditText) v.findViewById(R.id.EditName);
+        EditText myCommand = (EditText) v.findViewById(R.id.EditCommand);
+        EditText myCommandValues = (EditText) v.findViewById(R.id.EditCommandValues);
+        EditText myStatus = (EditText) v.findViewById(R.id.EditStatus);
+        CheckBox myFavorite = (CheckBox) v.findViewById(R.id.CheckBoxFavorite);
+        EditText myStatusRegex = (EditText) v.findViewById(R.id.EditStatusRegex);
+        CheckBox myRegexIsOn = (CheckBox) v.findViewById(R.id.CheckBoxRegexIsOn);
+        
+        
+        if (getShownKey() != -1)
+        {
+        	CommandDBHelper myDB = new CommandDBHelper(getActivity());
+        	Command myRecord = myDB.fetchCommandByKey(getShownKey());
+        	        	
+        	myId.setText(String.valueOf(myRecord.getId()));
+        	myName.setText(myRecord.getName());
+        	myCommand.setText(myRecord.getCommand());
+        	myCommandValues.setText(myRecord.getCommandValues());
+        	myStatus.setText(myRecord.getCommandStatus());
+        	myFavorite.setChecked(myRecord.getFavorite()==1);
+        	myStatusRegex.setText(myRecord.getRegexStatus());
+        	myRegexIsOn.setChecked(myRecord.getMatchRegexOn()==1);
+        	
+        }
+        
+        // @todo add button handlers here
+        return v;
+        
     }
 }
