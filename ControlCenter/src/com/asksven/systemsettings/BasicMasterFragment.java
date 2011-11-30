@@ -3,14 +3,21 @@
  */
 package com.asksven.systemsettings;
 
+import java.util.List;
+
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import com.asksven.systemsettings.R;
+import com.asksven.systemsettings.valueobjects.Command;
+import com.asksven.systemsettings.valueobjects.CommandDBHelper;
+import com.asksven.systemsettings.valueobjects.CommandListAdapter;
 import com.asksven.systemsettings.valueobjects.SimpleData;
 
 /**
@@ -26,17 +33,39 @@ public class BasicMasterFragment extends ListFragment
 {
     boolean mDualPane;
     int mCurCheckPosition = 0;
+    
+	private CommandDBHelper m_myDB = null;
+    private List<Command> m_myItems;
+    private Command m_myCommand = null;
+
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
 
-        // Populate list with our static array of titles.
-        setListAdapter(new ArrayAdapter<String>(getActivity(),
-                R.layout.simple_list_item_checkable_1,
-                android.R.id.text1, SimpleData.TITLES));
+//        // Populate list with our static array of titles.
+//        setListAdapter(new ArrayAdapter<String>(getActivity(),
+//                R.layout.simple_list_item_checkable_1,
+//                android.R.id.text1, SimpleData.TITLES));
 
+        // populate list with our commands, based on preferences
+        m_myDB = new CommandDBHelper(getActivity());
+        
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        boolean bShowFavs = preferences.getBoolean("showOnlyFavorites", false);
+        
+        if (!bShowFavs)
+        {
+        	m_myItems = m_myDB.fetchAllRows();
+        }
+        else
+        {
+        	m_myItems = m_myDB.fetchFavoriteRows();
+        }
+
+        setListAdapter(new CommandListAdapter(getActivity(), R.layout.row_command, m_myItems));
+		
         // Check to see if we have a frame in which to embed the details
         // fragment directly in the containing UI.
         View detailsFrame = getActivity().findViewById(R.id.details);
