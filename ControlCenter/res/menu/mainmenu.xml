@@ -7,8 +7,5 @@
 	<item android:id="@+id/about"
      	android:title="About" />
 	<item android:id="@+id/test"
-     	android:title="Test" />  
-	<item android:id="@+id/fragment"
-     	android:title="Fragments" />  
-		
+     	android:title="Test" />  		
 </menu>
