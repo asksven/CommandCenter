@@ -65,117 +65,117 @@ public class CommandDetailsActivity extends Activity
         	
         }
         
-        // setup handler for Ok button
-        Button btnOk = (Button) findViewById(R.id.ButtonOK);
-        btnOk.setOnClickListener(new View.OnClickListener() {
-           public void onClick(View arg0)
-           {   
-        	   // save to cell group database
-        	   EditText myId = (EditText) findViewById(R.id.EditId);
-	           EditText myName = (EditText) findViewById(R.id.EditName);
-	           EditText myCommand = (EditText) findViewById(R.id.EditCommand);
-	           EditText myCommandValues = (EditText) findViewById(R.id.EditCommandValues);
-	           EditText myStatus = (EditText) findViewById(R.id.EditStatus);
-	           CheckBox myFavorite = (CheckBox) findViewById(R.id.CheckBoxFavorite);
-	           EditText myStatusRegex = (EditText) findViewById(R.id.EditStatusRegex);
-	           CheckBox myRegexIsOn = (CheckBox) findViewById(R.id.CheckBoxRegexIsOn);
-	           
-	           int iFavorite = 0;
-	           int iRegexIsOn = 0;
-	           if (myFavorite.isChecked())
-	           {
-	        	   iFavorite = 1;
-	           }
-	           if (myRegexIsOn.isChecked())
-	           {
-	        	   iRegexIsOn = 1;
-	           }
-
-	           
-	           String strName = myName.getText().toString();
-	           if (!strName.equals(""))
-	           {
-	        	   // Save the result
-	        	   CommandDBHelper myDB = new CommandDBHelper(CommandDetailsActivity.this);
-	        	   if (m_iPosition != -1)
-	        	   {
-	        		   myDB.updateCommand(Integer.parseInt(myId.getText().toString()) , 
-	        				   			new Command(strName,
-	        				   			myCommand.getText().toString(),
-	        				   			myCommandValues.getText().toString(),
-	        				   			myStatus.getText().toString(),
-	        				   			"",
-	        				   			"user",
-	        				   			iFavorite,
-	        				   			myStatusRegex.getText().toString(),
-	        				   			iRegexIsOn));
-	        	   }
-	        	   else
-	        	   {
-	        		   myDB.addCommand(
-	        				   			new Command(strName,
-	        				   			myCommand.getText().toString(),
-	        				   			myCommandValues.getText().toString(),
-	        				   			myStatus.getText().toString(),
-	        				   			"",
-	        				   			"user",
-	        				   			iFavorite,
-	        				   			myStatusRegex.toString(),
-	        				   			iRegexIsOn));
-	        	   }
-	           }
-	           
-	           
-	           setResult(RESULT_OK);
-	           finish();
-           }
-        });
-
-        // setup handler for the Cancel button
-        Button btnCancel = (Button) findViewById(R.id.ButtonCancel);
-        btnCancel.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View arg0) {
- 	           setResult(RESULT_CANCELED);
- 	           
- 	           finish();
-            }
-         });
-
-        // setup handler for the Cancel button
-        Button btnTest = (Button) findViewById(R.id.ButtonTest);
-        btnTest.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View arg0) {
-         	   EditText myId = (EditText) findViewById(R.id.EditId);
-	           EditText myName = (EditText) findViewById(R.id.EditName);
-	           EditText myCommand = (EditText) findViewById(R.id.EditCommand);
-	           EditText myCommandValues = (EditText) findViewById(R.id.EditCommandValues);
-	           EditText myStatus = (EditText) findViewById(R.id.EditStatus);
-	           EditText myStatusRegex = (EditText) findViewById(R.id.EditStatusRegex);
-	           CheckBox myRegexIsOn = (CheckBox) findViewById(R.id.CheckBoxRegexIsOn);
-	    
-	           String strCommand = myCommand.getText().toString();
-	           if (!strCommand.equals(""))
-	           {
-	        	   Command myCmd = new Command(
-	        			   myName.getText().toString(),
-				   			myCommand.getText().toString(),
-				   			myCommandValues.getText().toString(),
-				   			myStatus.getText().toString(),
-				   			"",
-				   			"user",
-				   			0,
-				   			myStatusRegex.toString(),
-				   			0);
-
-	        	   SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-	               boolean bHasRoot = preferences.getBoolean("hasRoot", false);
-
-	        	   String s=myCmd.execute(bHasRoot);
-	        	   Toast.makeText(CommandDetailsActivity.this, "Result:" + s, Toast.LENGTH_SHORT).show();
-	        	   
-	           }
-            }
-         });
+//        // setup handler for Ok button
+//        Button btnOk = (Button) findViewById(R.id.ButtonOK);
+//        btnOk.setOnClickListener(new View.OnClickListener() {
+//           public void onClick(View arg0)
+//           {   
+//        	   // save to cell group database
+//        	   EditText myId = (EditText) findViewById(R.id.EditId);
+//	           EditText myName = (EditText) findViewById(R.id.EditName);
+//	           EditText myCommand = (EditText) findViewById(R.id.EditCommand);
+//	           EditText myCommandValues = (EditText) findViewById(R.id.EditCommandValues);
+//	           EditText myStatus = (EditText) findViewById(R.id.EditStatus);
+//	           CheckBox myFavorite = (CheckBox) findViewById(R.id.CheckBoxFavorite);
+//	           EditText myStatusRegex = (EditText) findViewById(R.id.EditStatusRegex);
+//	           CheckBox myRegexIsOn = (CheckBox) findViewById(R.id.CheckBoxRegexIsOn);
+//	           
+//	           int iFavorite = 0;
+//	           int iRegexIsOn = 0;
+//	           if (myFavorite.isChecked())
+//	           {
+//	        	   iFavorite = 1;
+//	           }
+//	           if (myRegexIsOn.isChecked())
+//	           {
+//	        	   iRegexIsOn = 1;
+//	           }
+//
+//	           
+//	           String strName = myName.getText().toString();
+//	           if (!strName.equals(""))
+//	           {
+//	        	   // Save the result
+//	        	   CommandDBHelper myDB = new CommandDBHelper(CommandDetailsActivity.this);
+//	        	   if (m_iPosition != -1)
+//	        	   {
+//	        		   myDB.updateCommand(Integer.parseInt(myId.getText().toString()) , 
+//	        				   			new Command(strName,
+//	        				   			myCommand.getText().toString(),
+//	        				   			myCommandValues.getText().toString(),
+//	        				   			myStatus.getText().toString(),
+//	        				   			"",
+//	        				   			"user",
+//	        				   			iFavorite,
+//	        				   			myStatusRegex.getText().toString(),
+//	        				   			iRegexIsOn));
+//	        	   }
+//	        	   else
+//	        	   {
+//	        		   myDB.addCommand(
+//	        				   			new Command(strName,
+//	        				   			myCommand.getText().toString(),
+//	        				   			myCommandValues.getText().toString(),
+//	        				   			myStatus.getText().toString(),
+//	        				   			"",
+//	        				   			"user",
+//	        				   			iFavorite,
+//	        				   			myStatusRegex.toString(),
+//	        				   			iRegexIsOn));
+//	        	   }
+//	           }
+//	           
+//	           
+//	           setResult(RESULT_OK);
+//	           finish();
+//           }
+//        });
+//
+//        // setup handler for the Cancel button
+//        Button btnCancel = (Button) findViewById(R.id.ButtonCancel);
+//        btnCancel.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View arg0) {
+// 	           setResult(RESULT_CANCELED);
+// 	           
+// 	           finish();
+//            }
+//         });
+//
+//        // setup handler for the Cancel button
+//        Button btnTest = (Button) findViewById(R.id.ButtonTest);
+//        btnTest.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View arg0) {
+//         	   EditText myId = (EditText) findViewById(R.id.EditId);
+//	           EditText myName = (EditText) findViewById(R.id.EditName);
+//	           EditText myCommand = (EditText) findViewById(R.id.EditCommand);
+//	           EditText myCommandValues = (EditText) findViewById(R.id.EditCommandValues);
+//	           EditText myStatus = (EditText) findViewById(R.id.EditStatus);
+//	           EditText myStatusRegex = (EditText) findViewById(R.id.EditStatusRegex);
+//	           CheckBox myRegexIsOn = (CheckBox) findViewById(R.id.CheckBoxRegexIsOn);
+//	    
+//	           String strCommand = myCommand.getText().toString();
+//	           if (!strCommand.equals(""))
+//	           {
+//	        	   Command myCmd = new Command(
+//	        			   myName.getText().toString(),
+//				   			myCommand.getText().toString(),
+//				   			myCommandValues.getText().toString(),
+//				   			myStatus.getText().toString(),
+//				   			"",
+//				   			"user",
+//				   			0,
+//				   			myStatusRegex.toString(),
+//				   			0);
+//
+//	        	   SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+//	               boolean bHasRoot = preferences.getBoolean("hasRoot", false);
+//
+//	        	   String s=myCmd.execute(bHasRoot);
+//	        	   Toast.makeText(CommandDetailsActivity.this, "Result:" + s, Toast.LENGTH_SHORT).show();
+//	        	   
+//	           }
+//            }
+//         });
         
     }
 
