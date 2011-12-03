@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import com.asksven.systemsettings.valueobjects.Command;
 import com.asksven.systemsettings.valueobjects.CommandDBHelper;
-import com.asksven.systemsettings.valueobjects.SimpleData;
+
 /**
  * @author sven
  *

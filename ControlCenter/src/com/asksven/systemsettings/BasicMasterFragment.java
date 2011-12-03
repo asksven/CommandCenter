@@ -12,13 +12,11 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import com.asksven.systemsettings.R;
+
 import com.asksven.systemsettings.valueobjects.Command;
 import com.asksven.systemsettings.valueobjects.CommandDBHelper;
 import com.asksven.systemsettings.valueobjects.CommandListAdapter;
-import com.asksven.systemsettings.valueobjects.SimpleData;
 
 /**
  * @author sven
