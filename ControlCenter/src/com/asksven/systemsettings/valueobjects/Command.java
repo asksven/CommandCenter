@@ -52,9 +52,19 @@ public class Command
 		return m_iId;
 	}
 
+	public void setId(int id)
+	{
+		m_iId = id;
+	}
+
 	public String getName()
 	{
 		return m_strName;
+	}
+
+	public void setName(String name)
+	{
+		m_strName = name;
 	}
 
 	public String getCommand()
@@ -62,9 +72,19 @@ public class Command
 		return m_strCommand;
 	}
 
+	public void setCommand(String command)
+	{
+		m_strCommand = command;
+	}
+
 	public String getCommandValues()
 	{
 		return m_strCommandValues;
+	}
+
+	public void setCommandValues(String commandValues)
+	{
+		m_strCommandValues = commandValues;
 	}
 
 	public String getCommandStatus()
@@ -72,15 +92,29 @@ public class Command
 		return m_strCommandStatus;
 	}
 
+	public void setCommandStatus(String status)
+	{
+		m_strCommandStatus = status;
+	}
+
 	public String getRegexStatus()
 	{
 		return m_strRegexStatus;
 	}
 
+	public void setRegexStatus(String status)
+	{
+		m_strRegexStatus = status;
+	}
 	
 	public String getGroup()
 	{
 		return m_strGroup;
+	}
+
+	public void setGroup(String group)
+	{
+		m_strGroup = group;
 	}
 
 	public String getSet()
@@ -88,9 +122,19 @@ public class Command
 		return m_strSet;
 	}
 
+	public void setSet(String set)
+	{
+		m_strSet = set;
+	}
+
 	public int getFavorite()
 	{
 		return m_iFavorite;
+	}
+
+	public void setFavorite(int favorite)
+	{
+		m_iFavorite = favorite;
 	}
 
 	public int getMatchRegexOn()
@@ -98,10 +142,11 @@ public class Command
 		return m_iMatchRegexIsOn;
 	}
 
-	public void setFavorite(int iVal)
+	public void getMatchRegexOn(int match)
 	{
-		m_iFavorite = iVal;
+		m_iMatchRegexIsOn = match;
 	}
+
 	
 	
 	public String execute(boolean bHasRoot)
