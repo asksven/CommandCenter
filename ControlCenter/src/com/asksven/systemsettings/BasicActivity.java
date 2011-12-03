@@ -80,11 +80,6 @@ public class BasicActivity  extends FragmentActivity
     	    	// pass no data to the dialog -> add
     	    	startActivity(intent3);   
     	    	break;
-	        case R.id.oldmain:
-	        	Intent intent5 = new Intent(this, MainActivity.class);
-    	    	startActivity(intent5);   
-    	    	break;
-
     	    	
 	        case R.id.test:	
 	    		ExecResult myRes = Exec.execPrint("su -c cat /data/dropbear/.ssh/authorized_keys");
