@@ -1,10 +1,11 @@
-package com.asksven.systemsettings;
+package com.asksven.controlcenter;
 
 
 import java.util.List;
 
-import com.asksven.systemsettings.valueobjects.Command;
-import com.asksven.systemsettings.valueobjects.CommandDBHelper;
+import com.asksven.controlcenter.valueobjects.Command;
+import com.asksven.controlcenter.valueobjects.CommandDBHelper;
+import com.asksven.controlcenter.R;
 
 import android.app.Activity;
 import android.content.SharedPreferences;

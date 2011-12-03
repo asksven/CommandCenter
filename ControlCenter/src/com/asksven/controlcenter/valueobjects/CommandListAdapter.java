@@ -1,9 +1,9 @@
-package com.asksven.systemsettings.valueobjects;
+package com.asksven.controlcenter.valueobjects;
 
 
 import java.util.List;
 
-import com.asksven.systemsettings.R;
+import com.asksven.controlcenter.R;
 
 import android.content.Context;
 import android.view.LayoutInflater;

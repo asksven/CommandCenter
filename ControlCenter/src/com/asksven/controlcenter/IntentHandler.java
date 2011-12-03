@@ -1,6 +1,6 @@
-package com.asksven.systemsettings;
+package com.asksven.controlcenter;
 
-import com.asksven.systemsettings.valueobjects.Command;
+import com.asksven.controlcenter.valueobjects.Command;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

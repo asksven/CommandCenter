@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.asksven.systemsettings;
+package com.asksven.controlcenter;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,8 +15,9 @@ import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.asksven.systemsettings.valueobjects.Command;
-import com.asksven.systemsettings.valueobjects.CommandDBHelper;
+import com.asksven.controlcenter.valueobjects.Command;
+import com.asksven.controlcenter.valueobjects.CommandDBHelper;
+import com.asksven.controlcenter.R;
 
 /**
  * @author sven

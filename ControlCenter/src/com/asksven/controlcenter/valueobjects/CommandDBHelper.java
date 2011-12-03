@@ -1,4 +1,4 @@
-package com.asksven.systemsettings.valueobjects;
+package com.asksven.controlcenter.valueobjects;
 
 import java.util.ArrayList;
 import java.util.List;

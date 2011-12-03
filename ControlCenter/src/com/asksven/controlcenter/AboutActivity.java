@@ -1,5 +1,7 @@
-package com.asksven.systemsettings;
+package com.asksven.controlcenter;
 
+
+import com.asksven.controlcenter.R;
 
 import android.app.Activity;
 import android.content.ComponentName;

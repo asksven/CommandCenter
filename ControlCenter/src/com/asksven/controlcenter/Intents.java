@@ -1,4 +1,4 @@
-package com.asksven.systemsettings;
+package com.asksven.controlcenter;
 
 /** constant pattern */
 public class Intents

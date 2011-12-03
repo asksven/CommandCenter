@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.asksven.systemsettings;
+package com.asksven.controlcenter;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,9 +12,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.asksven.systemsettings.R;
-import com.asksven.systemsettings.exec.Exec;
-import com.asksven.systemsettings.exec.ExecResult;
+import com.asksven.controlcenter.exec.Exec;
+import com.asksven.controlcenter.exec.ExecResult;
+import com.asksven.controlcenter.R;
 
 /**
  * @author sven

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.asksven.systemsettings;
+package com.asksven.controlcenter;
 
 import java.util.List;
 
@@ -14,9 +14,10 @@ import android.support.v4.app.ListFragment;
 import android.view.View;
 import android.widget.ListView;
 
-import com.asksven.systemsettings.valueobjects.Command;
-import com.asksven.systemsettings.valueobjects.CommandDBHelper;
-import com.asksven.systemsettings.valueobjects.CommandListAdapter;
+import com.asksven.controlcenter.valueobjects.Command;
+import com.asksven.controlcenter.valueobjects.CommandDBHelper;
+import com.asksven.controlcenter.valueobjects.CommandListAdapter;
+import com.asksven.controlcenter.R;
 
 /**
  * @author sven

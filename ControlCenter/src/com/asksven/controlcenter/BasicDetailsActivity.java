@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.asksven.systemsettings;
+package com.asksven.controlcenter;
 
 import android.content.res.Configuration;
 import android.os.Bundle;

@@ -8,7 +8,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
     android:layout_width="match_parent" android:layout_height="match_parent">
-    <fragment class="com.asksven.systemsettings.BasicMasterFragment"
+    <fragment class="com.asksven.controlcenter.BasicMasterFragment"
             android:id="@+id/titles"
             android:layout_width="match_parent" android:layout_height="match_parent" />
     <LinearLayout android:layout_height="fill_parent" android:layout_width="match_parent">		

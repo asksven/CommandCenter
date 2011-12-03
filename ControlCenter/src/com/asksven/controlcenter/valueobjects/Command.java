@@ -1,7 +1,7 @@
-package com.asksven.systemsettings.valueobjects;
+package com.asksven.controlcenter.valueobjects;
 
-import com.asksven.systemsettings.exec.Exec;
-import com.asksven.systemsettings.exec.ExecResult;
+import com.asksven.controlcenter.exec.Exec;
+import com.asksven.controlcenter.exec.ExecResult;
 
 public class Command
 {
