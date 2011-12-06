@@ -26,16 +26,32 @@ import java.util.List;
 public class CommandCollection
 {
     private String title;
+    private String author;
     private Long version;
+    private String homepage;
+    private String updaterurl;
+    private String iconfile;
+    
     private List<Command> entries;
 
     public String getTitle() { return title; }
+    public String getAuthor() { return author; }
     public Long getVersion() { return version; }
+    public String getHomepage() { return homepage; }
+    public String getUpdaterUrl() { return updaterurl; }
+    public String getIconFile() { return iconfile; }
+
     public List<Command> getEntries() { return entries; }
 
     public void setTitle(String title) { this.title = title; }
+    public void SetAuthor(String author) { this.author = author; }
     public void setVersion(Long version) { this.version = version; }
+    public void setHomepage(String homepage) { this.homepage = homepage; }
+    public void setUpdaterUrl(String updaterurl) { this.updaterurl = updaterurl; }
+    public void setIconFile(String iconfile) { this.iconfile = iconfile; }
+
     public void setEntries(List<Command> entries) { this.entries = entries; }
+
 
     public String toString()
     {

@@ -21,146 +21,146 @@ import com.asksven.controlcenter.exec.ExecResult;
 
 public class Command
 {
-	private int m_iId;
-	private String m_strName;
-	private String m_strCommand;
-	private String m_strCommandValues;
-	private String m_strCommandStatus;
-	private String m_strRegexStatus;
-	private int m_iMatchRegexIsOn;
-	private String m_strGroup;
-	private String m_strSet;
-	private int m_iFavorite;
+	private int id;
+	private String name;
+	private String command;
+	private String commandvalues;
+	private String commandstatus;
+	private String regexstatus;
+	private int matchRegexison;
+	private String group;
+	private String set;
+	private int favorite;
 	
 	
 	public Command(String strName, String strCommand, String strCommandValues, String strCommandStatus, String strGroup, String strSet, int iFavorite, String strRegexStatus, int iMatchRegexIsOn)
 	{
-		m_iId=-1;
-		m_strName = strName;
-		m_strCommand = strCommand;
-		m_strCommandValues = strCommandValues;
-		m_strCommandStatus = strCommandStatus;
-		m_strGroup = strGroup;
-		m_strSet = strSet;
-		m_iFavorite = iFavorite;
-		m_strRegexStatus = strRegexStatus;
-		m_iMatchRegexIsOn = iMatchRegexIsOn;
+		id=-1;
+		name = strName;
+		command = strCommand;
+		commandvalues = strCommandValues;
+		commandstatus = strCommandStatus;
+		group = strGroup;
+		set = strSet;
+		favorite = iFavorite;
+		regexstatus = strRegexStatus;
+		matchRegexison = iMatchRegexIsOn;
 		
 	}
 	
 	public Command(int iId, String strName, String strCommand, String strCommandValues, String strCommandStatus, String strGroup, String strSet, int iFavorite, String strRegexStatus, int iMatchRegexIsOn)
 	{
-		m_iId=iId;
-		m_strName = strName;
-		m_strCommand = strCommand;
-		m_strCommandValues = strCommandValues;
-		m_strCommandStatus = strCommandStatus;
-		m_strGroup = strGroup;
-		m_strSet = strSet;
-		m_iFavorite = iFavorite;
-		m_strRegexStatus = strRegexStatus;
-		m_iMatchRegexIsOn = iMatchRegexIsOn;
+		id=iId;
+		name = strName;
+		command = strCommand;
+		commandvalues = strCommandValues;
+		commandstatus = strCommandStatus;
+		group = strGroup;
+		set = strSet;
+		favorite = iFavorite;
+		regexstatus = strRegexStatus;
+		matchRegexison = iMatchRegexIsOn;
 
 	}
 
 	public int getId()
 	{
-		return m_iId;
+		return id;
 	}
 
 	public void setId(int id)
 	{
-		m_iId = id;
+		this.id = id;
 	}
 
 	public String getName()
 	{
-		return m_strName;
+		return name;
 	}
 
 	public void setName(String name)
 	{
-		m_strName = name;
+		this.name = name;
 	}
 
 	public String getCommand()
 	{
-		return m_strCommand;
+		return command;
 	}
 
 	public void setCommand(String command)
 	{
-		m_strCommand = command;
+		this.command = command;
 	}
 
 	public String getCommandValues()
 	{
-		return m_strCommandValues;
+		return commandvalues;
 	}
 
 	public void setCommandValues(String commandValues)
 	{
-		m_strCommandValues = commandValues;
+		this.commandvalues = commandValues;
 	}
 
 	public String getCommandStatus()
 	{
-		return m_strCommandStatus;
+		return commandstatus;
 	}
 
 	public void setCommandStatus(String status)
 	{
-		m_strCommandStatus = status;
+		this.commandstatus = status;
 	}
 
 	public String getRegexStatus()
 	{
-		return m_strRegexStatus;
+		return regexstatus;
 	}
 
 	public void setRegexStatus(String status)
 	{
-		m_strRegexStatus = status;
+		this.regexstatus = status;
 	}
 	
 	public String getGroup()
 	{
-		return m_strGroup;
+		return group;
 	}
 
 	public void setGroup(String group)
 	{
-		m_strGroup = group;
+		this.group = group;
 	}
 
 	public String getSet()
 	{
-		return m_strSet;
+		return set;
 	}
 
 	public void setSet(String set)
 	{
-		m_strSet = set;
+		this.set = set;
 	}
 
 	public int getFavorite()
 	{
-		return m_iFavorite;
+		return favorite;
 	}
 
 	public void setFavorite(int favorite)
 	{
-		m_iFavorite = favorite;
+		this.favorite = favorite;
 	}
 
 	public int getMatchRegexOn()
 	{
-		return m_iMatchRegexIsOn;
+		return matchRegexison;
 	}
 
 	public void getMatchRegexOn(int match)
 	{
-		m_iMatchRegexIsOn = match;
+		matchRegexison = match;
 	}
 
 	
@@ -180,9 +180,9 @@ public class Command
 				Exec.shExec(this.getCommand());
 			}
 			
-			if (m_strCommandStatus.length() != 0)
+			if (commandstatus.length() != 0)
 			{
-				strRet = Command.exec(m_strCommandStatus, false);
+				strRet = Command.exec(commandstatus, false);
 			}
 		}
 		return strRet;
@@ -206,9 +206,9 @@ public class Command
 				Exec.shExec(strCommand);
 			}
 			
-			if (m_strCommandStatus.length() != 0)
+			if (commandstatus.length() != 0)
 			{
-				strRet = Command.exec(m_strCommandStatus, false);
+				strRet = Command.exec(commandstatus, false);
 			}
 		}
 		return strRet;
@@ -217,9 +217,9 @@ public class Command
 	public String getStatus()
 	{
 		String strRet = "";
-		if (m_strCommandStatus.length() != 0)
+		if (commandstatus.length() != 0)
 		{
-			strRet = Command.exec(m_strCommandStatus, false);
+			strRet = Command.exec(commandstatus, false);
 		}
 
 		return strRet;
@@ -227,7 +227,7 @@ public class Command
 
 	public boolean hasValues()
 	{
-		if (m_strCommandValues.equals(""))
+		if (commandvalues.equals(""))
 		{
 			return true;
 		}
