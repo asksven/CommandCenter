@@ -16,7 +16,7 @@
 package com.asksven.controlcenter.valueobjects;
 
 /**
- * COnstant pattern: Delivers sample KB data for testing
+ * Constant pattern: Delivers sample data for testing
  * @author sven
  *
  */
@@ -24,20 +24,6 @@ public class SampleCommandData
 {
 	public static String json = 
 	        "{"
-	            + "'title': 'BetterBatteryStats KB',"
-	            + "'version' : 1,"
-	            + "'entries' : ["
-	            	+ "{"
-	                + "'fqn' : 'AlarmManager',"
-	                + "'title' : 'Alarm Manager',"
-	                + "'url' : 'http:////'"
-	                + "},"
-	            	+ "{"
-	                + "'fqn' : '',"
-	                + "'title' : '*network-location*',"
-	                + "'url' : 'http:////www.cri.ch//sven'"
-	                + "}"
-	                
-	            + "]"
-	        + "}";
+					// @todo add a sample here
+	        		+ "}";
 }
