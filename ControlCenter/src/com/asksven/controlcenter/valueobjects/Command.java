@@ -27,39 +27,40 @@ public class Command
 	private String commandvalues;
 	private String commandstatus;
 	private String regexstatus;
-	private int matchRegexison;
-	private String group;
-	private String set;
-	private int favorite;
+	private int matchregexison;
+	private String tags;
+	private int m_iFavorite;
 	
 	
-	public Command(String strName, String strCommand, String strCommandValues, String strCommandStatus, String strGroup, String strSet, int iFavorite, String strRegexStatus, int iMatchRegexIsOn)
+	public Command(String strName, String strCommand, String strCommandValues,
+			String strCommandStatus, String strTags,
+			int iFavorite, String strRegexStatus, int iMatchRegexIsOn)
 	{
 		id=-1;
 		name = strName;
 		command = strCommand;
 		commandvalues = strCommandValues;
 		commandstatus = strCommandStatus;
-		group = strGroup;
-		set = strSet;
-		favorite = iFavorite;
+		tags = strTags;
+		m_iFavorite = iFavorite;
 		regexstatus = strRegexStatus;
-		matchRegexison = iMatchRegexIsOn;
+		matchregexison = iMatchRegexIsOn;
 		
 	}
 	
-	public Command(int iId, String strName, String strCommand, String strCommandValues, String strCommandStatus, String strGroup, String strSet, int iFavorite, String strRegexStatus, int iMatchRegexIsOn)
+	public Command(int iId, String strName, String strCommand, String strCommandValues,
+			String strCommandStatus, String strTags,
+			int iFavorite, String strRegexStatus, int iMatchRegexIsOn)
 	{
 		id=iId;
 		name = strName;
 		command = strCommand;
 		commandvalues = strCommandValues;
 		commandstatus = strCommandStatus;
-		group = strGroup;
-		set = strSet;
-		favorite = iFavorite;
+		tags = strTags;
+		m_iFavorite = iFavorite;
 		regexstatus = strRegexStatus;
-		matchRegexison = iMatchRegexIsOn;
+		matchregexison = iMatchRegexIsOn;
 
 	}
 
@@ -123,44 +124,34 @@ public class Command
 		this.regexstatus = status;
 	}
 	
-	public String getGroup()
+	public String getTags()
 	{
-		return group;
+		return tags;
 	}
 
 	public void setGroup(String group)
 	{
-		this.group = group;
-	}
-
-	public String getSet()
-	{
-		return set;
-	}
-
-	public void setSet(String set)
-	{
-		this.set = set;
+		this.tags = group;
 	}
 
 	public int getFavorite()
 	{
-		return favorite;
+		return m_iFavorite;
 	}
 
 	public void setFavorite(int favorite)
 	{
-		this.favorite = favorite;
+		this.m_iFavorite = favorite;
 	}
 
 	public int getMatchRegexOn()
 	{
-		return matchRegexison;
+		return matchregexison;
 	}
 
 	public void getMatchRegexOn(int match)
 	{
-		matchRegexison = match;
+		matchregexison = match;
 	}
 
 	
