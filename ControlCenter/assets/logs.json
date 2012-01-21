@@ -1,0 +1,5 @@
+{"entries":[
+{"command":"cat /proc/last_kmsg \u003e /sdcard/last_kmsg_`date +\"%Y%m%d-%H%M\"`","commandstatus":"","commandvalues":"","tags":"Logging, xdandroid","regexstatus":"","name":"Dump last_kmsg","matchregexison":0,"m_iFavorite":0,"id":8},
+{"command":"logcat -d -b radio -f /sdcard/logcat_radio_`date +\"%Y%m%d-%H%M\"`","commandstatus":"","commandvalues":"","tags":"Logging, xdandroid","regexstatus":"","name":"Dump logcat radio","matchregexison":0,"m_iFavorite":0,"id":9},
+{"command":"logcat -d -f /sdcard/logcat_radio_`date +\"%Y%m%d-%H%M\"`","commandstatus":"","commandvalues":"","tags":"Logging, xdandroid","regexstatus":"","name":"Dump logcat","matchregexison":0,"m_iFavorite":0,"id":10}
+],"homepage":"http://cri.ch/sven","iconfile":"icon.gif","title":"Logging","updaterurl":"http://cri.ch/sven/test.json","version":1}

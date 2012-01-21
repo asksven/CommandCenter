@@ -33,6 +33,8 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Writer;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -75,12 +77,7 @@ public class CommandReaderWriter
     
     public static CommandCollection readFile(Context ctx, String strFileName)
     {
-		CommandCollection data = null;
-
-		if (!CommandReaderWriter.externalStorageEnvironmentReady(ctx))
-		{
-			CommandReaderWriter.createExternalStorageEnvironment(ctx);
-		}
+		CommandCollection data = new CommandCollection();
 
 		try
     	{
@@ -95,6 +92,8 @@ public class CommandReaderWriter
     	catch (Exception e)
     	{
     		e.printStackTrace();
+    		// make sure the returned data is consistent
+    		data.setEntries(new ArrayList<Command>());
     	}
     	
     	return data;
@@ -104,10 +103,6 @@ public class CommandReaderWriter
     {
 		try
     	{
-			if (!CommandReaderWriter.externalStorageEnvironmentReady(ctx))
-			{
-				CommandReaderWriter.createExternalStorageEnvironment(ctx);
-			}
 			
 			FileOutputStream target = new FileOutputStream(DataStorage.getExternalStoragePath(ctx)
 					+ "/" + strFileName);
@@ -202,45 +197,5 @@ public class CommandReaderWriter
         return null;
      }
     
-    static boolean externalStorageEnvironmentReady(Context ctx)
-    {
-    	File path = ctx.getExternalFilesDir(null);
-    	return (path.exists());
-    }
-
-    static void createExternalStorageEnvironment(Context ctx)
-    {
-    	File path = ctx.getExternalFilesDir(null);
-    	
-		if (!DataStorage.isExternalStorageWritable())
-		{
-			Log.e(TAG, "External storage is not mounted or writable, aborting");
-			return;
-		}
-
-		try {
-            // Make sure the application directory exists.
-            path.mkdirs();
-
-            // Very simple code to copy a picture from the application's
-            // resource into the external file.  Note that this code does
-            // no error checking, and assumes the picture is small (does not
-            // try to copy it in chunks).  Note that if external storage is
-            // not currently mounted this will silently fail.
-//            InputStream is = ctx.getResources().openRawResource(R.drawable.balloons);
-//            OutputStream os = new FileOutputStream(file);
-//            byte[] data = new byte[is.available()];
-//            is.read(data);
-//            os.write(data);
-//            is.close();
-//            os.close();
-
-        } catch (Exception e) {
-            // Unable to create file, likely because external storage is
-            // not currently mounted.
-            Log.e("TAG", "Error creating environment on external storage");
-        }
-    }
-
 
 }

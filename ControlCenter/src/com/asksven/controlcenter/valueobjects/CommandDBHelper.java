@@ -164,24 +164,24 @@ public class CommandDBHelper
     public void populateDatabase()
     {
     	List<Command> samples = new ArrayList<Command>();
-    	samples.add(new Command("Turn off SD", "echo 0 > /dbgfs/vreg/gp6", "", "", "Power", "xdandroid", 0, "", 0));
-    	samples.add(new Command("Charger", "echo ?? > /dbgfs/htc_battery/charger_state", "0:off|1:slow|2:fast", "", "Power", "xdandroid", 0, "", 0));
-    	samples.add(new Command("Underclock", "echo 19200 >/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq", "", "", "Power", "xdandroid", 0, "", 0));
-    	samples.add(new Command("Set CPU VDDs", "echo ?? > /dbgfs/acpu_dbg/acpu_vdd", "0,3,3,3,3,3,3,3,7:1|0,0,0,2,2,2,2,2,3,3:2|0,0,0,0,0,0,0,0,0:3", "", "Power", "xdandroid", 0, "", 0));
-    	samples.add(new Command("Reset CPU VDDs", "echo 1 > /dbgfs/acpu_dbg/acpu_vdd_reset", "", "", "Power", "xdandroid", 0, "", 0));
-    	samples.add(new Command("LedEffects", "echo ?? > /dbgfs/micropklt_dbg/effects", "0:off|5:rotate", "", "IO", "xdandroid", 0, "", 0));
-    	samples.add(new Command("Dump dmesg", "dmesg > ??/dmesg_`date +\"%Y%m%d-%H%M\"`", "??pickdir??:/sdcard", "", "Logging", "xdandroid", 0, "", 0));
-    	samples.add(new Command("Dump last_kmsg", "cat /proc/last_kmsg > /sdcard/last_kmsg_`date +\"%Y%m%d-%H%M\"`", "", "", "Logging", "xdandroid", 0, "", 0));
-    	samples.add(new Command("Dump logcat radio", "logcat -d -b radio -f /sdcard/logcat_radio_`date +\"%Y%m%d-%H%M\"`", "", "", "Logging", "xdandroid", 0, "", 0));
-    	samples.add(new Command("Dump logcat", "logcat -d -f /sdcard/logcat_radio_`date +\"%Y%m%d-%H%M\"`", "", "", "Logging", "xdandroid", 0, "", 0));
-    	samples.add(new Command("Enable PM debugging", "echo ?? > /sys/module/pm/parameters/debug_mask", "0|1|2|4|8|16|32|64", "cat /sys/module/pm/parameters/debug_mask", "Debugging", "xdandroid", 0, "0", 0));
+    	samples.add(new Command("Turn off SD", "echo 0 > /dbgfs/vreg/gp6", "", "", "Power, xdandroid", 0, "", 0));
+    	samples.add(new Command("Charger", "echo ?? > /dbgfs/htc_battery/charger_state", "0:off|1:slow|2:fast", "", "Power, xdandroid", 0, "", 0));
+    	samples.add(new Command("Underclock", "echo 19200 >/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq", "", "", "Power, xdandroid", 0, "", 0));
+    	samples.add(new Command("Set CPU VDDs", "echo ?? > /dbgfs/acpu_dbg/acpu_vdd", "0,3,3,3,3,3,3,3,7:1|0,0,0,2,2,2,2,2,3,3:2|0,0,0,0,0,0,0,0,0:3", "", "Power, xdandroid", 0, "", 0));
+    	samples.add(new Command("Reset CPU VDDs", "echo 1 > /dbgfs/acpu_dbg/acpu_vdd_reset", "", "", "Power, xdandroid", 0, "", 0));
+    	samples.add(new Command("LedEffects", "echo ?? > /dbgfs/micropklt_dbg/effects", "0:off|5:rotate", "", "IO, xdandroid", 0, "", 0));
+    	samples.add(new Command("Dump dmesg", "dmesg > ??/dmesg_`date +\"%Y%m%d-%H%M\"`", "??pickdir??:/sdcard", "", "Logging, xdandroid", 0, "", 0));
+    	samples.add(new Command("Dump last_kmsg", "cat /proc/last_kmsg > /sdcard/last_kmsg_`date +\"%Y%m%d-%H%M\"`", "", "", "Logging, xdandroid", 0, "", 0));
+    	samples.add(new Command("Dump logcat radio", "logcat -d -b radio -f /sdcard/logcat_radio_`date +\"%Y%m%d-%H%M\"`", "", "", "Logging, xdandroid", 0, "", 0));
+    	samples.add(new Command("Dump logcat", "logcat -d -f /sdcard/logcat_radio_`date +\"%Y%m%d-%H%M\"`", "", "", "Logging, xdandroid", 0, "", 0));
+    	samples.add(new Command("Enable PM debugging", "echo ?? > /sys/module/pm/parameters/debug_mask", "0|1|2|4|8|16|32|64", "cat /sys/module/pm/parameters/debug_mask", "Debugging, xdandroid", 0, "0", 0));
 //    	samples.add(new Command("Enable gpio debugging", "echo ?? > /sys/module/gpio/parameters/debug_mask", "echo 0 > /sys/module/gpio/parameters/debug_mask", "cat /sys/module/gpio/parameters/debug_mask", "Debugging", "xdandroid", 0, "7", 1));
-    	samples.add(new Command("Enable irq debugging", "echo ?? > /sys/module/irq/parameters/debug_mask", "0|1|2|4|8", "cat /sys/module/irq/parameters/debug_mask", "Debugging", "xdandroid", 0, "0", 0));
-    	samples.add(new Command("Enable smd debugging", "echo ?? > /sys/module/smd/parameters/debug_mask", "0|3", "cat /sys/module/smd/parameters/debug_mask", "Debugging", "xdandroid", 0, "0", 0));
-    	samples.add(new Command("Set mass storage", "echo ?? > /sys/devices/platform/usb_mass_storage/lun0/file", "??pickfile??:/dev", "", "Debugging", "xdandroid", 0, "", 0));
-    	samples.add(new Command("delete a file", "rm ??", "??pickfile??:/sdcard", "", "Debugging", "xdandroid", 0, "", 0));
-    	samples.add(new Command("Desire led on", "echo 1 > /sys/devices/platform/leds-microp/leds/??/brightness", "blue:blue|amber:amber|green:green|ledsbutton-backlight:backlight", "", "IO", "desire", 0, "", 0));
-    	samples.add(new Command("Desire led off", "echo 0 > /sys/devices/platform/leds-microp/leds/??/brightness", "blue:blue|amber:amber|green:green|ledsbutton-backlight:backlight", "", "IO", "desire", 0, "", 0));
+    	samples.add(new Command("Enable irq debugging", "echo ?? > /sys/module/irq/parameters/debug_mask", "0|1|2|4|8", "cat /sys/module/irq/parameters/debug_mask", "Debugging, xdandroid", 0, "0", 0));
+    	samples.add(new Command("Enable smd debugging", "echo ?? > /sys/module/smd/parameters/debug_mask", "0|3", "cat /sys/module/smd/parameters/debug_mask", "Debugging, xdandroid", 0, "0", 0));
+    	samples.add(new Command("Set mass storage", "echo ?? > /sys/devices/platform/usb_mass_storage/lun0/file", "??pickfile??:/dev", "", "Debugging, xdandroid", 0, "", 0));
+    	samples.add(new Command("delete a file", "rm ??", "??pickfile??:/sdcard", "", "Debugging, xdandroid", 0, "", 0));
+    	samples.add(new Command("Desire led on", "echo 1 > /sys/devices/platform/leds-microp/leds/??/brightness", "blue:blue|amber:amber|green:green|ledsbutton-backlight:backlight", "", "IO, desire", 0, "", 0));
+    	samples.add(new Command("Desire led off", "echo 0 > /sys/devices/platform/leds-microp/leds/??/brightness", "blue:blue|amber:amber|green:green|ledsbutton-backlight:backlight", "", "IO, desire", 0, "", 0));
     	save(samples);
     }
     
@@ -212,8 +212,7 @@ public class CommandDBHelper
 	    initialValues.put("command", entry.getCommand());
 	    initialValues.put("command_values", entry.getCommandValues());
 	    initialValues.put("command_status", entry.getCommandStatus());
-	    initialValues.put("command_group", entry.getGroup());
-	    initialValues.put("command_set", entry.getSet());
+	    initialValues.put("command_group", entry.getTags());
 	    initialValues.put("favorite", entry.getFavorite());
 	    initialValues.put("regexstatus", entry.getRegexStatus());
 	    initialValues.put("regexison", entry.getMatchRegexOn());
@@ -283,7 +282,6 @@ public class CommandDBHelper
 	            				c.getString(c.getColumnIndex("command_values")),
 	            				c.getString(c.getColumnIndex("command_status")),
 	            				c.getString(c.getColumnIndex("command_group")),
-	            				c.getString(c.getColumnIndex("command_set")),
 	            				c.getInt(c.getColumnIndex("favorite")),
 	            				c.getString(c.getColumnIndex("regexstatus")),
 	            				c.getInt(c.getColumnIndex("regexison")));
@@ -327,7 +325,6 @@ public class CommandDBHelper
 	            				c.getString(c.getColumnIndex("command_values")),
 	            				c.getString(c.getColumnIndex("command_status")),
 	            				c.getString(c.getColumnIndex("command_group")),
-	            				c.getString(c.getColumnIndex("command_set")),
 	            				c.getInt(c.getColumnIndex("favorite")),
 	            				c.getString(c.getColumnIndex("regexstatus")),
 	            				c.getInt(c.getColumnIndex("regexison")));
@@ -368,7 +365,6 @@ public class CommandDBHelper
         				c.getString(c.getColumnIndex("command_values")),
         				c.getString(c.getColumnIndex("command_status")),
         				c.getString(c.getColumnIndex("command_group")),
-        				c.getString(c.getColumnIndex("command_set")),
         				c.getInt(c.getColumnIndex("favorite")),
         				c.getString(c.getColumnIndex("regexstatus")),
         				c.getInt(c.getColumnIndex("regexison")));
@@ -407,8 +403,7 @@ public class CommandDBHelper
 	    args.put("command", entry.getCommand());
 	    args.put("command_values", entry.getCommandValues());
 	    args.put("command_status", entry.getCommandStatus());
-	    args.put("command_group", entry.getGroup());
-	    args.put("command_set", entry.getSet());
+	    args.put("command_group", entry.getTags());
 	    args.put("favorite", entry.getFavorite());
 	    args.put("regexstatus", entry.getRegexStatus());
 	    args.put("regexison", entry.getMatchRegexOn());

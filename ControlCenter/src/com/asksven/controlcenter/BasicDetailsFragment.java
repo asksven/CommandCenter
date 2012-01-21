@@ -96,16 +96,18 @@ public class BasicDetailsFragment extends Fragment
         {
         	CommandDBHelper myDB = new CommandDBHelper(getActivity());
         	Command myRecord = myDB.fetchCommandByKey(getShownKey());
-        	        	
-        	myId.setText(String.valueOf(myRecord.getId()));
-        	myName.setText(myRecord.getName());
-        	myCommand.setText(myRecord.getCommand());
-        	myCommandValues.setText(myRecord.getCommandValues());
-        	myStatus.setText(myRecord.getCommandStatus());
-        	myFavorite.setChecked(myRecord.getFavorite()==1);
-        	myStatusRegex.setText(myRecord.getRegexStatus());
-        	myRegexIsOn.setChecked(myRecord.getMatchRegexOn()==1);
         	
+        	if (myRecord != null)
+        	{
+	        	myId.setText(String.valueOf(myRecord.getId()));
+	        	myName.setText(myRecord.getName());
+	        	myCommand.setText(myRecord.getCommand());
+	        	myCommandValues.setText(myRecord.getCommandValues());
+	        	myStatus.setText(myRecord.getCommandStatus());
+	        	myFavorite.setChecked(myRecord.getFavorite()==1);
+	        	myStatusRegex.setText(myRecord.getRegexStatus());
+	        	myRegexIsOn.setChecked(myRecord.getMatchRegexOn()==1);
+        	}
         }
         
         // @todo add button handlers here

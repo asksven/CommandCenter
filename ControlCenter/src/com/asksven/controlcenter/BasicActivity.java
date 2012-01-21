@@ -16,6 +16,8 @@
 
 package com.asksven.controlcenter;
 
+import java.util.List;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -27,6 +29,10 @@ import android.view.View;
 
 import com.asksven.controlcenter.exec.Exec;
 import com.asksven.controlcenter.exec.ExecResult;
+import com.asksven.controlcenter.valueobjects.Command;
+import com.asksven.controlcenter.valueobjects.CommandCollection;
+import com.asksven.controlcenter.valueobjects.CommandDBHelper;
+import com.asksven.controlcenter.valueobjects.CommandReaderWriter;
 import com.asksven.controlcenter.R;
 
 /**
@@ -95,14 +101,33 @@ public class BasicActivity  extends FragmentActivity
     	    	break;
     	    	
 	        case R.id.test:	
-	    		ExecResult myRes = Exec.execPrint("su -c cat /data/dropbear/.ssh/authorized_keys");
-	    		String strLine = "";
-	    		if (myRes.getSuccess())
-	    		{
-	    			strLine = myRes.getResultLine();
-	    		}
-	    	    break;
-    	}
+	        	CommandDBHelper db = new CommandDBHelper(this);
+	        	List<Command> myCommands = db.fetchAllRows();
+	        	CommandCollection myCollection = new CommandCollection();
+	        	myCollection.setTitle("This is a test collection");
+	        	myCollection.setVersion(1L);
+	        	myCollection.setHomepage("http://cri.ch/sven");
+	        	myCollection.setUpdaterUrl("http://cri.ch/sven/test.json");
+	        	myCollection.setIconFile("icon.gif");
+	        	myCollection.setEntries(myCommands);
+	        	
+	        	CommandReaderWriter.writeFile(this, myCollection, "commands.json");
+	        	break;
+//	    		ExecResult myRes = Exec.execPrint("su -c cat /data/dropbear/.ssh/authorized_keys");
+//	    		String strLine = "";
+//	    		if (myRes.getSuccess())
+//	    		{
+//	    			strLine = myRes.getResultLine();
+//	    		}
+//	    	    break;
+
+	        case R.id.test2:	
+	        	CommandCollection myCollection2 = 
+	        		CommandReaderWriter.readFile(this, "commands.json");
+	        	int i = myCollection2.getEntries().size();
+	        	break;
+
+        }
         return true;
     }
 

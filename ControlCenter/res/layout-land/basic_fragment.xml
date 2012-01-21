@@ -8,10 +8,16 @@
     xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
     android:orientation="horizontal"
     android:layout_width="match_parent" android:layout_height="match_parent">
-
+<!--
+    <fragment class="com.asksven.controlcenter.FragmentTabsPager"
+            android:id="@+id/titles" android:layout_weight="1"
+            android:layout_width="0px" android:layout_height="match_parent" />
+-->
+     
     <fragment class="com.asksven.controlcenter.BasicMasterFragment"
             android:id="@+id/titles" android:layout_weight="1"
             android:layout_width="0px" android:layout_height="match_parent" />
+             
 <!-- 
    	<LinearLayout android:layout_height="fill_parent" android:layout_width="match_parent">		
 		<com.google.ads.AdView android:id="@+id/adView"

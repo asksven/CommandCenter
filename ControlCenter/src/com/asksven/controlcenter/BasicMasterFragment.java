@@ -27,9 +27,12 @@ import android.support.v4.app.ListFragment;
 import android.view.View;
 import android.widget.ListView;
 
+import com.asksven.controlcenter.valueobjects.CollectionManager;
 import com.asksven.controlcenter.valueobjects.Command;
+import com.asksven.controlcenter.valueobjects.CommandCollection;
 import com.asksven.controlcenter.valueobjects.CommandDBHelper;
 import com.asksven.controlcenter.valueobjects.CommandListAdapter;
+import com.asksven.controlcenter.valueobjects.CommandReaderWriter;
 import com.asksven.controlcenter.R;
 
 /**
@@ -46,30 +49,46 @@ public class BasicMasterFragment extends ListFragment
     boolean mDualPane;
     int mCurCheckPosition = 0;
     
-	private CommandDBHelper m_myDB = null;
+//	private CommandDBHelper m_myDB = null;
     private List<Command> m_myItems;
     private Command m_myCommand = null;
+    private String m_strCollectionName = null;
 
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
-
-        // populate list with our commands, based on preferences
-        m_myDB = new CommandDBHelper(getActivity());
         
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        boolean bShowFavs = preferences.getBoolean("showOnlyFavorites", false);
-        
-        if (!bShowFavs)
+        Bundle args = getArguments();
+        if (args != null)
         {
-        	m_myItems = m_myDB.fetchAllRows();
+        	m_strCollectionName = args.getString("collection");
         }
         else
         {
-        	m_myItems = m_myDB.fetchFavoriteRows();
+        	m_strCollectionName = "commands.json";
         }
+
+        // populate list with our commands, based on preferences
+//        m_myDB = new CommandDBHelper(getActivity());
+        
+//        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+//        boolean bShowFavs = preferences.getBoolean("showOnlyFavorites", false);
+        
+        CommandCollection myCollection =
+        		CollectionManager.getInstance(getActivity()).getCollectionByName(m_strCollectionName);
+     
+        m_myItems = myCollection.getEntries();
+        
+//        if (!bShowFavs)
+//        {
+//        	m_myItems = m_myDB.fetchAllRows();
+//        }
+//        else
+//        {
+//        	m_myItems = m_myDB.fetchFavoriteRows();
+//        }
 
         setListAdapter(new CommandListAdapter(getActivity(), R.layout.row_command, m_myItems));
 		
