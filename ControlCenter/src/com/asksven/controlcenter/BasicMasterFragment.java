@@ -18,21 +18,29 @@ package com.asksven.controlcenter;
 
 import java.util.List;
 
+import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 
 import com.asksven.controlcenter.valueobjects.CollectionManager;
 import com.asksven.controlcenter.valueobjects.Command;
 import com.asksven.controlcenter.valueobjects.CommandCollection;
-import com.asksven.controlcenter.valueobjects.CommandDBHelper;
 import com.asksven.controlcenter.valueobjects.CommandListAdapter;
-import com.asksven.controlcenter.valueobjects.CommandReaderWriter;
 import com.asksven.controlcenter.R;
 
 /**
@@ -53,6 +61,18 @@ public class BasicMasterFragment extends ListFragment
     private List<Command> m_myItems;
     private Command m_myCommand = null;
     private String m_strCollectionName = null;
+    private CommandListAdapter m_myAdapter = null;
+    
+    static final int CONTEXT_EDIT_ID 		= 100;
+    static final int CONTEXT_DELETE_ID 		= 101;
+    static final int CONTEXT_EXECUTE_ID 	= 102;
+    static final int CONTEXT_ADDFAV_ID	 	= 103;
+    
+    /** each frgment gets its own ID for handling the context menu callback */
+    int m_iContextMenuId = 0;
+    
+    static final int REQUEST_CODE_PICK_FILE_OR_DIRECTORY = 1;
+
 
 
     @Override
@@ -64,6 +84,7 @@ public class BasicMasterFragment extends ListFragment
         if (args != null)
         {
         	m_strCollectionName = args.getString("collection");
+        	m_iContextMenuId = args.getInt("id");
         }
         else
         {
@@ -89,8 +110,10 @@ public class BasicMasterFragment extends ListFragment
 //        {
 //        	m_myItems = m_myDB.fetchFavoriteRows();
 //        }
-
-        setListAdapter(new CommandListAdapter(getActivity(), R.layout.row_command, m_myItems));
+        m_myAdapter = new CommandListAdapter(getActivity(), m_myItems);
+        setListAdapter(m_myAdapter);
+        
+        registerForContextMenu(getListView()); 
 		
         // Check to see if we have a frame in which to embed the details
         // fragment directly in the containing UI.
@@ -165,7 +188,175 @@ public class BasicMasterFragment extends ListFragment
             Intent intent = new Intent();
             intent.setClass(getActivity(), BasicDetailsActivity.class);
             intent.putExtra("index", key);
+            intent.putExtra("collection", m_strCollectionName);
             startActivity(intent);
         }
     }
+    
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo info)
+    {
+    	super.onCreateContextMenu(menu, v, info);
+        menu.setHeaderTitle("Actions");
+        menu.add(m_iContextMenuId, CONTEXT_EDIT_ID, Menu.NONE, "Edit");
+        menu.add(m_iContextMenuId, CONTEXT_EXECUTE_ID, Menu.NONE, "Execute");
+        
+//        mItem = menu.add(Menu.NONE, CONTEXT_ADDFAV_ID, Menu.NONE, "Add to Favorites");    
+   } 
+    
+    @Override
+    public boolean onContextItemSelected(MenuItem item)
+    {
+    	AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo) item.getMenuInfo(); 
+    	
+    	// check if the called back fragment is the one that has initiated the menu action
+    	// based on the group id. if not do noting
+    	if (item.getGroupId() == m_iContextMenuId)
+    	{
+    		m_myCommand = m_myItems.get(menuInfo.position);
+    	
+	    	switch(item.getItemId())
+	    	{
+	    		case CONTEXT_EDIT_ID:
+	    	    	
+	    	    	if (m_myCommand != null)
+	    	    	{
+	    	    		Log.i(getClass().getSimpleName(), "Command was edited: " + m_myCommand.getId());
+	    	    		Intent intent = new Intent(getActivity(), com.asksven.controlcenter.CommandDetailsActivity.class);
+	    	    	    // pass some extra data to the dialog
+	    	    	    intent.putExtra("key", m_myCommand.getId());
+	    	    	    startActivity(intent);    	    
+	    	    	}
+	    			return true;
+	     
+	    		case CONTEXT_EXECUTE_ID:
+	    	    	if (m_myCommand != null)
+	    	    	{
+		    			Log.i(getClass().getSimpleName(), "Running command");
+		    			executeCommand(m_myCommand);
+		    			refreshList(-1);
+		    			return true;
+	   	    		}
+	
+	//    		case CONTEXT_ADDFAV_ID:
+	//    			m_myCommand.setFavorite(1);
+	//    			m_myDB.updateCommand(m_myCommand.getId(), m_myCommand);
+	//    			refreshList(-1); 
+	//    			return true;
+	
+	    			
+	    		default:
+	    			return false;
+	    	}
+    	}
+    	else
+    	{
+    		return super.onContextItemSelected(item);
+    	}
+
+    	
+     } 
+    
+    /** execute the selected command */
+    private final void executeCommand(final Command cmd)
+    {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        final boolean bHasRoot = preferences.getBoolean("hasRoot", false);
+        
+		if (!cmd.getCommandValues().equals(""))
+		{
+			// handle whatever values are defined for the command
+			// values can be either a list of "|" separated items to pick from
+			// or a sub-command to be executed first
+			// sub-commands are of the form "??something??:somewhere"
+			// allowed sub-commands are 
+			String strPickFile = "??pickfile??";
+			String strPickDir = "??pickdir??";
+			// using OpenIntent's FileManager: http://www.openintents.org/en/node/159
+			
+			
+			if ((cmd.getCommandValues().startsWith(strPickFile)) || (cmd.getCommandValues().startsWith(strPickDir)))
+			{
+				// check for additional params in the sub-command
+				CharSequence[] tokens = cmd.getCommandValues().split("\\:");
+				String strSuggestion = "";
+				if (tokens.length > 1)
+				{
+					strSuggestion = (String)tokens[1];
+				}
+				Intent myIntent = null;
+				if (cmd.getCommandValues().startsWith(strPickFile))
+				{
+					myIntent = new Intent("org.openintents.action.PICK_FILE");
+					myIntent.putExtra("org.openintents.extra.TITLE", "Pick a file");
+					myIntent.putExtra("org.openintents.extra.BUTTON_TEXT", "Pick");
+					
+				}
+				if (cmd.getCommandValues().startsWith(strPickDir))
+				{
+					myIntent = new Intent("org.openintents.action.PICK_DIRECTORY");
+					myIntent.putExtra("org.openintents.extra.TITLE", "Pick a directory");
+					myIntent.putExtra("org.openintents.extra.BUTTON_TEXT", "Pick");
+				}
+				
+				if (myIntent == null)
+				{
+					Toast.makeText(getActivity(), "sub-command could not be resolved, check the syntax of your command", 
+							Toast.LENGTH_SHORT).show();
+					return;
+				}
+				if (!strSuggestion.equals(""))
+				{
+					myIntent.setData(Uri.parse("file://" + strSuggestion));
+				}
+				
+				try
+				{
+					startActivityForResult(myIntent, REQUEST_CODE_PICK_FILE_OR_DIRECTORY);
+				}
+				catch (ActivityNotFoundException e)
+				{
+					// No compatible file manager was found.
+					Toast.makeText(getActivity(), "You must install OpenIntent's FileManager to use this feature", 
+							Toast.LENGTH_SHORT).show();
+				}
+				
+			}
+			else
+			{
+				final CharSequence[] items = cmd.getCommandValues().split("\\|");
+	
+				AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+				builder.setTitle("Pick a Value");
+				builder.setCancelable(false);
+	
+				builder.setItems(items, new DialogInterface.OnClickListener() {
+				    public void onClick(DialogInterface dialog, int item) {
+				    	String strSelection = (String) items[item];
+				    	CharSequence[] tokens = strSelection.split("\\:");
+				    	strSelection = (String) tokens[0];
+				    	
+				        cmd.execute(strSelection, bHasRoot);
+				        Toast.makeText(getActivity(), "Executing " + m_myCommand.getCommand(), Toast.LENGTH_LONG).show();
+		    			refreshList(-1);
+				    }
+				});
+				AlertDialog alert = builder.show();
+			}
+		}
+		else
+		{
+			m_myCommand.execute(bHasRoot);
+			Toast.makeText(getActivity(), "Executing " + m_myCommand.getCommand(), Toast.LENGTH_LONG).show();
+
+		}
+	
+    }
+    
+    private void refreshList(int pos)
+    {
+    	// todo refresh
+    	m_myAdapter.notifyDataSetChanged();
+    }
+
+
 }

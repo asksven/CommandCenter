@@ -1,17 +1,27 @@
 package com.asksven.controlcenter;
 
+import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TabHost;
+import android.widget.Toast;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -33,6 +43,8 @@ public class FragmentTabsPager extends FragmentActivity
     ViewPager  mViewPager;
     TabsAdapter mTabsAdapter;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -49,12 +61,15 @@ public class FragmentTabsPager extends FragmentActivity
         Set<String> collections = CollectionManager.getInstance(this).getCollectionNames();
         Iterator<String> myIt = collections.iterator();
         Bundle tabArgs = null;
+        int iIdForMenu = 0;
         while (myIt.hasNext())
         {
         	
         	String strName = myIt.next();
         	tabArgs = new Bundle();
         	tabArgs.putString("collection", strName);
+        	// required to give each fragment a unique ID
+        	tabArgs.putInt("id", iIdForMenu++);
         	mTabsAdapter.addTab(mTabHost.newTabSpec(strName).setIndicator(strName),
                 BasicMasterFragment.class, tabArgs);
         }
@@ -135,6 +150,11 @@ public class FragmentTabsPager extends FragmentActivity
         }  
         return false;  
     }
+
+    
+    
+    
+    
 
     /** contrib class from com.example.android.supportv4 */
     /**
@@ -247,4 +267,7 @@ public class FragmentTabsPager extends FragmentActivity
         {
         }
     }
+    
+
+
 }
