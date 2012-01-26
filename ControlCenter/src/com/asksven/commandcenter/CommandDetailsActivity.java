@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.asksven.controlcenter;
+package com.asksven.commandcenter;
 
 
 import java.util.List;
 
-import com.asksven.controlcenter.valueobjects.Command;
-import com.asksven.controlcenter.valueobjects.CommandDBHelper;
-import com.asksven.controlcenter.R;
+import com.asksven.commandcenter.valueobjects.Command;
+import com.asksven.commandcenter.valueobjects.CommandDBHelper;
+import com.asksven.commandcenter.R;
 
 import android.app.Activity;
 import android.content.SharedPreferences;

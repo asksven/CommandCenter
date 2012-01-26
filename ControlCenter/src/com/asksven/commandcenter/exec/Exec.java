@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.asksven.controlcenter.exec;
+package com.asksven.commandcenter.exec;
 
 import java.io.*;
 

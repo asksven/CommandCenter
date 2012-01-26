@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.asksven.controlcenter.exec;
+package com.asksven.commandcenter.exec;
 
 import java.io.BufferedWriter;
 import java.io.File;

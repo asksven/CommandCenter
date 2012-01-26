@@ -13,17 +13,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.asksven.controlcenter.valueobjects;
 
-/**
- * Constant pattern: Delivers sample data for testing
- * @author sven
- *
- */
-public class SampleCommandData
+package com.asksven.commandcenter.exec;
+
+import java.util.ArrayList;
+
+public class ExecResult
 {
-	public static String json = 
-	        "{"
-					// @todo add a sample here
-	        		+ "}";
+	protected boolean m_bSuccess;
+	protected ArrayList<String> m_oResult;
+	protected ArrayList<String> m_oError;
+	
+	public ExecResult()
+	{
+		m_oResult = new ArrayList<String>();
+		m_oError = new ArrayList<String>();
+		
+	}
+	
+	public boolean getSuccess()
+	{
+		return m_bSuccess;
+	}
+	
+	public String getResultLine()
+	{
+		String strRes = "";
+		if (!m_oResult.isEmpty()) 
+		{
+			strRes = m_oResult.get(0);
+		}
+		
+		return strRes;
+	}
 }

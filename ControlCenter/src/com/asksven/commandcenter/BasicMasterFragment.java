@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.asksven.controlcenter;
+package com.asksven.commandcenter;
 
 import java.util.List;
 
@@ -37,11 +37,11 @@ import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
-import com.asksven.controlcenter.valueobjects.CollectionManager;
-import com.asksven.controlcenter.valueobjects.Command;
-import com.asksven.controlcenter.valueobjects.CommandCollection;
-import com.asksven.controlcenter.valueobjects.CommandListAdapter;
-import com.asksven.controlcenter.R;
+import com.asksven.commandcenter.valueobjects.CollectionManager;
+import com.asksven.commandcenter.valueobjects.Command;
+import com.asksven.commandcenter.valueobjects.CommandCollection;
+import com.asksven.commandcenter.valueobjects.CommandListAdapter;
+import com.asksven.commandcenter.R;
 
 /**
  * @author sven
@@ -221,7 +221,7 @@ public class BasicMasterFragment extends ListFragment
 	    	    	if (m_myCommand != null)
 	    	    	{
 	    	    		Log.i(getClass().getSimpleName(), "Command was edited: " + m_myCommand.getId());
-	    	    		Intent intent = new Intent(getActivity(), com.asksven.controlcenter.CommandDetailsActivity.class);
+	    	    		Intent intent = new Intent(getActivity(), com.asksven.commandcenter.CommandDetailsActivity.class);
 	    	    	    // pass some extra data to the dialog
 	    	    	    intent.putExtra("key", m_myCommand.getId());
 	    	    	    startActivity(intent);    	    

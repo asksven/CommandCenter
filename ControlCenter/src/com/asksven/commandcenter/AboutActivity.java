@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.asksven.controlcenter;
+package com.asksven.commandcenter;
 
 
-import com.asksven.controlcenter.R;
+import com.asksven.commandcenter.R;
 
 import android.app.Activity;
 import android.content.ComponentName;

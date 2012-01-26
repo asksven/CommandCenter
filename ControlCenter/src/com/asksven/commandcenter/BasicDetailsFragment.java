@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.asksven.controlcenter;
+package com.asksven.commandcenter;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -24,11 +24,11 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
-import com.asksven.controlcenter.valueobjects.CollectionManager;
-import com.asksven.controlcenter.valueobjects.Command;
-import com.asksven.controlcenter.valueobjects.CommandCollection;
-import com.asksven.controlcenter.valueobjects.CommandDBHelper;
-import com.asksven.controlcenter.R;
+import com.asksven.commandcenter.valueobjects.CollectionManager;
+import com.asksven.commandcenter.valueobjects.Command;
+import com.asksven.commandcenter.valueobjects.CommandCollection;
+import com.asksven.commandcenter.valueobjects.CommandDBHelper;
+import com.asksven.commandcenter.R;
 
 /**
  * @author sven

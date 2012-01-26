@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.asksven.controlcenter.valueobjects;
+package com.asksven.commandcenter.valueobjects;
 
 
 import java.util.List;
 
-import com.asksven.controlcenter.R;
+import com.asksven.commandcenter.R;
 
 import android.content.Context;
 import android.view.LayoutInflater;

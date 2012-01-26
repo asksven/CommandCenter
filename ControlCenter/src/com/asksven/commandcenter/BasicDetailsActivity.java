@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.asksven.controlcenter;
+package com.asksven.commandcenter;
 
 import android.content.res.Configuration;
 import android.os.Bundle;

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package com.asksven.controlcenter.valueobjects;
+package com.asksven.commandcenter.valueobjects;
 
-import com.asksven.controlcenter.exec.Exec;
-import com.asksven.controlcenter.exec.ExecResult;
+import com.asksven.commandcenter.exec.Exec;
+import com.asksven.commandcenter.exec.ExecResult;
 
 public class Command
 {

@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package com.asksven.controlcenter;
+package com.asksven.commandcenter;
 
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
-import com.asksven.controlcenter.R;
+import com.asksven.commandcenter.R;
 
 /**
  * Activity for managing preferences using Android's preferences framework

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.asksven.controlcenter.valueobjects;
+package com.asksven.commandcenter.valueobjects;
 
 /**
  * @author sven
@@ -48,7 +48,7 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import com.asksven.controlcenter.exec.DataStorage;
+import com.asksven.commandcenter.exec.DataStorage;
 import com.google.gson.Gson;
 
 public class CommandReaderWriter

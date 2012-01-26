@@ -1,4 +1,4 @@
-package com.asksven.controlcenter;
+package com.asksven.commandcenter;
 
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
@@ -28,11 +28,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import com.asksven.controlcenter.valueobjects.CollectionManager;
-import com.asksven.controlcenter.valueobjects.Command;
-import com.asksven.controlcenter.valueobjects.CommandCollection;
-import com.asksven.controlcenter.valueobjects.CommandDBHelper;
-import com.asksven.controlcenter.valueobjects.CommandReaderWriter;
+import com.asksven.commandcenter.valueobjects.CollectionManager;
+import com.asksven.commandcenter.valueobjects.Command;
+import com.asksven.commandcenter.valueobjects.CommandCollection;
+import com.asksven.commandcenter.valueobjects.CommandDBHelper;
+import com.asksven.commandcenter.valueobjects.CommandReaderWriter;
+import com.asksven.commandcenter.R;
 
 /**
  * Combining a TabHost with a ViewPager

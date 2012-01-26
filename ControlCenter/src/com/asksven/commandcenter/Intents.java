@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.asksven.controlcenter;
+package com.asksven.commandcenter;
 
 /** constant pattern */
 public class Intents

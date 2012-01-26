@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.asksven.controlcenter.valueobjects;
+package com.asksven.commandcenter.valueobjects;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -27,7 +27,7 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.util.Log;
 
-import com.asksven.controlcenter.exec.DataStorage;
+import com.asksven.commandcenter.exec.DataStorage;
 
 /**
  * @author sven

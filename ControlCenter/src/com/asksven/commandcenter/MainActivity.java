@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.asksven.controlcenter;
+package com.asksven.commandcenter;
 
 import java.util.List;
 
@@ -44,12 +44,12 @@ import android.widget.ToggleButton;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 
-import com.asksven.controlcenter.exec.Exec;
-import com.asksven.controlcenter.exec.ExecResult;
-import com.asksven.controlcenter.valueobjects.Command;
-import com.asksven.controlcenter.valueobjects.CommandDBHelper;
-import com.asksven.controlcenter.valueobjects.CommandListAdapter;
-import com.asksven.controlcenter.R;
+import com.asksven.commandcenter.exec.Exec;
+import com.asksven.commandcenter.exec.ExecResult;
+import com.asksven.commandcenter.valueobjects.Command;
+import com.asksven.commandcenter.valueobjects.CommandDBHelper;
+import com.asksven.commandcenter.valueobjects.CommandListAdapter;
+import com.asksven.commandcenter.R;
 
 public class MainActivity extends ListActivity
 {
@@ -187,7 +187,7 @@ public class MainActivity extends ListActivity
     	    	if (m_myCommand != null)
     	    	{
     	    		Log.i(getClass().getSimpleName(), "Command was edited: " + m_myCommand.getId());
-    	    		Intent intent = new Intent(MainActivity.this, com.asksven.controlcenter.CommandDetailsActivity.class);
+    	    		Intent intent = new Intent(MainActivity.this, com.asksven.commandcenter.CommandDetailsActivity.class);
     	    	    // pass some extra data to the dialog
     	    	    intent.putExtra("key", m_myCommand.getId());
     	    	    startActivity(intent);    	    
@@ -264,7 +264,7 @@ public class MainActivity extends ListActivity
     		else
     		{
     			Log.i(getClass().getSimpleName(), "Editing command");
-	    		Intent intent = new Intent(MainActivity.this, com.asksven.controlcenter.CommandDetailsActivity.class);
+	    		Intent intent = new Intent(MainActivity.this, com.asksven.commandcenter.CommandDetailsActivity.class);
 	    	    // pass some extra data to the dialog
 	    	    intent.putExtra("key", position);
 	    	    startActivity(intent);    	    

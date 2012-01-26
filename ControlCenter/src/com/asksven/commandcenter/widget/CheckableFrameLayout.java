@@ -30,7 +30,7 @@
  * limitations under the License.
  */
 
-package com.asksven.controlcenter.widget;
+package com.asksven.commandcenter.widget;
 
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;

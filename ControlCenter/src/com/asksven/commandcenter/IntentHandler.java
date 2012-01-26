@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.asksven.controlcenter;
+package com.asksven.commandcenter;
 
-import com.asksven.controlcenter.valueobjects.Command;
+import com.asksven.commandcenter.valueobjects.Command;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

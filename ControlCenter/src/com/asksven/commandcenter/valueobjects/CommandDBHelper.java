@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.asksven.controlcenter.valueobjects;
+package com.asksven.commandcenter.valueobjects;
 
 import java.util.ArrayList;
 import java.util.List;
