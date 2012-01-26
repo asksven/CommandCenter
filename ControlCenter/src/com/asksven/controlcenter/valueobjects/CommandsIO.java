@@ -161,7 +161,8 @@ public class CommandsIO
 	            try
 	            {
 	              in = assetManager.open(filename);
-	              out = new FileOutputStream(DataStorage.getExternalStoragePath(m_ctx) + filename);
+	              String strOutFile = DataStorage.getExternalStoragePath(m_ctx) + "/" + filename;
+	              out = new FileOutputStream(strOutFile);
 	              copyFile(in, out);
 	              in.close();
 	              in = null;

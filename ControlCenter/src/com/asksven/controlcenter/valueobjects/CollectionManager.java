@@ -105,6 +105,11 @@ public class CollectionManager
     	if (!CommandsIO.getInstance(ctx).externalStorageEnvironmentReady())
     	{
     		CommandsIO.getInstance(ctx).createExternalStorageEnvironment();
+    	}
+    	
+    	// if there are no files populate with samples
+    	if (CommandsIO.getInstance(ctx).getCollectionFilenames().size() == 0)
+    	{
     		CommandsIO.getInstance(ctx).CopyAssets();
     	}
     	
