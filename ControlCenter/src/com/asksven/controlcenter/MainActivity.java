@@ -83,7 +83,7 @@ public class MainActivity extends ListActivity
         	m_myItems = m_myDB.fetchFavoriteRows();
         }
 
-        setListAdapter(new CommandListAdapter(this, R.layout.row_command, m_myItems));
+        setListAdapter(new CommandListAdapter(this, m_myItems));
 		
         getListView().setTextFilterEnabled(true);
         registerForContextMenu(getListView()); 
@@ -240,7 +240,7 @@ public class MainActivity extends ListActivity
         {
         	m_myItems = m_myDB.fetchFavoriteRows();
         }
-		setListAdapter(new CommandListAdapter(this, R.layout.row_command, m_myItems));
+		setListAdapter(new CommandListAdapter(this, m_myItems));
 		registerForContextMenu(getListView());
 		
 		// set the cursor to where it was before the refresh

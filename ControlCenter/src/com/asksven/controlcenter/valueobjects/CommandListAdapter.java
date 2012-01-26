@@ -25,57 +25,49 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.CheckBox;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
 
 
-public class CommandListAdapter extends ArrayAdapter
+public class CommandListAdapter extends BaseAdapter
 {
 
-	private final LayoutInflater m_myInflater;
-	private final int m_iLayoutRes;
 	private List m_myItems;
+	private Context m_context;
 
-	public CommandListAdapter(Context context, int resource, List items)
+	public CommandListAdapter(Context context, List items)
 	{
-		super(context, R.layout.row_command, items);
 		m_myItems = items;
-		m_iLayoutRes = resource;
-		m_myInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		m_context = context;
 	}
 
 	public View getView(int position, View convertView, ViewGroup parent)
 	{
-		View view;
-		if (convertView == null)
-		{
-			view = m_myInflater.inflate(m_iLayoutRes, parent, false);
-		}
-		else
-		{
-			view = convertView;
-		}
+        if (convertView == null)
+        {
+            LayoutInflater inflater = (LayoutInflater) m_context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.row_command, null);
+        }
 		
 		
 		Command myCommand = (Command) m_myItems.get(position);
 		
-		TextView myCommandText=(TextView)view.findViewById(R.id.TextViewCommand);
+		TextView myCommandText=(TextView)convertView.findViewById(R.id.TextViewCommand);
 		myCommandText.setText(myCommand.getName());
 
 
-		TextView myCommandStateCmd=(TextView)view.findViewById(R.id.TextViewStateCommand);
+		TextView myCommandStateCmd=(TextView)convertView.findViewById(R.id.TextViewStateCommand);
 		myCommandStateCmd.setText(myCommand.getCommandStatus());
 		
-		TextView myCommandState=(TextView)view.findViewById(R.id.TextViewState);
+		TextView myCommandState=(TextView)convertView.findViewById(R.id.TextViewState);
 		myCommandState.setText(myCommand.getStatus());
 		
 		
 		// determine status based on state and regex
-		ToggleButton myCommandStatus=(ToggleButton)view.findViewById(R.id.ToggleButton);
+		ToggleButton myCommandStatus=(ToggleButton)convertView.findViewById(R.id.ToggleButton);
 		myCommandStatus.setClickable(false);
 
 		// use state and regex to determine status
@@ -85,8 +77,30 @@ public class CommandListAdapter extends ArrayAdapter
 		myCommandText.setEnabled(true);
 		myCommandText.setFocusable(false);		
 		
-		return(view);
+		return(convertView);
 	}
+	
+    public int getCount()
+    {
+    	int ret = 0;
+    	if (m_myItems != null)
+    	{
+    		ret = m_myItems.size();
+    	}
+    	return ret;
+    }
+    
+    public Object getItem(int position)
+    {
+        return m_myItems.get(position);
+    }
+
+    public long getItemId(int position)
+    {
+        return position;
+    }
+
+
 }
 
 

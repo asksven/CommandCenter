@@ -18,17 +18,15 @@ package com.asksven.controlcenter;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ScrollView;
-import android.widget.TextView;
 
+import com.asksven.controlcenter.valueobjects.CollectionManager;
 import com.asksven.controlcenter.valueobjects.Command;
+import com.asksven.controlcenter.valueobjects.CommandCollection;
 import com.asksven.controlcenter.valueobjects.CommandDBHelper;
 import com.asksven.controlcenter.R;
 
@@ -63,6 +61,11 @@ public class BasicDetailsFragment extends Fragment
     {
         return getArguments().getInt("index", -1);
     }
+    
+    public String getCollectionName()
+    {
+    	return getArguments().getString("collection", "none");
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -94,8 +97,13 @@ public class BasicDetailsFragment extends Fragment
         
         if (getShownKey() != -1)
         {
-        	CommandDBHelper myDB = new CommandDBHelper(getActivity());
-        	Command myRecord = myDB.fetchCommandByKey(getShownKey());
+        	//CommandDBHelper myDB = new CommandDBHelper(getActivity());
+        	CommandCollection commands =
+        			CollectionManager.
+        			getInstance(getActivity()).
+        			getCollectionByName(getCollectionName());
+        	Command myRecord = commands.findById(getShownKey());
+//        	  myRecord = myDB.fetchCommandByKey(getShownKey());
         	
         	if (myRecord != null)
         	{
