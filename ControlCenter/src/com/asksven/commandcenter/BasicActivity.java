@@ -89,11 +89,6 @@ public class BasicActivity  extends FragmentActivity
 	    		Intent intent = new Intent(this, PreferencesActivity.class);
 	   			startActivity(intent);
 	    		break;
-	        case R.id.add:	
-	        	Intent intent2 = new Intent(this, CommandDetailsActivity.class);
-	        	// pass no data to the dialog -> add
-	        	startActivity(intent2);   
-	        	break;    		
 	        case R.id.about:
 	        	Intent intent3 = new Intent(this, AboutActivity.class);
     	    	// pass no data to the dialog -> add
