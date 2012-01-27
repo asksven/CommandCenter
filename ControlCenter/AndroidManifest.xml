@@ -24,9 +24,11 @@
         </activity>
                 
         <activity android:name=".PreferencesActivity" android:label="Preferences"></activity>
-		<activity android:name=".CommandDetailsActivity" android:label="Commands"></activity>
+<!-- 
+   		<activity android:name=".CommandDetailsActivity" android:label="Commands"></activity>
 		<activity android:name=".BasicActivity" android:label="Commands"></activity>
 		<activity android:name=".MainActivity" android:label="Old Commands"></activity>
+ -->		
 		<activity android:name=".BasicDetailsActivity" android:label="Details"></activity>
 		<activity android:name=".AboutActivity" android:label="About"></activity>
 <!-- 
