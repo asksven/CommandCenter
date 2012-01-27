@@ -17,28 +17,20 @@
 package com.asksven.commandcenter;
 
 
-import java.util.List;
-
+import com.asksven.commandcenter.valueobjects.CollectionManager;
 import com.asksven.commandcenter.valueobjects.Command;
-import com.asksven.commandcenter.valueobjects.CommandDBHelper;
 import com.asksven.commandcenter.R;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.RatingBar;
-import android.widget.Toast;
-import android.widget.RatingBar.OnRatingBarChangeListener;
 
 
 public class CommandDetailsActivity extends Activity
 {
+	private String m_strCollection = "";
 	private int m_iPosition = -1;
 	
 	/** Called when the activity is first created. */
@@ -52,6 +44,7 @@ public class CommandDetailsActivity extends Activity
 
         if (extras != null)
         {
+        	m_strCollection = extras.getString("collection");
         	m_iPosition = extras.getInt("key");
         	Log.i(getClass().getSimpleName(), "Dialog was called with key=" + m_iPosition);
         }
@@ -61,22 +54,25 @@ public class CommandDetailsActivity extends Activity
         EditText myCommand = (EditText) findViewById(R.id.EditCommand);
         EditText myCommandValues = (EditText) findViewById(R.id.EditCommandValues);
         EditText myStatus = (EditText) findViewById(R.id.EditStatus);
-        CheckBox myFavorite = (CheckBox) findViewById(R.id.CheckBoxFavorite);
+//        CheckBox myFavorite = (CheckBox) findViewById(R.id.CheckBoxFavorite);
         EditText myStatusRegex = (EditText) findViewById(R.id.EditStatusRegex);
         CheckBox myRegexIsOn = (CheckBox) findViewById(R.id.CheckBoxRegexIsOn);
         
         
         if (m_iPosition != -1)
         {
-        	CommandDBHelper myDB = new CommandDBHelper(CommandDetailsActivity.this);
-        	Command myRecord = myDB.fetchCommandByKey(m_iPosition);
+        	Command myRecord = CollectionManager
+        			.getInstance(this).getCollectionByName(m_strCollection)
+        			.findById(m_iPosition);
+//        	CommandDBHelper myDB = new CommandDBHelper(CommandDetailsActivity.this);
+//        	Command myRecord = myDB.fetchCommandByKey(m_iPosition);
         	        	
         	myId.setText(String.valueOf(myRecord.getId()));
         	myName.setText(myRecord.getName());
         	myCommand.setText(myRecord.getCommand());
         	myCommandValues.setText(myRecord.getCommandValues());
         	myStatus.setText(myRecord.getCommandStatus());
-        	myFavorite.setChecked(myRecord.getFavorite()==1);
+//        	myFavorite.setChecked(myRecord.getFavorite()==1);
         	myStatusRegex.setText(myRecord.getRegexStatus());
         	myRegexIsOn.setChecked(myRecord.getMatchRegexOn()==1);
         	

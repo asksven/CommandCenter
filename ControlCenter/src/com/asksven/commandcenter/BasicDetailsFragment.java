@@ -27,7 +27,7 @@ import android.widget.EditText;
 import com.asksven.commandcenter.valueobjects.CollectionManager;
 import com.asksven.commandcenter.valueobjects.Command;
 import com.asksven.commandcenter.valueobjects.CommandCollection;
-import com.asksven.commandcenter.valueobjects.CommandDBHelper;
+//import com.asksven.commandcenter.valueobjects.CommandDBHelper;
 import com.asksven.commandcenter.R;
 
 /**
@@ -90,7 +90,7 @@ public class BasicDetailsFragment extends Fragment
         EditText myCommand = (EditText) v.findViewById(R.id.EditCommand);
         EditText myCommandValues = (EditText) v.findViewById(R.id.EditCommandValues);
         EditText myStatus = (EditText) v.findViewById(R.id.EditStatus);
-        CheckBox myFavorite = (CheckBox) v.findViewById(R.id.CheckBoxFavorite);
+//        CheckBox myFavorite = (CheckBox) v.findViewById(R.id.CheckBoxFavorite);
         EditText myStatusRegex = (EditText) v.findViewById(R.id.EditStatusRegex);
         CheckBox myRegexIsOn = (CheckBox) v.findViewById(R.id.CheckBoxRegexIsOn);
         
@@ -112,7 +112,7 @@ public class BasicDetailsFragment extends Fragment
 	        	myCommand.setText(myRecord.getCommand());
 	        	myCommandValues.setText(myRecord.getCommandValues());
 	        	myStatus.setText(myRecord.getCommandStatus());
-	        	myFavorite.setChecked(myRecord.getFavorite()==1);
+//	        	myFavorite.setChecked(myRecord.getFavorite()==1);
 	        	myStatusRegex.setText(myRecord.getRegexStatus());
 	        	myRegexIsOn.setChecked(myRecord.getMatchRegexOn()==1);
         	}

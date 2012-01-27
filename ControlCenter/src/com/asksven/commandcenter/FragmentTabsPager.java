@@ -31,7 +31,7 @@ import java.util.Set;
 import com.asksven.commandcenter.valueobjects.CollectionManager;
 import com.asksven.commandcenter.valueobjects.Command;
 import com.asksven.commandcenter.valueobjects.CommandCollection;
-import com.asksven.commandcenter.valueobjects.CommandDBHelper;
+//import com.asksven.commandcenter.valueobjects.CommandDBHelper;
 import com.asksven.commandcenter.valueobjects.CommandReaderWriter;
 import com.asksven.commandcenter.R;
 
@@ -121,19 +121,19 @@ public class FragmentTabsPager extends FragmentActivity
             	Intent intentAbout = new Intent(this, AboutActivity.class);
                 this.startActivity(intentAbout);
             	break;
-	        case R.id.test:	
-	        	CommandDBHelper db = new CommandDBHelper(this);
-	        	List<Command> myCommands = db.fetchAllRows();
-	        	CommandCollection myCollection = new CommandCollection();
-	        	myCollection.setTitle("This is a test collection");
-	        	myCollection.setVersion(1L);
-	        	myCollection.setHomepage("http://cri.ch/sven");
-	        	myCollection.setUpdaterUrl("http://cri.ch/sven/test.json");
-	        	myCollection.setIconFile("icon.gif");
-	        	myCollection.setEntries(myCommands);
-	        	
-	        	CommandReaderWriter.writeFile(this, myCollection, "commands.json");
-	        	break;
+//	        case R.id.test:	
+//	        	CommandDBHelper db = new CommandDBHelper(this);
+//	        	List<Command> myCommands = db.fetchAllRows();
+//	        	CommandCollection myCollection = new CommandCollection();
+//	        	myCollection.setTitle("This is a test collection");
+//	        	myCollection.setVersion(1L);
+//	        	myCollection.setHomepage("http://cri.ch/sven");
+//	        	myCollection.setUpdaterUrl("http://cri.ch/sven/test.json");
+//	        	myCollection.setIconFile("icon.gif");
+//	        	myCollection.setEntries(myCommands);
+//	        	
+//	        	CommandReaderWriter.writeFile(this, myCollection, "commands.json");
+//	        	break;
 //	    		ExecResult myRes = Exec.execPrint("su -c cat /data/dropbear/.ssh/authorized_keys");
 //	    		String strLine = "";
 //	    		if (myRes.getSuccess())
