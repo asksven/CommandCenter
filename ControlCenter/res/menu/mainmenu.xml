@@ -5,9 +5,10 @@
           showAsAction="ifRoom"/>
 	<item android:id="@+id/about"
      	android:title="About" />
+<!-- 
 	<item android:id="@+id/test"
      	android:title="Create sample" />
 		<item android:id="@+id/test2"
      	android:title="Read sample" />  		
-			
+ -->			
 </menu>

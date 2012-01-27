@@ -1,38 +1,22 @@
 package com.asksven.commandcenter;
 
-import android.app.AlertDialog;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TabHost;
-import android.widget.Toast;
-import android.widget.AdapterView.AdapterContextMenuInfo;
-
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 
 import com.asksven.commandcenter.valueobjects.CollectionManager;
-import com.asksven.commandcenter.valueobjects.Command;
-import com.asksven.commandcenter.valueobjects.CommandCollection;
-//import com.asksven.commandcenter.valueobjects.CommandDBHelper;
-import com.asksven.commandcenter.valueobjects.CommandReaderWriter;
 import com.asksven.commandcenter.R;
 
 /**
@@ -142,11 +126,11 @@ public class FragmentTabsPager extends FragmentActivity
 //	    		}
 //	    	    break;
 
-	        case R.id.test2:	
-	        	CommandCollection myCollection2 = 
-	        		CommandReaderWriter.readFile(this, "commands.json");
-	        	int i = myCollection2.getEntries().size();
-	        	break;
+//	        case R.id.test2:	
+//	        	CommandCollection myCollection2 = 
+//	        		CommandReaderWriter.readFile(this, "commands.json");
+//	        	int i = myCollection2.getEntries().size();
+//	        	break;
             	
         }  
         return false;  
