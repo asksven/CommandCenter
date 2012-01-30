@@ -151,6 +151,7 @@ public class BasicMasterFragment extends ListFragment
     	if (bexec)
     	{
 			Log.i(getClass().getSimpleName(), "Running command");
+			m_myCommand = m_myItems.get(position);
 			executeCommand(m_myCommand);
 			refreshList();    		
     	}
