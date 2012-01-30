@@ -145,8 +145,20 @@ public class BasicMasterFragment extends ListFragment
     @Override
     public void onListItemClick(ListView l, View v, int position, long id)
     {
-    	m_myCommand = m_myItems.get(position);
-        showDetails(m_myCommand.getId());
+    	SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+    	boolean bexec = preferences.getBoolean("execOnSelect", false);
+    	
+    	if (bexec)
+    	{
+			Log.i(getClass().getSimpleName(), "Running command");
+			executeCommand(m_myCommand);
+			refreshList();    		
+    	}
+    	else
+    	{
+	    	m_myCommand = m_myItems.get(position);
+	        showDetails(m_myCommand.getId());
+    	}
     }
 
     /**
@@ -229,7 +241,7 @@ public class BasicMasterFragment extends ListFragment
 	    	    	{
 		    			Log.i(getClass().getSimpleName(), "Running command");
 		    			executeCommand(m_myCommand);
-		    			refreshList(-1);
+		    			refreshList();
 		    			return true;
 	   	    		}
 	
@@ -332,7 +344,7 @@ public class BasicMasterFragment extends ListFragment
 				    	
 				        cmd.execute(strSelection);
 				        Toast.makeText(getActivity(), "Executing " + m_myCommand.getCommand(), Toast.LENGTH_LONG).show();
-		    			refreshList(-1);
+		    			refreshList();
 				    }
 				});
 				AlertDialog alert = builder.show();
@@ -347,7 +359,7 @@ public class BasicMasterFragment extends ListFragment
 	
     }
     
-    private void refreshList(int pos)
+    private void refreshList()
     {
     	// todo refresh
     	m_myAdapter.notifyDataSetChanged();
