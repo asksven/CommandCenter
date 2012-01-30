@@ -16,14 +16,18 @@
 -->             
         
         <activity android:name="com.asksven.commandcenter.FragmentTabsPager" 
-                  android:label="@string/app_name">
+                  android:label="@string/app_name"
+                  android:theme="@style/Theme.asksven">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
                 
-        <activity android:name=".PreferencesActivity" android:label="Preferences"></activity>
+        <activity 
+            android:name=".PreferencesActivity"
+            android:label="Preferences"
+            android:theme="@style/Theme.asksven"/>
 <!-- 
    		<activity android:name=".CommandDetailsActivity" android:label="Commands"></activity>
 		<activity android:name=".BasicActivity" android:label="Commands"></activity>
