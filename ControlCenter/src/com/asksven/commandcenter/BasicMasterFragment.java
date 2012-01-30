@@ -220,11 +220,7 @@ public class BasicMasterFragment extends ListFragment
 	    	    	
 	    	    	if (m_myCommand != null)
 	    	    	{
-	    	    		Log.i(getClass().getSimpleName(), "Command was edited: " + m_myCommand.getId());
-	    	    		Intent intent = new Intent(getActivity(), com.asksven.commandcenter.CommandDetailsActivity.class);
-	    	    	    // pass some extra data to the dialog
-	    	    	    intent.putExtra("key", m_myCommand.getId());
-	    	    	    startActivity(intent);    	    
+	    	            showDetails(m_myCommand.getId());
 	    	    	}
 	    			return true;
 	     
@@ -260,7 +256,6 @@ public class BasicMasterFragment extends ListFragment
     private final void executeCommand(final Command cmd)
     {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        final boolean bHasRoot = preferences.getBoolean("hasRoot", false);
         
 		if (!cmd.getCommandValues().equals(""))
 		{
@@ -335,7 +330,7 @@ public class BasicMasterFragment extends ListFragment
 				    	CharSequence[] tokens = strSelection.split("\\:");
 				    	strSelection = (String) tokens[0];
 				    	
-				        cmd.execute(strSelection, bHasRoot);
+				        cmd.execute(strSelection);
 				        Toast.makeText(getActivity(), "Executing " + m_myCommand.getCommand(), Toast.LENGTH_LONG).show();
 		    			refreshList(-1);
 				    }
@@ -345,7 +340,7 @@ public class BasicMasterFragment extends ListFragment
 		}
 		else
 		{
-			m_myCommand.execute(bHasRoot);
+			m_myCommand.execute();
 			Toast.makeText(getActivity(), "Executing " + m_myCommand.getCommand(), Toast.LENGTH_LONG).show();
 
 		}

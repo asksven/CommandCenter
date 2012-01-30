@@ -5,7 +5,7 @@
 	<CheckBoxPreference 
 		android:key="execOnSelect"
 		android:summary="A single tap runs the command"
-		android:title="Run on tap" 
+		android:title="Execute on tap" 
 		android:defaultValue="false"
     />    
 
@@ -15,12 +15,12 @@
 <!-- 		android:title="Show only favorites"  -->
 <!-- 		android:defaultValue="false" -->
 <!--     />     -->
-    <CheckBoxPreference 
-		android:key="hasRoot"
-		android:summary="Check if device is rooted and commands shall be run with 'su'"
-		android:title="Allow su commands" 
-		android:defaultValue="false"
-    />
+<!--     <CheckBoxPreference  -->
+<!-- 		android:key="hasRoot" -->
+<!-- 		android:summary="Check if device is rooted and commands shall be run with 'su'" -->
+<!-- 		android:title="Allow su commands"  -->
+<!-- 		android:defaultValue="false" -->
+<!--     /> -->
 
 <!--         <CheckBoxPreference  -->
 <!-- 		android:key="allowRemoteCommands" -->

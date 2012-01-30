@@ -29,39 +29,38 @@ public class Command
 	private String regexstatus;
 	private int matchregexison;
 	private String tags;
-	private int m_iFavorite;
+	private int suexec;
 	
 	
 	public Command(String strName, String strCommand, String strCommandValues,
 			String strCommandStatus, String strTags,
-			int iFavorite, String strRegexStatus, int iMatchRegexIsOn)
+			int iSuExec, String strRegexStatus, int iMatchRegexIsOn)
 	{
-		id=-1;
-		name = strName;
-		command = strCommand;
-		commandvalues = strCommandValues;
-		commandstatus = strCommandStatus;
-		tags = strTags;
-		m_iFavorite = iFavorite;
-		regexstatus = strRegexStatus;
-		matchregexison = iMatchRegexIsOn;
+		id				= -1;
+		name 			= strName;
+		command 		= strCommand;
+		commandvalues 	= strCommandValues;
+		commandstatus 	= strCommandStatus;
+		tags 			= strTags;
+		suexec 			= iSuExec;
+		regexstatus 	= strRegexStatus;
+		matchregexison 	= iMatchRegexIsOn;
 		
 	}
 	
 	public Command(int iId, String strName, String strCommand, String strCommandValues,
 			String strCommandStatus, String strTags,
-			int iFavorite, String strRegexStatus, int iMatchRegexIsOn)
+			int iSuExec, String strRegexStatus, int iMatchRegexIsOn)
 	{
-		id=iId;
-		name = strName;
-		command = strCommand;
-		commandvalues = strCommandValues;
-		commandstatus = strCommandStatus;
-		tags = strTags;
-		m_iFavorite = iFavorite;
-		regexstatus = strRegexStatus;
-		matchregexison = iMatchRegexIsOn;
-
+		id				=iId;
+		name 			= strName;
+		command 		= strCommand;
+		commandvalues 	= strCommandValues;
+		commandstatus 	= strCommandStatus;
+		tags 			= strTags;
+		suexec	 		= iSuExec;
+		regexstatus 	= strRegexStatus;
+		matchregexison 	= iMatchRegexIsOn;
 	}
 
 	public int getId()
@@ -134,14 +133,14 @@ public class Command
 		this.tags = group;
 	}
 
-	public int getFavorite()
+	public int getSuExec()
 	{
-		return m_iFavorite;
+		return suexec;
 	}
 
-	public void setFavorite(int favorite)
+	public void setSuExec(int iSuExec)
 	{
-		this.m_iFavorite = favorite;
+		this.suexec = iSuExec;
 	}
 
 	public int getMatchRegexOn()
@@ -156,13 +155,13 @@ public class Command
 
 	
 	
-	public String execute(boolean bHasRoot)
+	public String execute()
 	{
 		String strRet="";
 		
 		if (this.getCommand().length() != 0)
 		{
-			if (bHasRoot)
+			if (this.getSuExec() == 1)
 			{
 				Exec.suExec(this.getCommand());
 			}
@@ -180,7 +179,7 @@ public class Command
 	}
 
 	/** replace placeholder with strValue and execute */
-	public String execute(String strValue, boolean bSu)
+	public String execute(String strValue)
 	{
 		
 		String strRet="";
@@ -188,7 +187,7 @@ public class Command
 		if (this.getCommand().length() != 0)
 		{
 			String strCommand = this.replace( this.getCommand(), "??", strValue);
-			if (bSu)
+			if (this.getSuExec() == 1)
 			{
 			  Exec.suExec(strCommand);
 			}
