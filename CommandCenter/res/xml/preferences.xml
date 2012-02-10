@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+  xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<CheckBoxPreference 
+		android:key="execOnSelect"
+		android:summary="A single tap runs the command"
+		android:title="Execute on tap" 
+		android:defaultValue="false"
+    />    
+
+<!-- 	<CheckBoxPreference  -->
+<!-- 		android:key="showOnlyFavorites" -->
+<!-- 		android:summary="Show only favorite commands" -->
+<!-- 		android:title="Show only favorites"  -->
+<!-- 		android:defaultValue="false" -->
+<!--     />     -->
+<!--     <CheckBoxPreference  -->
+<!-- 		android:key="hasRoot" -->
+<!-- 		android:summary="Check if device is rooted and commands shall be run with 'su'" -->
+<!-- 		android:title="Allow su commands"  -->
+<!-- 		android:defaultValue="false" -->
+<!--     /> -->
+
+<!--         <CheckBoxPreference  -->
+<!-- 		android:key="allowRemoteCommands" -->
+<!-- 		android:summary="Allow commands to be run from another app (use with caution)" -->
+<!-- 		android:title="Allow remote commands"  -->
+<!-- 		android:defaultValue="false" -->
+<!--     /> -->
+    
+</PreferenceScreen>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:orientation="vertical">
+
+
+	<ScrollView
+	    android:id="@+id/ScrollView01"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content">
+	
+		<LinearLayout 
+		    android:id="@+id/LinearLayout26"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="vertical">
+			<TextView android:text="Id"
+			    android:id="@+id/TextView02"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"/>
+			<EditText
+			    android:text=""
+			    android:id="@+id/EditId"
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+			    android:editable="false"/>
+<!-- 
+			<CheckBox
+			    android:text="Favorite"
+			    android:id="@+id/CheckBoxFavorite"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:editable="false"/>
+ -->
+ 			<TextView
+			    android:text="Name"
+			    android:id="@+id/TextView02"
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"/>
+			<EditText
+			    android:text=""
+			    android:id="@+id/EditName"
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+			    android:editable="false"/>
+			<TextView
+			    android:text="Command"
+			    android:id="@+id/TextView03"
+			    android:layout_width="fill_parent" 
+			    android:layout_height="wrap_content"/>
+			<EditText
+			    android:text=""
+			    android:id="@+id/EditCommand"
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+			    android:editable="false"/>
+			<TextView
+			    android:text="Command values"
+			    android:id="@+id/TextView03"
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"/>
+			<EditText
+			    android:text=""
+			    android:id="@+id/EditCommandValues"
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+			    android:editable="false"/>
+			<TextView
+			    android:text="Status command"
+			    android:id="@+id/TextView03"
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"/>
+			<EditText
+			    android:text=""
+			    android:id="@+id/EditStatus"
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+			    android:editable="false"/>
+			<TextView
+			    android:text="Regex"
+			    android:id="@+id/TextView03"
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"/>
+			<EditText
+			    android:text=""
+			    android:id="@+id/EditStatusRegex"
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+			    android:editable="false"/>
+			<TextView
+			    android:text="Enable regex match"
+			    android:id="@+id/TextView03"
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"/>
+			<CheckBox
+			    android:text=""
+			    android:id="@+id/CheckBoxRegexIsOn"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:editable="false"/>
+<!-- 			
+			<LinearLayout 
+			    android:id="@+id/LinearLayout26"
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+			    android:orientation="horizontal">
+				
+				<Button
+				    android:text="Save"
+				    android:id="@+id/ButtonOK"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:layout_marginLeft="50px"
+				    android:layout_marginRight="10px"/>
+				<Button
+				    android:text="Cancel"
+				    android:id="@+id/ButtonCancel"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:layout_marginLeft="10px"
+				    android:layout_marginRight="10px"/>
+				<Button
+				    android:text="Test"
+				    android:id="@+id/ButtonTest"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:layout_marginLeft="20px"
+				    android:layout_marginRight="10px"/>
+			</LinearLayout>
+-->			
+		</LinearLayout>
+	</ScrollView>
+</LinearLayout>

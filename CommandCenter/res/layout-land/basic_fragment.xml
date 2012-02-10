@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Top-level content view for the layout.  This version is
+     for display when in landscape: we can fit both titles and dialog. -->
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
+    android:orientation="horizontal"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+<!--
+    <fragment class="com.asksven.commandcenter.FragmentTabsPager"
+            android:id="@+id/titles" android:layout_weight="1"
+            android:layout_width="0px" android:layout_height="match_parent" />
+-->
+     
+    <fragment class="com.asksven.commandcenter.BasicMasterFragment"
+            android:id="@+id/titles" android:layout_weight="1"
+            android:layout_width="0px" android:layout_height="match_parent" />
+             
+<!-- 
+   	<LinearLayout android:layout_height="fill_parent" android:layout_width="match_parent">		
+		<com.google.ads.AdView android:id="@+id/adView"
+	                   android:layout_width="wrap_content"
+	                   android:layout_gravity="bottom|center_horizontal"
+	                   android:layout_alignParentBottom="true"
+	                   ads:adUnitId="a14e836ef862284"
+	                   ads:adSize="BANNER"
+	                   ads:loadAdOnCreate="false"
+	                   android:layout_height="wrap_content"
+	                   android:gravity="bottom"/>		
+    </LinearLayout>			
+-->    
+    <FrameLayout android:id="@+id/details" android:layout_weight="1"
+            android:layout_width="0px" android:layout_height="match_parent" />
+
+</LinearLayout>
+

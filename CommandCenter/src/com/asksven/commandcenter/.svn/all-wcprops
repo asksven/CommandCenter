@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/android/!svn/ver/283/trunk/SystemSettings/src/com/asksven/systemsettings
+END
+IntentHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/android/!svn/ver/269/trunk/SystemSettings/src/com/asksven/systemsettings/IntentHandler.java
+END
+ActAbout.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/android/!svn/ver/182/trunk/SystemSettings/src/com/asksven/systemsettings/ActAbout.java
+END
+Intents.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/android/!svn/ver/269/trunk/SystemSettings/src/com/asksven/systemsettings/Intents.java
+END
+Main.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/android/!svn/ver/283/trunk/SystemSettings/src/com/asksven/systemsettings/Main.java
+END
+ActPreferences.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/android/!svn/ver/283/trunk/SystemSettings/src/com/asksven/systemsettings/ActPreferences.java
+END
+ActCommandDetails.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/android/!svn/ver/283/trunk/SystemSettings/src/com/asksven/systemsettings/ActCommandDetails.java
+END

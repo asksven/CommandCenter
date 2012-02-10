@@ -1,0 +1,20 @@
+If you ever had to enter dumpsys alarm > /sdcard/dmesg_`date +\"%Y%m%d-%H%M\"` to Android's terminal you know the idea behind Command Center.
+
+Command Center was designed to bring the best of both worlds together:
+- a rich UI
+- the power of shell commands
+
+Whether you are poweruser with the need to tweak your kernel or a developer who wants to provide a UI to configure your kernel.
+
+Commands are grouped into command sets (files) and shown as tabs. Command Center is not limited to simple commands but supports input variables and status information.
+
+A few examples of commands from simple to complex :
+{"command":"logcat -d -b radio -f /sdcard/logcat_radio_`date +\"%Y%m%d-%H%M\"`","commandstatus":"","commandvalues":"","tags":"Logging, logcat","regexstatus":"","name":"Dump logcat radio","matchregexison":0,"suexec":0,"id":4}
+
+A simple command to dump a radio logcat to a file named with current date.
+
+{"command":"echo ?? > /sys/module/dsscomp/parameters/hotplug_enabled","commandstatus":" cat /sys/module/dsscomp/parameters/hotplug_enabled","commandvalues":"1:On|0:Off","tags":"","regexstatus":"1","name":"Hotplug","matchregexison":1,"suexec":1,"id":8}show 
+
+A more complex command with a variable "??" that will be prompted for before execution. The prompted values are collected from a list "On, Off" and the values of the variable for those would be 0, 1" ("commandvalues":"1:On|0:Off").
+This command also has a status display to show whether Hotplug is on or off. This is achieved with a command to retrieve the status and a value the command shall check against: the result of "commandstatus" (cat /sys/module/dsscomp/parameters/hotplug_enabled) is compared to regexstatus (1). Depending on "matchregexison" the result is true when both are equal (1) or unequal (0).
+

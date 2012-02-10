@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources>
+    <string name="hello">Hello World, Main!</string>
+    <string name="app_name">Command Center</string>
+    <string name="app_author">asksven</string>
+    <string name="app_home"><a href="http://somelink" rel="nofollow">http://somelink</a></string>
+    <string name="app_about">Execute shell commands (may require root)</string>
+</resources>

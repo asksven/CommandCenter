@@ -1,0 +1,43 @@
+10
+
+dir
+300
+http://192.168.2.60/svn/android/trunk/SystemSettings/res
+http://192.168.2.60/svn/android
+
+
+
+2010-06-27T08:26:25.843822Z
+280
+sven
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1213173a-3874-46ad-ac8a-7a705b046ef2
+
+values
+dir
+
+drawable-hdpi
+dir
+
+drawable-ldpi
+dir
+
+drawable-mdpi
+dir
+
+layout
+dir
+

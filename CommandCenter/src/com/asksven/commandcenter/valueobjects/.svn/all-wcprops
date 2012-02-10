@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/android/!svn/ver/282/trunk/SystemSettings/src/com/asksven/systemsettings/valueobjects
+END
+Preferences.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/android/!svn/ver/282/trunk/SystemSettings/src/com/asksven/systemsettings/valueobjects/Preferences.java
+END
+CommandDBHelper.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/android/!svn/ver/282/trunk/SystemSettings/src/com/asksven/systemsettings/valueobjects/CommandDBHelper.java
+END
+CommandListAdapter.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/android/!svn/ver/216/trunk/SystemSettings/src/com/asksven/systemsettings/valueobjects/CommandListAdapter.java
+END
+Command.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/android/!svn/ver/282/trunk/SystemSettings/src/com/asksven/systemsettings/valueobjects/Command.java
+END

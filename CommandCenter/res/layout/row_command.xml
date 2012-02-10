@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:orientation="vertical">
+	
+	
+  
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:orientation="horizontal">
+<!--	
+	<CheckBox android:text="" android:id="@+id/CheckBoxStatus" android:layout_width="wrap_content" android:layout_height="wrap_content"></CheckBox>
+-->	
+    <ToggleButton android:id="@+id/ToggleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textOn=""
+        android:textOff="" android:focusable="false"/>
+	<TextView android:text="command"
+		android:id="@+id/TextViewCommand"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:textStyle="bold" android:padding="5px"/>
+ </LinearLayout>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:orientation="horizontal">
+
+	<TextView android:text="command"
+		android:id="@+id/TextViewStateCommand"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="20px"/>
+	<TextView android:text="state"
+		android:id="@+id/TextViewState"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="20px" android:textColor="#FF0000" android:textStyle="bold"/>
+</LinearLayout>
+
+
+
+</LinearLayout>
+
