@@ -1,6 +1,5 @@
 {"entries":[
 	{"command":"echo ?? > /sys/module/dsscomp/parameters/hotplug_enabled","commandstatus":"cat /sys/module/dsscomp/parameters/hotplug_enabled","commandvalues":"1:On|0:Off","tags":"","regexstatus":"1","name":"Hotplug","matchregexison":1,"suexec":1,"id":8}
-#,{"command":"logcat -d -b radio -f /sdcard/logcat_radio_`date +\"%Y%m%d-%H%M\"`","commandstatus":"","commandvalues":"","tags":"Logging, xdandroid","regexstatus":"","name":"Dump logcat radio","matchregexison":0,"suexec":0,"id":9},
-#,{"command":"logcat -d -f /sdcard/logcat_radio_`date +\"%Y%m%d-%H%M\"`","commandstatus":"","commandvalues":"","tags":"Logging, xdandroid","regexstatus":"","name":"Dump logcat","matchregexison":0,"suexec":0,"id":10}
 ,{"command":"echo ?? > /sys/module/cpufreq_franco_turtle/parameters/dynamic_hotplug","commandstatus":"cat /sys/module/cpufreq_franco_turtle/parameters/dynamic_hotplug","commandvalues":"1:On|0:Off","tags":"","regexstatus":"1","name":"Dynamic Hotplug","matchregexison":1,"suexec":1,"id":11}
+,{"command":"echo ?? > /sys/devices/system/cpu/cpu1/online","commandstatus":"cat /sys/devices/system/cpu/cpu1/online","commandvalues":"1:On|0:Off","tags":"","regexstatus":"1","name":"CPU1 online","matchregexison":1,"suexec":1,"id":11}
 ],"homepage":"","iconfile":"","title":"franco.Kernel","updaterurl":"","version":1}
