@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="hello">Hello World, Main!</string>
-    <string name="app_name">CommandCenter</string>
-    <string name="app_author">SvenK</string>
-    <string name="app_home"><a href="http://cri.ch/sven/commandcenter" rel="nofollow">http://cri.ch/sven/commandcenter</a></string>
-    <string name="app_about">Execute shell commands (may require root)</string>  
-      
-</resources>
