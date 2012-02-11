@@ -41,7 +41,7 @@
 				    android:layout_alignParentBottom="true"
 				    android:layout_gravity="bottom|center_horizontal"
 				    ads:adSize="BANNER"
-				    ads:adUnitId="a14e836ef862284"
+				    ads:adUnitId="a14f35930e0a72d"
 				    android:gravity="bottom"
 				    ads:loadAdOnCreate="false" />
 		
