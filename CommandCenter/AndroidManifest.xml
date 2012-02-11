@@ -2,11 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.asksven.commandcenter"
       android:versionCode="2"
-      android:versionName="0.6.0.0">
+      android:versionName="0.7.0.0">
     <!--  required for writing dump files -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <!-- admob -->
   	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+  	<!-- admob & retrieve definitions -->
+    <uses-permission android:name="android.permission.INTERNET"/>
   	
     <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="14"/>
     
@@ -38,6 +40,8 @@
  -->		
 		<activity android:name=".BasicDetailsActivity" android:label="Details"></activity>
 		<activity android:name=".AboutActivity" android:label="About"></activity>
+		<activity android:name="com.google.ads.AdActivity"
+              android:configChanges="keyboard|keyboardHidden|orientation"/>
 <!-- 
 		<receiver android:name=".IntentHandler">
 			<intent-filter>

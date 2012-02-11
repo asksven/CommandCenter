@@ -35,7 +35,10 @@ import android.widget.TextView;
  */
 public class AboutActivity extends Activity 
 {
-	
+    private static final String TAG = "AboutStatsActivity";
+    public static final String MARKET_LINK ="market://details?id=com.asksven.commandcenter";
+    public static final String TWITTER_LINK ="https://twitter.com/#!/asksven";
+
 	/** Called when the activity is first created. */
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,7 +57,30 @@ public class AboutActivity extends Activity
         {
         	txtVersion.setText("0");
         }
+        final Button buttonRate = (Button) findViewById(R.id.buttonRate);
+        buttonRate.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                openURL(MARKET_LINK);
+            }
+        });
+        final Button buttonFollow = (Button) findViewById(R.id.buttonTwitter);
+        buttonFollow.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                openURL(TWITTER_LINK);
+            }
+        });
 
+    }
+	
+    public void openURL( String inURL )
+    {
+        Intent browse = new Intent( Intent.ACTION_VIEW , Uri.parse( inURL ) );
+
+        startActivity( browse );
     }
 
 }

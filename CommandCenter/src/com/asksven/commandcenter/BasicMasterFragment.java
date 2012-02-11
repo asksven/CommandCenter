@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 asksven
+ * Copyright (C) 2011-12 asksven
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,11 +37,14 @@ import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
+import com.asksven.commandcenter.utils.Configuration;
 import com.asksven.commandcenter.valueobjects.CollectionManager;
 import com.asksven.commandcenter.valueobjects.Command;
 import com.asksven.commandcenter.valueobjects.CommandCollection;
 import com.asksven.commandcenter.valueobjects.CommandListAdapter;
 import com.asksven.commandcenter.R;
+import com.google.ads.AdRequest;
+import com.google.ads.AdView;
 
 /**
  * @author sven
@@ -57,7 +60,6 @@ public class BasicMasterFragment extends ListFragment
     boolean mDualPane;
     int mCurCheckPosition = 0;
     
-//	private CommandDBHelper m_myDB = null;
     private List<Command> m_myItems;
     private Command m_myCommand = null;
     private String m_strCollectionName = null;
@@ -80,6 +82,13 @@ public class BasicMasterFragment extends ListFragment
     {
         super.onActivityCreated(savedInstanceState);
         
+		// detect free/full version and enable/disable ads
+		if (!Configuration.isFullVersion(getActivity()))
+		{
+			AdView adView = (AdView)getActivity().findViewById(R.id.adView);
+		    adView.loadAd(new AdRequest());
+		}
+
         Bundle args = getArguments();
         if (args != null)
         {
@@ -90,26 +99,12 @@ public class BasicMasterFragment extends ListFragment
         {
         	m_strCollectionName = "commands.json";
         }
-
-        // populate list with our commands, based on preferences
-//        m_myDB = new CommandDBHelper(getActivity());
-        
-//        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-//        boolean bShowFavs = preferences.getBoolean("showOnlyFavorites", false);
         
         CommandCollection myCollection =
         		CollectionManager.getInstance(getActivity()).getCollectionByName(m_strCollectionName);
      
         m_myItems = myCollection.getEntries();
         
-//        if (!bShowFavs)
-//        {
-//        	m_myItems = m_myDB.fetchAllRows();
-//        }
-//        else
-//        {
-//        	m_myItems = m_myDB.fetchFavoriteRows();
-//        }
         m_myAdapter = new CommandListAdapter(getActivity(), m_myItems);
         setListAdapter(m_myAdapter);
         
@@ -117,8 +112,8 @@ public class BasicMasterFragment extends ListFragment
 		
         // Check to see if we have a frame in which to embed the details
         // fragment directly in the containing UI.
-        View detailsFrame = getActivity().findViewById(R.id.details);
-        mDualPane = detailsFrame != null && detailsFrame.getVisibility() == View.VISIBLE;
+//        View detailsFrame = getActivity().findViewById(R.id.details);
+//        mDualPane = detailsFrame != null && detailsFrame.getVisibility() == View.VISIBLE;
 
         if (savedInstanceState != null)
         {
@@ -126,13 +121,13 @@ public class BasicMasterFragment extends ListFragment
             mCurCheckPosition = savedInstanceState.getInt("curChoice", 0);
         }
 
-        if (mDualPane)
-        {
-            // In dual-pane mode, the list view highlights the selected item.
-            getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-            // Make sure our UI is in the correct state.
-            showDetails(mCurCheckPosition);
-        }
+//        if (mDualPane)
+//        {
+//            // In dual-pane mode, the list view highlights the selected item.
+//            getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+//            // Make sure our UI is in the correct state.
+//            showDetails(mCurCheckPosition);
+//        }
     }
 
     @Override

@@ -31,6 +31,7 @@ public class CommandCollection
     private String homepage;
     private String updaterurl;
     private String iconfile;
+    private String maintainer;
     
     private List<Command> entries;
 
@@ -40,6 +41,8 @@ public class CommandCollection
     public String getHomepage() { return homepage; }
     public String getUpdaterUrl() { return updaterurl; }
     public String getIconFile() { return iconfile; }
+    public String getMaintainer() { return maintainer; }
+    
 
     public List<Command> getEntries() { return entries; }
 
@@ -49,6 +52,7 @@ public class CommandCollection
     public void setHomepage(String homepage) { this.homepage = homepage; }
     public void setUpdaterUrl(String updaterurl) { this.updaterurl = updaterurl; }
     public void setIconFile(String iconfile) { this.iconfile = iconfile; }
+    public void setMaintainer(String maintainer) { this.maintainer = maintainer; }
 
     public void setEntries(List<Command> entries) { this.entries = entries; }
 

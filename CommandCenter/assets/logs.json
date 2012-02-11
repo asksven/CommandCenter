@@ -4,4 +4,4 @@
 {"command":"dmesg > /sdcard/dmesg_`date +\"%Y%m%d-%H%M\"`","commandstatus":"","commandvalues":"","tags":"Logging, logcat","regexstatus":"","name":"Dump dmesg","matchregexison":0,"suexec":0,"id":3},
 {"command":"logcat -d -b radio -f /sdcard/logcat_radio_`date +\"%Y%m%d-%H%M\"`","commandstatus":"","commandvalues":"","tags":"Logging, logcat","regexstatus":"","name":"Dump logcat radio","matchregexison":0,"suexec":0,"id":4},
 {"command":"logcat -d -f /sdcard/logcat_`date +\"%Y%m%d-%H%M\"`","commandstatus":"","commandvalues":"","tags":"Logging, logcat","regexstatus":"","name":"Dump logcat","matchregexison":0,"suexec":0,"id":5}
-],"homepage":"","iconfile":"","title":"Logging","updaterurl":"","version":1}
+],"homepage":"","iconfile":"","title":"Logging","updaterurl":"","version":1,"maintainer":"asksven"}

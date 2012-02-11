@@ -10,4 +10,4 @@
 {"command":"echo ?? \u003e /sys/module/irq/parameters/debug_mask","commandstatus":"cat /sys/module/irq/parameters/debug_mask","commandvalues":"0|1|2|4|8","tags":"Debugging, xdandroid","regexstatus":"0","name":"Enable irq debugging","matchregexison":0,"suexec":1,"id":12},
 {"command":"echo ?? \u003e /sys/module/smd/parameters/debug_mask","commandstatus":"cat /sys/module/smd/parameters/debug_mask","commandvalues":"0|3","tags":"Debugging, xdandroid","regexstatus":"0","name":"Enable smd debugging","matchregexison":0,"suexec":1,"id":13},
 {"command":"echo ?? \u003e /sys/devices/platform/usb_mass_storage/lun0/file","commandstatus":"","commandvalues":"??pickfile??:/dev","tags":"Debugging, xdandroid","regexstatus":"","name":"Set mass storage","matchregexison":0,"suexec":1,"id":14}
-],"homepage":"","iconfile":"","title":"XDAndroid","updaterurl":"","version":1}
+],"homepage":"","iconfile":"","title":"XDAndroid","updaterurl":"","version":1,"maintainer":"asksven"}
