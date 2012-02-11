@@ -25,6 +25,7 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.os.Environment;
 import android.util.Log;
 
 import com.asksven.commandcenter.exec.DataStorage;
@@ -63,7 +64,7 @@ public class CommandsIO
 			createExternalStorageEnvironment();
 		}
 		
-		File path = m_ctx.getExternalFilesDir(null);
+		File path = getFileDir(m_ctx);
 
 		// list the files using our FileFilter
 		File[] files = path.listFiles(new CommandCollectionFileFilter());
@@ -77,13 +78,13 @@ public class CommandsIO
 
     protected boolean externalStorageEnvironmentReady()
     {
-    	File path = m_ctx.getExternalFilesDir(null);
+    	File path = getFileDir(m_ctx);
     	return (path.exists());
     }
 
     protected void createExternalStorageEnvironment()
     {
-    	File path = m_ctx.getExternalFilesDir(null);
+    	File path = getFileDir(m_ctx);
     	
 		if (!DataStorage.isExternalStorageWritable())
 		{
@@ -192,5 +193,24 @@ public class CommandsIO
         {
           out.write(buffer, 0, read);
         }
+    }
+    
+    private File getFileDir(Context ctx)
+    {
+    	File path = null;
+    	try
+    	{
+    		path = m_ctx.getExternalFilesDir(null);
+    	}
+    	catch (NoSuchMethodError e)
+    	{
+    		// on Android 2.1 this method does not exist: alternate method
+    		String packageName = ctx.getPackageName();
+    		File externalPath = Environment.getExternalStorageDirectory();
+    		path = new File(externalPath.getAbsolutePath() +
+    		                         "/Android/data/" + packageName + "/files");
+    	}
+    	
+    	return path;
     }
 }

@@ -59,7 +59,19 @@ public class DataStorage
 	
 	public static String getExternalStoragePath(Context ctx)
 	{
-		File path = ctx.getExternalFilesDir(null);
+    	File path = null;
+    	try
+    	{
+    		path = ctx.getExternalFilesDir(null);
+    	}
+    	catch (NoSuchMethodError e)
+    	{
+    		// on Android 2.1 this method does not exist: alternate method
+    		String packageName = ctx.getPackageName();
+    		File externalPath = Environment.getExternalStorageDirectory();
+    		path = new File(externalPath.getAbsolutePath() +
+    		                         "/Android/data/" + packageName + "/files");
+    	}
 		return path.getAbsolutePath();
 	}
 }
