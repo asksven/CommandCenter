@@ -107,11 +107,8 @@ public class CollectionManager
     		CommandsIO.getInstance(ctx).createExternalStorageEnvironment();
     	}
     	
-    	// if there are no files populate with samples
-    	if (CommandsIO.getInstance(ctx).getCollectionFilenames().size() == 0)
-    	{
-    		CommandsIO.getInstance(ctx).CopyAssets();
-    	}
+    	// always populate with samples
+   		CommandsIO.getInstance(ctx).CopyAssets();
     	
     	ArrayList<String> collections = CommandsIO.getInstance(ctx).getCollectionFilenames();
     	m_collections = new HashMap<String, CommandCollection>();
