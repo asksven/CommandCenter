@@ -64,7 +64,21 @@ public class BasicDetailsFragment extends Fragment
     
     public String getCollectionName()
     {
-    	return getArguments().getString("collection", "none");
+    	Bundle args = getArguments();
+    	try
+    	{
+    		return args.getString("collection", "none");
+    	}
+    	catch (NoSuchMethodError e)
+    	{
+    		// for versions not supporting getString("key", "default")
+    		String s = args.getString("collection");
+    		if (s == null)
+    		{
+    			s = "none";
+    		}
+    		return s;
+    	}
     }
 
     @Override
