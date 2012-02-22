@@ -79,7 +79,14 @@ public class CommandsIO
     protected boolean externalStorageEnvironmentReady()
     {
     	File path = getFileDir(m_ctx);
-    	return (path.exists());
+    	if (path != null)
+    	{
+    		return (path.exists());
+    	}
+    	else
+    	{
+    		return false;
+    	}
     }
 
     protected void createExternalStorageEnvironment()
