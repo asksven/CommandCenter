@@ -58,8 +58,6 @@ public class FragmentTabsPager extends FragmentActivity
         	mTabsAdapter.addTab(mTabHost.newTabSpec(strName).setIndicator(strName),
                 BasicMasterFragment.class, tabArgs);
         }
-//        mTabsAdapter.addTab(mTabHost.newTabSpec("third").setIndicator("Tab3"),
-//                AboutFragment.class, null);
 
         if (savedInstanceState != null)
         {

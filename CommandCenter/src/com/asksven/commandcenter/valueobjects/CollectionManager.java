@@ -64,6 +64,8 @@ public class CollectionManager
     private static final String TAG = "CollectionManager";
     private static CollectionManager m_instance;
     private HashMap<String, CommandCollection> m_collections = null;
+     
+    public static final String USER_COLLECTION_NAME = "User";
     
     public static CollectionManager getInstance(Context ctx)
     {
@@ -116,9 +118,26 @@ public class CollectionManager
     	for (int i = 0; i < collections.size(); i++)
     	{
     		String strFileName = collections.get(i);
+    		
     		CommandCollection commands = CommandReaderWriter.readFile(ctx, strFileName);
-    		m_collections.put(commands.getTitle(), commands);
+    		// never import a collection with the name "User"
+    		if (!commands.getTitle().equals(CollectionManager.USER_COLLECTION_NAME))
+    		{
+    			m_collections.put(commands.getTitle(), commands);
+    		}
+    		else
+    		{
+    			Log.e(TAG, "Collection with name " + commands.getTitle()
+    					+ " from file " + strFileName
+    					+ " was not imported");
+    		}
     	}
+    	
+    	// add user commands from database
+    	CommandDBHelper myDB = new CommandDBHelper(ctx);
+    	CommandCollection commands = myDB.getCommandCollection();
+    	commands.setEditable(true);
+    	m_collections.put(commands.getTitle(), commands);
     }
         
 

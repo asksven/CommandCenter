@@ -32,6 +32,7 @@ public class CommandCollection
     private String updaterurl;
     private String iconfile;
     private String maintainer;
+    transient boolean m_bEditable; 
     
     private List<Command> entries;
 
@@ -95,5 +96,14 @@ public class CommandCollection
     	return ret;
     }
     
+    public void setEditable(boolean bEditable)
+    {
+    	m_bEditable = bEditable;
+    }
+    
+    public boolean isEditable()
+    {
+    	return m_bEditable;
+    }
 
 }

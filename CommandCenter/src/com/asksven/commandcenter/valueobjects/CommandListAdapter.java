@@ -99,7 +99,21 @@ public class CommandListAdapter extends BaseAdapter
     {
         return position;
     }
-
+    
+    public void deleteItem(int iKey)
+    {
+		CommandDBHelper myDB = new CommandDBHelper(m_context);
+		myDB.deleteCommand(iKey);
+		m_myItems = myDB.getCommandCollection().getEntries();
+		this.notifyDataSetChanged();
+    }
+    
+    public void reloadFromDatabase()
+    {
+		CommandDBHelper myDB = new CommandDBHelper(m_context);
+		m_myItems = myDB.getCommandCollection().getEntries();
+		this.notifyDataSetChanged();
+    }        
 
 }
 

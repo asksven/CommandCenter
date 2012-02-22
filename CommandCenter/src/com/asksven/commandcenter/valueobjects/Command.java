@@ -30,11 +30,18 @@ public class Command
 	private int matchregexison;
 	private String tags;
 	private int suexec;
+	private String description;
+	private int processresult;
 	
+	
+	public Command()
+	{
+		id = -1;
+	}
 	
 	public Command(String strName, String strCommand, String strCommandValues,
 			String strCommandStatus, String strTags,
-			int iSuExec, String strRegexStatus, int iMatchRegexIsOn)
+			int iSuExec, String strRegexStatus, int iMatchRegexIsOn, String strDescription, int iProcessResult)
 	{
 		id				= -1;
 		name 			= strName;
@@ -45,12 +52,14 @@ public class Command
 		suexec 			= iSuExec;
 		regexstatus 	= strRegexStatus;
 		matchregexison 	= iMatchRegexIsOn;
+		description		= strDescription;
+		processresult	= iProcessResult;
 		
 	}
 	
 	public Command(int iId, String strName, String strCommand, String strCommandValues,
 			String strCommandStatus, String strTags,
-			int iSuExec, String strRegexStatus, int iMatchRegexIsOn)
+			int iSuExec, String strRegexStatus, int iMatchRegexIsOn, String strDescription, int iProcessResult)
 	{
 		id				=iId;
 		name 			= strName;
@@ -61,6 +70,8 @@ public class Command
 		suexec	 		= iSuExec;
 		regexstatus 	= strRegexStatus;
 		matchregexison 	= iMatchRegexIsOn;
+		description		= strDescription;
+		processresult	= iProcessResult;
 	}
 
 	public int getId()
@@ -122,15 +133,42 @@ public class Command
 	{
 		this.regexstatus = status;
 	}
+
+	public void setTags(String strTags)
+	{
+		tags = strTags;
+	}
 	
 	public String getTags()
 	{
 		return tags;
 	}
 
-	public void setGroup(String group)
+	public String getDescription()
 	{
-		this.tags = group;
+		return description;
+	}
+
+	public void setProcessResult(int iProcessResult)
+	{
+		this.processresult = iProcessResult;
+	}
+
+	public void setProcessResult(boolean bProcessResult)
+	{
+		if (bProcessResult)
+		{
+			this.processresult = 1;
+		}
+		else
+		{
+			this.processresult = 0;
+		}
+	}
+	
+	public int getProcessResult()
+	{
+		return processresult;
 	}
 
 	public int getSuExec()
@@ -143,16 +181,45 @@ public class Command
 		this.suexec = iSuExec;
 	}
 
+	public void setSuExec(boolean bSuExec)
+	{
+		if (bSuExec)
+		{
+			this.suexec = 1;
+		}
+		else
+		{
+			this.suexec = 0;
+		}
+	}
+
+	
 	public int getMatchRegexOn()
 	{
 		return matchregexison;
 	}
 
-	public void getMatchRegexOn(int match)
+	public void setMatchRegexOn(int match)
 	{
 		matchregexison = match;
 	}
 
+	public void setMatchRegexOn(boolean bMatch)
+	{
+		if (bMatch)
+		{
+			matchregexison = 1;
+		}
+		else
+		{
+			matchregexison = 0;
+		}
+	}
+
+	public void setDescription(String strDescription)
+	{
+		description = strDescription;
+	}
 	
 	
 	public String execute()

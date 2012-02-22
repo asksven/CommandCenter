@@ -21,12 +21,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.asksven.commandcenter.valueobjects.CollectionManager;
 import com.asksven.commandcenter.valueobjects.Command;
 import com.asksven.commandcenter.valueobjects.CommandCollection;
+import com.asksven.commandcenter.valueobjects.CommandDBHelper;
 //import com.asksven.commandcenter.valueobjects.CommandDBHelper;
 import com.asksven.commandcenter.R;
 
@@ -99,38 +101,107 @@ public class BasicDetailsFragment extends Fragment
 
         View v = inflater.inflate(R.layout.dlg_command, container, false);
 
-        EditText myId = (EditText) v.findViewById(R.id.EditId);
-        EditText myName = (EditText) v.findViewById(R.id.EditName);
-        EditText myCommand = (EditText) v.findViewById(R.id.EditCommand);
-        EditText myCommandValues = (EditText) v.findViewById(R.id.EditCommandValues);
-        EditText myStatus = (EditText) v.findViewById(R.id.EditStatus);
-//        CheckBox myFavorite = (CheckBox) v.findViewById(R.id.CheckBoxFavorite);
-        EditText myStatusRegex = (EditText) v.findViewById(R.id.EditStatusRegex);
-        CheckBox myRegexIsOn = (CheckBox) v.findViewById(R.id.CheckBoxRegexIsOn);
+        final EditText myId = (EditText) v.findViewById(R.id.EditId);
+        final EditText myName = (EditText) v.findViewById(R.id.EditName);
+        final EditText myCommand = (EditText) v.findViewById(R.id.EditCommand);
+        final EditText myCommandValues = (EditText) v.findViewById(R.id.EditCommandValues);
+        final EditText myStatus = (EditText) v.findViewById(R.id.EditStatus);
+        final EditText myStatusRegex = (EditText) v.findViewById(R.id.EditStatusRegex);
+        final CheckBox myRegexIsOn = (CheckBox) v.findViewById(R.id.CheckBoxRegexIsOn);
+        final EditText myTags = (EditText) v.findViewById(R.id.EditTags);
+        final CheckBox mySuExec = (CheckBox) v.findViewById(R.id.CheckBoxSuExec);        
+        final EditText myDescription = (EditText) v.findViewById(R.id.EditDescription);
+        final CheckBox myProcessResult = (CheckBox) v.findViewById(R.id.CheckBoxProcessResult);
+        Button   myButtonSave = (Button) v.findViewById(R.id.ButtonSave);
         
         
-        if (getShownKey() != -1)
-        {
-        	//CommandDBHelper myDB = new CommandDBHelper(getActivity());
-        	CommandCollection commands =
-        			CollectionManager.
-        			getInstance(getActivity()).
-        			getCollectionByName(getCollectionName());
-        	Command myRecord = commands.findById(getShownKey());
-//        	  myRecord = myDB.fetchCommandByKey(getShownKey());
-        	
-        	if (myRecord != null)
-        	{
-	        	myId.setText(String.valueOf(myRecord.getId()));
-	        	myName.setText(myRecord.getName());
-	        	myCommand.setText(myRecord.getCommand());
-	        	myCommandValues.setText(myRecord.getCommandValues());
-	        	myStatus.setText(myRecord.getCommandStatus());
-//	        	myFavorite.setChecked(myRecord.getFavorite()==1);
-	        	myStatusRegex.setText(myRecord.getRegexStatus());
-	        	myRegexIsOn.setChecked(myRecord.getMatchRegexOn()==1);
-        	}
-        }
+    	CommandCollection commands =
+    			CollectionManager.
+    			getInstance(getActivity()).
+    			getCollectionByName(getCollectionName());
+
+    	final Command myRecord;
+    	if (commands.findById(getShownKey()) != null)
+		{
+    		myRecord = commands.findById(getShownKey());
+		}
+    	else
+    	{
+    		myRecord = new Command();
+    	}
+     	
+    	myId.setText(String.valueOf(myRecord.getId()));
+    	myName.setText(myRecord.getName());
+    	myCommand.setText(myRecord.getCommand());
+    	myCommandValues.setText(myRecord.getCommandValues());
+    	myStatus.setText(myRecord.getCommandStatus());
+    	myStatusRegex.setText(myRecord.getRegexStatus());
+    	myRegexIsOn.setChecked(myRecord.getMatchRegexOn()==1);
+    	myTags.setText(myRecord.getTags());
+    	mySuExec.setChecked(myRecord.getSuExec()==1);
+    	myDescription.setText(myRecord.getDescription());
+    	myProcessResult.setChecked(myRecord.getProcessResult()==1);
+    	
+    	// enable edition if user collection
+    	if (!commands.getTitle().equals(CollectionManager.USER_COLLECTION_NAME))
+    	{
+        	myName.setEnabled(false);
+        	myCommand.setEnabled(false);
+        	myCommandValues.setEnabled(false);
+        	myStatus.setEnabled(false);
+        	myStatusRegex.setEnabled(false);
+        	myTags.setEnabled(false);
+        	mySuExec.setEnabled(false);
+        	myRegexIsOn.setEnabled(false);
+        	myDescription.setEnabled(false);
+        	myProcessResult.setEnabled(false);
+    	}
+    	
+    	// enable save button if user collection
+    	if (commands.getTitle().equals(CollectionManager.USER_COLLECTION_NAME))
+    	{
+    		myButtonSave.setVisibility(Button.VISIBLE);
+            myButtonSave.setOnClickListener(new View.OnClickListener()
+            {
+                public void onClick(View v)
+                {
+                	// save changes and close
+
+                	//myId.setText(String.valueOf(myRecord.getId()));
+    	        	myRecord.setName(myName.getText().toString());
+    	        	myRecord.setCommand(myCommand.getText().toString());
+    	        	myRecord.setCommandValues(myCommandValues.getText().toString());
+    	        	myRecord.setCommandStatus(myStatus.getText().toString());
+    	        	myRecord.setRegexStatus(myStatusRegex.getText().toString());
+    	        	myRecord.setMatchRegexOn(myRegexIsOn.isChecked());
+    	        	myRecord.setTags(myTags.getText().toString());
+    	        	myRecord.setSuExec(mySuExec.isChecked());            	        	
+    	        	myRecord.setDescription(myDescription.getText().toString());
+    	        	myRecord.setProcessResult(myProcessResult.isChecked());
+            		
+            		CommandDBHelper myDB = new CommandDBHelper(getActivity());
+    	        	
+                	if (myRecord.getId() != -1)
+                	{
+                		// updating
+        	        	myDB.updateCommand(myRecord.getId(), myRecord);
+                	}
+                	else
+                	{
+                		// inserting
+                		myDB.addCommand(myRecord);
+                	}
+                	
+                	getActivity().finish();
+                }
+            });
+
+    	}
+    	else
+    	{
+    		myButtonSave.setVisibility(Button.INVISIBLE);
+
+    	}
         
         // @todo add button handlers here
         return v;

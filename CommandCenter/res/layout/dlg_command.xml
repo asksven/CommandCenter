@@ -44,7 +44,7 @@
 			    android:id="@+id/EditName"
 			    android:layout_width="fill_parent"
 			    android:layout_height="wrap_content"
-			    android:editable="false"/>
+			    android:editable="true"/>
 			<TextView
 			    android:text="Command"
 			    android:id="@+id/TextView03"
@@ -55,7 +55,7 @@
 			    android:id="@+id/EditCommand"
 			    android:layout_width="fill_parent"
 			    android:layout_height="wrap_content"
-			    android:editable="false"/>
+			    android:editable="true"/>
 			<TextView
 			    android:text="Command values"
 			    android:id="@+id/TextView03"
@@ -66,7 +66,7 @@
 			    android:id="@+id/EditCommandValues"
 			    android:layout_width="fill_parent"
 			    android:layout_height="wrap_content"
-			    android:editable="false"/>
+			    android:editable="true"/>
 			<TextView
 			    android:text="Status command"
 			    android:id="@+id/TextView03"
@@ -77,7 +77,7 @@
 			    android:id="@+id/EditStatus"
 			    android:layout_width="fill_parent"
 			    android:layout_height="wrap_content"
-			    android:editable="false"/>
+			    android:editable="true"/>
 			<TextView
 			    android:text="Regex"
 			    android:id="@+id/TextView03"
@@ -88,7 +88,7 @@
 			    android:id="@+id/EditStatusRegex"
 			    android:layout_width="fill_parent"
 			    android:layout_height="wrap_content"
-			    android:editable="false"/>
+			    android:editable="true"/>
 			<TextView
 			    android:text="Enable regex match"
 			    android:id="@+id/TextView03"
@@ -99,22 +99,71 @@
 			    android:id="@+id/CheckBoxRegexIsOn"
 			    android:layout_width="wrap_content"
 			    android:layout_height="wrap_content"
-			    android:editable="false"/>
+			    android:editable="true"/>
+
+			<TextView
+			    android:text="Tags"
+			    android:id="@+id/TextView03"
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"/>
+						
+			<EditText
+			    android:text=""
+			    android:id="@+id/EditTags"
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+			    android:editable="true"/>
+			
+			<TextView
+			    android:text="Execute with su"
+			    android:id="@+id/TextView03"
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"/>
+			<CheckBox
+			    android:text=""
+			    android:id="@+id/CheckBoxSuExec"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:editable="true"/>
+												
+			<TextView
+			    android:text="Description"
+			    android:id="@+id/TextView03"
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"/>
+						
+			<EditText
+			    android:text=""
+			    android:id="@+id/EditDescription"
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+			    android:editable="true"/>
+
+			<TextView
+			    android:text="Show result"
+			    android:id="@+id/TextView03"
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"/>
+			<CheckBox
+			    android:text=""
+			    android:id="@+id/CheckBoxProcessResult"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:editable="true"/>
+									
 <!-- 			
 			<LinearLayout 
 			    android:id="@+id/LinearLayout26"
 			    android:layout_width="fill_parent"
 			    android:layout_height="wrap_content"
 			    android:orientation="horizontal">
-				
+-->				
 				<Button
 				    android:text="Save"
-				    android:id="@+id/ButtonOK"
-				    android:layout_width="wrap_content"
-				    android:layout_height="wrap_content"
-				    android:layout_marginLeft="50px"
-				    android:layout_marginRight="10px"/>
-				<Button
+				    android:id="@+id/ButtonSave"
+				    android:layout_width="fill_parent"
+				    android:layout_height="wrap_content"/>
+<!-- 				<Button
 				    android:text="Cancel"
 				    android:id="@+id/ButtonCancel"
 				    android:layout_width="wrap_content"

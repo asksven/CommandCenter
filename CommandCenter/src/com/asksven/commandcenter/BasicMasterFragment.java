@@ -41,6 +41,7 @@ import com.asksven.commandcenter.utils.Configuration;
 import com.asksven.commandcenter.valueobjects.CollectionManager;
 import com.asksven.commandcenter.valueobjects.Command;
 import com.asksven.commandcenter.valueobjects.CommandCollection;
+import com.asksven.commandcenter.valueobjects.CommandDBHelper;
 import com.asksven.commandcenter.valueobjects.CommandListAdapter;
 import com.asksven.commandcenter.R;
 import com.google.ads.AdRequest;
@@ -57,6 +58,7 @@ import com.google.ads.AdView;
  */
 public class BasicMasterFragment extends ListFragment
 {
+	private static final String TAG = "BasicMasterFragment";
     boolean mDualPane;
     int mCurCheckPosition = 0;
     
@@ -64,11 +66,14 @@ public class BasicMasterFragment extends ListFragment
     private Command m_myCommand = null;
     private String m_strCollectionName = null;
     private CommandListAdapter m_myAdapter = null;
+    boolean m_bEditable = false;
     
     static final int CONTEXT_EDIT_ID 		= 100;
-    static final int CONTEXT_DELETE_ID 		= 101;
-    static final int CONTEXT_EXECUTE_ID 	= 102;
-    static final int CONTEXT_ADDFAV_ID	 	= 103;
+    static final int CONTEXT_VIEW_ID 		= 101;
+    static final int CONTEXT_DELETE_ID 		= 102;
+    static final int CONTEXT_EXECUTE_ID 	= 103;
+    static final int CONTEXT_ADDUSER_ID	 	= 104;
+    static final int CONTEXT_ADD_ID		 	= 105;
     
     /** each frgment gets its own ID for handling the context menu callback */
     int m_iContextMenuId = 0;
@@ -103,6 +108,8 @@ public class BasicMasterFragment extends ListFragment
         CommandCollection myCollection =
         		CollectionManager.getInstance(getActivity()).getCollectionByName(m_strCollectionName);
      
+        m_bEditable = myCollection.isEditable();
+        
         m_myItems = myCollection.getEntries();
         
         m_myAdapter = new CommandListAdapter(getActivity(), m_myItems);
@@ -135,6 +142,17 @@ public class BasicMasterFragment extends ListFragment
     {
         super.onSaveInstanceState(outState);
         outState.putInt("curChoice", mCurCheckPosition);
+    }
+
+    @Override
+    public void onResume()
+    {
+    	super.onResume();
+    	// if editable refresh from database
+    	if (m_bEditable)
+    	{
+    		m_myAdapter.reloadFromDatabase();
+    	}
     }
 
     @Override
@@ -205,10 +223,21 @@ public class BasicMasterFragment extends ListFragment
     {
     	super.onCreateContextMenu(menu, v, info);
         menu.setHeaderTitle("Actions");
-        menu.add(m_iContextMenuId, CONTEXT_EDIT_ID, Menu.NONE, "Edit");
-        menu.add(m_iContextMenuId, CONTEXT_EXECUTE_ID, Menu.NONE, "Execute");
-        
-//        mItem = menu.add(Menu.NONE, CONTEXT_ADDFAV_ID, Menu.NONE, "Add to Favorites");    
+        // menu depends on capabilities
+        if (m_bEditable)
+        {
+        	menu.add(m_iContextMenuId, CONTEXT_ADD_ID, Menu.NONE, "Add");
+        	menu.add(m_iContextMenuId, CONTEXT_EDIT_ID, Menu.NONE, "Edit");
+        	menu.add(m_iContextMenuId, CONTEXT_DELETE_ID, Menu.NONE, "Delete");
+        	menu.add(m_iContextMenuId, CONTEXT_EXECUTE_ID, Menu.NONE, "Execute");
+        	
+        }
+        else
+        {
+        	menu.add(m_iContextMenuId, CONTEXT_VIEW_ID, Menu.NONE, "View");
+        	menu.add(m_iContextMenuId, CONTEXT_EXECUTE_ID, Menu.NONE, "Execute");
+        	menu.add(m_iContextMenuId, CONTEXT_ADDUSER_ID, Menu.NONE, "Copy to User commands");
+        }
    } 
     
     @Override
@@ -224,10 +253,29 @@ public class BasicMasterFragment extends ListFragment
     	
 	    	switch(item.getItemId())
 	    	{
+	    		case CONTEXT_ADD_ID:
+    	    	
+    	    	if (m_myCommand != null)
+    	    	{
+    	            showDetails(-1);
+    	    	}
+    			return true;
+    			
+	    		case CONTEXT_DELETE_ID:
+	    	    	
+	    	    	if (m_myCommand != null)
+	    	    	{
+	    	    		Log.i(TAG, "Deleting command");
+	    	    		// TODO add yes/no dialog
+	    	    		deleteCommand(m_myCommand.getId());
+	    	    	}
+	    			return true;
+
 	    		case CONTEXT_EDIT_ID:
 	    	    	
 	    	    	if (m_myCommand != null)
 	    	    	{
+	    	    		Log.i(TAG, "Editing command");
 	    	            showDetails(m_myCommand.getId());
 	    	    	}
 	    			return true;
@@ -235,19 +283,21 @@ public class BasicMasterFragment extends ListFragment
 	    		case CONTEXT_EXECUTE_ID:
 	    	    	if (m_myCommand != null)
 	    	    	{
-		    			Log.i(getClass().getSimpleName(), "Running command");
+		    			Log.i(TAG, "Running command");
 		    			executeCommand(m_myCommand);
 		    			refreshList();
 		    			return true;
-	   	    		}
+	   	    		}	
+	    	    	
+	    		case CONTEXT_ADDUSER_ID:
+	    	    	if (m_myCommand != null)
+	    	    	{
+		    			Log.i(TAG, "Copying command to user commands");
+		    			copyToUser(m_myCommand);
+		    			refreshList();
+		    			return true;
+	   	    		}	
 	
-	//    		case CONTEXT_ADDFAV_ID:
-	//    			m_myCommand.setFavorite(1);
-	//    			m_myDB.updateCommand(m_myCommand.getId(), m_myCommand);
-	//    			refreshList(-1); 
-	//    			return true;
-	
-	    			
 	    		default:
 	    			return false;
 	    	}
@@ -360,6 +410,25 @@ public class BasicMasterFragment extends ListFragment
     	// todo refresh
     	m_myAdapter.notifyDataSetChanged();
     }
-
-
+    
+    void deleteCommand(int iKey)
+    {
+    	// delete the command from the database and reload
+    	// works only for "user" commands
+    	if (m_bEditable)
+    	{
+    		m_myAdapter.deleteItem(iKey);
+    	}
+    	else
+    	{
+    		Log.e(TAG, "deleteCommand can not be called for non editable command sets");
+    	}
+    }
+    
+    void copyToUser(Command myCommand)
+    {
+    	CommandDBHelper myDB = new CommandDBHelper(getActivity());
+    	myCommand.setName("Copy of " + myCommand.getName());
+    	myDB.addCommand(myCommand);
+    }
 }
