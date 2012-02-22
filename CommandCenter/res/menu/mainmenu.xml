@@ -5,6 +5,9 @@
           showAsAction="ifRoom"/>
 	<item android:id="@+id/about"
      	android:title="About" />
+	<item android:id="@+id/release_notes"
+     	android:title="Release Notes" />
+	
 <!-- 
 	<item android:id="@+id/test"
      	android:title="Create sample" />

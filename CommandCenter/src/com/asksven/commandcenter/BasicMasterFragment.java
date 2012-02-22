@@ -236,7 +236,7 @@ public class BasicMasterFragment extends ListFragment
         {
         	menu.add(m_iContextMenuId, CONTEXT_VIEW_ID, Menu.NONE, "View");
         	menu.add(m_iContextMenuId, CONTEXT_EXECUTE_ID, Menu.NONE, "Execute");
-        	menu.add(m_iContextMenuId, CONTEXT_ADDUSER_ID, Menu.NONE, "Copy to User commands");
+        	menu.add(m_iContextMenuId, CONTEXT_ADDUSER_ID, Menu.NONE, "Copy to User");
         }
    } 
     

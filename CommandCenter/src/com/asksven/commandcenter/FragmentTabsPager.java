@@ -2,7 +2,10 @@ package com.asksven.commandcenter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -16,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Set;
 
+import com.asksven.commandcenter.ReadmeActivity;
 import com.asksven.commandcenter.valueobjects.CollectionManager;
 import com.asksven.commandcenter.R;
 
@@ -63,6 +67,36 @@ public class FragmentTabsPager extends FragmentActivity
         {
             mTabHost.setCurrentTabByTag(savedInstanceState.getString("tab"));
         }
+        
+        // Show release notes when first starting a new version
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+		String strLastRelease	= sharedPrefs.getString("last_release", "0");
+		String strCurrentRelease = "";
+
+		try
+		{
+			PackageInfo pinfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+			
+	    	strCurrentRelease = Integer.toString(pinfo.versionCode);
+		}
+		catch (Exception e)
+		{
+			// nop strCurrentRelease is set to ""
+		}
+
+		if (!strLastRelease.equals(strCurrentRelease))
+    	{
+    		// show the readme
+	    	Intent intentReleaseNotes = new Intent(this, ReadmeActivity.class);
+	    	intentReleaseNotes.putExtra("filename", "readme.html");
+	        this.startActivity(intentReleaseNotes);
+	        
+	        // save the current release to properties so that the dialog won't be shown till next version
+	        SharedPreferences.Editor editor = sharedPrefs.edit();
+	        editor.putString("last_release", strCurrentRelease);
+	        editor.commit();
+    	}
+
     }
 
     @Override
@@ -103,6 +137,13 @@ public class FragmentTabsPager extends FragmentActivity
             	Intent intentAbout = new Intent(this, AboutActivity.class);
                 this.startActivity(intentAbout);
             	break;
+	        case R.id.release_notes:
+            	// Release notes
+            	Intent intentReleaseNotes = new Intent(this, ReadmeActivity.class);
+            	intentReleaseNotes.putExtra("filename", "readme.html");
+                this.startActivity(intentReleaseNotes);
+            	break;	
+	
 //	        case R.id.test:	
 //	        	CommandDBHelper db = new CommandDBHelper(this);
 //	        	List<Command> myCommands = db.fetchAllRows();

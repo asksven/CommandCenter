@@ -38,8 +38,9 @@
 		<activity android:name=".BasicActivity" android:label="Commands"></activity>
 		<activity android:name=".MainActivity" android:label="Old Commands"></activity>
  -->		
-		<activity android:name=".BasicDetailsActivity" android:label="Details"></activity>
-		<activity android:name=".AboutActivity" android:label="About"></activity>
+		<activity android:name=".BasicDetailsActivity" android:label="Details"/>
+		<activity android:name=".AboutActivity" android:label="About"/>
+		<activity android:name=".ReadmeActivity" android:label="Release Notes"/>
 		<activity android:name="com.google.ads.AdActivity"
               android:configChanges="keyboard|keyboardHidden|orientation"/>
 <!-- 
