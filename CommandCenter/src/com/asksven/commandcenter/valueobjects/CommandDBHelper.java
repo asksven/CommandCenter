@@ -233,6 +233,26 @@ public class CommandDBHelper
 	    */
     }
 	
+    /**
+     * Populates a database buffer from a value object
+     * @param val the database buffer
+     * @param record a value object
+     */
+    void populateValues(ContentValues val, Command record)
+    {
+    	val.put("name", record.getName());
+    	val.put("command", record.getCommand());
+    	val.put("command_values", record.getCommandValues());
+    	val.put("command_status", record.getCommandStatus());
+    	val.put("tags", record.getTags());
+    	val.put("regexstatus", record.getRegexStatus());
+    	val.put("matchregexison", record.getMatchRegexOn());
+    	val.put("tags", record.getTags());
+    	val.put("suexec", record.getSuExec());
+    	val.put("description", record.getDescription());
+    	val.put("processresult", record.getProcessResult());
+
+    }
 	/**
 	 * 
 	 * @param entry
@@ -240,17 +260,7 @@ public class CommandDBHelper
 	public void addCommand(Command entry)
 	{
 		ContentValues initialValues = new ContentValues();
-	    initialValues.put("name", entry.getName());
-	    initialValues.put("command", entry.getCommand());
-	    initialValues.put("command_values", entry.getCommandValues());
-	    initialValues.put("command_status", entry.getCommandStatus());
-	    initialValues.put("tags", entry.getTags());
-	    initialValues.put("regexstatus", entry.getRegexStatus());
-	    initialValues.put("matchregexison", entry.getMatchRegexOn());
-	    initialValues.put("tags", entry.getTags());
-	    initialValues.put("suexec", entry.getSuExec());
-	    initialValues.put("description", entry.getDescription());
-	    initialValues.put("processresult", entry.getProcessResult());
+		populateValues(initialValues, entry);
 	
 	    try
 	    {
@@ -395,15 +405,8 @@ public class CommandDBHelper
 	public void updateCommand(long Id, Command entry)
 	{
 	    ContentValues args = new ContentValues();
+	    populateValues(args, entry);
 	    args.put("id", Id);
-	    args.put("name", entry.getName());
-	    args.put("command", entry.getCommand());
-	    args.put("command_values", entry.getCommandValues());
-	    args.put("command_status", entry.getCommandStatus());
-	    args.put("tags", entry.getTags());
-	    args.put("regexstatus", entry.getRegexStatus());
-	    args.put("matchregexison", entry.getMatchRegexOn());
-	    args.put("description", entry.getDescription());
 	    
 	    try
 	    {

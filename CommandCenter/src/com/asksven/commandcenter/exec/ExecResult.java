@@ -46,4 +46,10 @@ public class ExecResult
 		
 		return strRes;
 	}
+	
+	public ArrayList<String> getResultLines()
+	{
+		return m_oResult;
+	}
+
 }

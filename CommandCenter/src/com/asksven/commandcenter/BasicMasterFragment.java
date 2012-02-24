@@ -16,9 +16,11 @@
 
 package com.asksven.commandcenter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -34,9 +36,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-
 import com.asksven.commandcenter.utils.Configuration;
 import com.asksven.commandcenter.valueobjects.CollectionManager;
 import com.asksven.commandcenter.valueobjects.Command;
@@ -398,13 +400,39 @@ public class BasicMasterFragment extends ListFragment
 		}
 		else
 		{
-			m_myCommand.execute();
+			ArrayList<String> myRes = m_myCommand.execute();
 			Toast.makeText(getActivity(), "Executing " + m_myCommand.getCommand(), Toast.LENGTH_LONG).show();
+			showDialog(myRes);
+			
 
 		}
 	
     }
     
+    private void showDialog(ArrayList<String> myItems)
+    {
+    	if ( (myItems != null) && (myItems.size() > 0) )
+    	{
+        	Dialog dialog = new Dialog(getActivity());
+        	
+        	dialog.setContentView(R.layout.dialog);
+        	dialog.setTitle("Returned");
+
+        	
+        	String strText = "";
+        	if (myItems != null)
+        	{
+        		for (int i=0; i<myItems.size(); i++)
+        		{
+    				strText = strText + myItems.get(i) + "\n";
+        		}
+        	}
+        	TextView text = (TextView) dialog.findViewById(R.id.text);
+        	text.setText(strText);
+        	dialog.show();
+
+    	}
+    }
     private void refreshList()
     {
     	// todo refresh

@@ -18,6 +18,7 @@ package com.asksven.commandcenter.exec;
 
 import java.io.*;
 
+
 import android.util.Log;
 
 /** A class that eases the pain of running external processes
@@ -56,6 +57,7 @@ import android.util.Log;
 public class Exec {
 
 
+	private static final String TAG = "Exec";
   /** Starts a process to execute the command. Returns
     * immediately, even if the new process is still running.
     *
@@ -100,6 +102,12 @@ public class Exec {
   public static ExecResult execPrint(String command) {
     return(exec(command, true, false));
   }
+  
+  public static ExecResult execPrint(String[] command)
+  {
+    return(exec(command, true, false));
+  }
+
 
   /** This creates a Process object via Runtime.getRuntime.exec()
     * Depending on the flags, it may call waitFor on the process
@@ -176,6 +184,58 @@ public class Exec {
 	  return oRet;
   }
   
+	private static ExecResult exec(String[] command, boolean printResults,
+			boolean wait) {
+		ExecResult oRet = new ExecResult();
+		try {
+			// Start running command, returning immediately.
+			Log.d("Exec.exec", "Executing command " + command);
+			Process p = Runtime.getRuntime().exec(command);
+
+			// Print the output. Since we read until there is no more
+			// input, this causes us to wait until the process is
+			// completed.
+			if (printResults) {
+				BufferedReader buffer = new BufferedReader(
+						new InputStreamReader(p.getInputStream()));
+				String s = null;
+				try {
+					while ((s = buffer.readLine()) != null) {
+						oRet.m_oResult.add(s);
+					}
+					buffer.close();
+					if (p.exitValue() != 0) {
+						oRet.m_bSuccess = false;
+						return (oRet);
+					}
+				} catch (Exception e) {
+					// Ignore read errors; they mean the process is done.
+				}
+
+				// If not printing the results, then we should call waitFor
+				// to stop until the process is completed.
+			} else if (wait) {
+				try {
+					int returnVal = p.waitFor();
+					if (returnVal != 0) {
+						oRet.m_bSuccess = false;
+						return oRet;
+					}
+				} catch (Exception e) {
+					oRet.m_oError.add(e.getMessage());
+					oRet.m_bSuccess = false;
+					return oRet;
+				}
+			}
+		} catch (Exception e) {
+			oRet.m_oError.add(e.getMessage());
+			oRet.m_bSuccess = false;
+			return oRet;
+		}
+		oRet.m_bSuccess = true;
+		return oRet;
+	}
+
 	public static void suExec(String strCommand)
 	{
 		try
@@ -216,5 +276,20 @@ public class Exec {
 		{
 			e.printStackTrace();
 		}
+	}
+	
+	public static ExecResult shExecPrint(String strCommand)
+	{
+		  ExecResult res = execPrint(new String[]{"sh", "-c", strCommand});
+			
+		  return res;
 	}	
+
+	public static ExecResult suExecPrint(String strCommand)
+	{
+		  ExecResult res = execPrint(new String[]{"su", "-c", strCommand});
+			
+		  return res;
+	}	
+
 }

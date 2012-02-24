@@ -273,6 +273,7 @@ public class FragmentTabsPager extends FragmentActivity
         {
             int position = mTabHost.getCurrentTab();
             mViewPager.setCurrentItem(position);
+            notifyDataSetChanged();
         }
 
         @Override

@@ -16,6 +16,8 @@
 
 package com.asksven.commandcenter.valueobjects;
 
+import java.util.ArrayList;
+
 import com.asksven.commandcenter.exec.Exec;
 import com.asksven.commandcenter.exec.ExecResult;
 
@@ -222,25 +224,39 @@ public class Command
 	}
 	
 	
-	public String execute()
+	public ArrayList<String> execute()
 	{
-		String strRet="";
+		ArrayList<String> strRet = null;
 		
 		if (this.getCommand().length() != 0)
 		{
 			if (this.getSuExec() == 1)
 			{
-				Exec.suExec(this.getCommand());
+				if (this.processresult == 1)
+				{
+					Exec.suExecPrint(this.getCommand()).getResultLines();
+				}
+				else
+				{
+					Exec.suExec(this.getCommand());
+				}
 			}
 			else
 			{
-				Exec.shExec(this.getCommand());
+				if (this.processresult == 1)
+				{
+					strRet = Exec.shExecPrint(this.getCommand()).getResultLines();
+				}
+				else
+				{
+					Exec.shExec(this.getCommand());
+				}
 			}
 			
-			if (commandstatus.length() != 0)
-			{
-				strRet = Command.exec(commandstatus, false);
-			}
+//			if (commandstatus.length() != 0)
+//			{
+//				strRet = Command.exec(commandstatus, false);
+//			}
 		}
 		return strRet;
 	}
@@ -263,10 +279,10 @@ public class Command
 				Exec.shExec(strCommand);
 			}
 			
-			if (commandstatus.length() != 0)
-			{
-				strRet = Command.exec(commandstatus, false);
-			}
+//			if (commandstatus.length() != 0)
+//			{
+//				strRet = Command.exec(commandstatus, false);
+//			}
 		}
 		return strRet;
 	}
