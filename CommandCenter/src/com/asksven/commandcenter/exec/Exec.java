@@ -185,9 +185,11 @@ public class Exec {
   }
   
 	private static ExecResult exec(String[] command, boolean printResults,
-			boolean wait) {
+			boolean wait)
+	{
 		ExecResult oRet = new ExecResult();
-		try {
+		try
+		{
 			// Start running command, returning immediately.
 			Log.d("Exec.exec", "Executing command " + command);
 			Process p = Runtime.getRuntime().exec(command);
@@ -195,39 +197,55 @@ public class Exec {
 			// Print the output. Since we read until there is no more
 			// input, this causes us to wait until the process is
 			// completed.
-			if (printResults) {
+			if (printResults)
+			{
 				BufferedReader buffer = new BufferedReader(
 						new InputStreamReader(p.getInputStream()));
 				String s = null;
-				try {
-					while ((s = buffer.readLine()) != null) {
+				try
+				{
+					int limit = 20;
+					int i = 0;
+					while (( i <= limit) && ((s = buffer.readLine()) != null))
+					{
 						oRet.m_oResult.add(s);
+						i++;
 					}
 					buffer.close();
-					if (p.exitValue() != 0) {
+					if (p.exitValue() != 0)
+					{
 						oRet.m_bSuccess = false;
 						return (oRet);
 					}
-				} catch (Exception e) {
+				}
+				catch (Exception e)
+				{
 					// Ignore read errors; they mean the process is done.
 				}
 
 				// If not printing the results, then we should call waitFor
 				// to stop until the process is completed.
-			} else if (wait) {
-				try {
+			}
+			else if (wait)
+			{
+				try
+				{
 					int returnVal = p.waitFor();
-					if (returnVal != 0) {
+					if (returnVal != 0)
+					{
 						oRet.m_bSuccess = false;
 						return oRet;
 					}
-				} catch (Exception e) {
+				} catch (Exception e)
+				{
 					oRet.m_oError.add(e.getMessage());
 					oRet.m_bSuccess = false;
 					return oRet;
 				}
 			}
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			oRet.m_oError.add(e.getMessage());
 			oRet.m_bSuccess = false;
 			return oRet;
