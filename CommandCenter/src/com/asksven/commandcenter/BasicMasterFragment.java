@@ -26,6 +26,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentTransaction;
@@ -65,7 +66,10 @@ public class BasicMasterFragment extends ListFragment
     int mCurCheckPosition = 0;
     
     private List<Command> m_myItems;
+    
+    /** the currently selected command (to be run by thread */    
     private Command m_myCommand = null;
+    
     private String m_strCollectionName = null;
     private CommandListAdapter m_myAdapter = null;
     boolean m_bEditable = false;
@@ -154,6 +158,13 @@ public class BasicMasterFragment extends ListFragment
     	if (m_bEditable)
     	{
     		m_myAdapter.reloadFromDatabase();
+    	}
+    	else
+    	{
+    		CommandCollection myCollection =
+            		CollectionManager.getInstance(getActivity()).getCollectionByName(m_strCollectionName);   
+            m_myItems = myCollection.getEntries();
+         
     	}
     }
 
@@ -390,7 +401,9 @@ public class BasicMasterFragment extends ListFragment
 				    	CharSequence[] tokens = strSelection.split("\\:");
 				    	strSelection = (String) tokens[0];
 				    	
-				        cmd.execute(strSelection);
+				    	m_myCommand = cmd;
+//				        cmd.execute(strSelection);
+				        new ExecuteCommandTask().execute(strSelection);
 				        Toast.makeText(getActivity(), "Executing " + m_myCommand.getCommand(), Toast.LENGTH_LONG).show();
 		    			refreshList();
 				    }
@@ -400,9 +413,11 @@ public class BasicMasterFragment extends ListFragment
 		}
 		else
 		{
-			ArrayList<String> myRes = m_myCommand.execute();
+//			ArrayList<String> myRes = m_myCommand.execute();
+			new ExecuteCommandTask().execute("");
 			Toast.makeText(getActivity(), "Executing " + m_myCommand.getCommand(), Toast.LENGTH_LONG).show();
-			showDialog(myRes);
+//			showDialog(myRes);
+			refreshList();
 			
 
 		}
@@ -459,4 +474,20 @@ public class BasicMasterFragment extends ListFragment
     	myCommand.setName("Copy of " + myCommand.getName());
     	myDB.addCommand(myCommand);
     }
+    
+	private class ExecuteCommandTask extends AsyncTask<String, Void, ArrayList<String>>
+	{
+	     protected ArrayList<String> doInBackground(String... args)
+	     {
+	         return m_myCommand.execute(args[0]);
+	     }
+
+	     protected void onPostExecute(ArrayList<String> result)
+	     {
+	         //mImageView.setImageBitmap(result);
+	    	 showDialog(result);
+	     }
+	 }
+
+
 }
