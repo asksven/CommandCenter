@@ -85,6 +85,7 @@ public class CollectionManager
      */
     public CommandCollection getCollectionByName(String strName)
     {
+    	m_collections.get(strName).updateCache();
     	return m_collections.get(strName);
     }
     

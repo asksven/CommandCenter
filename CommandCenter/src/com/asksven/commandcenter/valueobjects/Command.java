@@ -34,6 +34,8 @@ public class Command
 	private int suexec;
 	private String description;
 	private int processresult;
+	transient private String status_cached;
+	transient private boolean ison_cached;
 	
 	
 	public Command()
@@ -224,70 +226,46 @@ public class Command
 	}
 	
 	
-	public ArrayList<String> execute()
+	public ArrayList<String> execute(String strValue)
 	{
 		ArrayList<String> strRet = null;
 		
 		if (this.getCommand().length() != 0)
 		{
-			if (this.getSuExec() == 1)
-			{
-				if (this.processresult == 1)
-				{
-					Exec.suExecPrint(this.getCommand()).getResultLines();
-				}
-				else
-				{
-					Exec.suExec(this.getCommand());
-				}
-			}
-			else
-			{
-				if (this.processresult == 1)
-				{
-					strRet = Exec.shExecPrint(this.getCommand()).getResultLines();
-				}
-				else
-				{
-					Exec.shExec(this.getCommand());
-				}
-			}
-			
-//			if (commandstatus.length() != 0)
-//			{
-//				strRet = Command.exec(commandstatus, false);
-//			}
-		}
-		return strRet;
-	}
-
-	/** replace placeholder with strValue and execute */
-	public String execute(String strValue)
-	{
-		
-		String strRet="";
-		
-		if (this.getCommand().length() != 0)
-		{
 			String strCommand = this.replace( this.getCommand(), "??", strValue);
+			
 			if (this.getSuExec() == 1)
 			{
-			  Exec.suExec(strCommand);
+				if (this.processresult == 1)
+				{
+					strRet = Exec.suExecPrint(strCommand).getResultLines();
+				}
+				else
+				{
+					Exec.suExec(strCommand);
+				}
 			}
 			else
 			{
-				Exec.shExec(strCommand);
-			}
-			
-//			if (commandstatus.length() != 0)
-//			{
-//				strRet = Command.exec(commandstatus, false);
-//			}
+				if (this.processresult == 1)
+				{
+					strRet = Exec.shExecPrint(strCommand).getResultLines();
+				}
+				else
+				{
+					Exec.shExec(strCommand);
+				}
+			}			
 		}
 		return strRet;
 	}
 
-	public String getStatus()
+	public ArrayList<String> execute()
+	{
+		return execute("");
+	}
+
+	private String getStatus()
 	{
 		String strRet = "";
 		if (commandstatus.length() != 0)
@@ -310,8 +288,18 @@ public class Command
 		}
 	}
 
+	public boolean isOnCached()
+	{
+		return ison_cached;
+	}
+	
+	public String getStatusCached()
+	{
+		return status_cached;
+	}
+	
 	/** returns the state of the command: the state is false if the command is no toggle, else it depends on regex */
-	public boolean isOn()
+	private boolean isOn()
 	{
 		boolean bRet = false;
 		if (!this.getStatus().equals(""))
@@ -355,5 +343,14 @@ public class Command
 		result.append(str.substring(s));
 		return result.toString();
 	} 
+	
+	/**
+	 * Update the cached values. Note that this call must happen from a thread
+	 */
+	protected void updateCache()
+	{
+		status_cached = getStatus();
+		ison_cached = isOn();
+	}
 	
 }

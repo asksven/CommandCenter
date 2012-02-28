@@ -106,4 +106,12 @@ public class CommandCollection
     	return m_bEditable;
     }
 
+    protected void updateCache()
+    {
+    	for (int i=0; i < entries.size(); i++)
+    	{
+    		((Command) entries.get(i)).updateCache();
+    	}
+    	
+    }
 }
