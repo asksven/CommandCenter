@@ -115,7 +115,7 @@ public class Exec {
     * an input stream from the process to read the results.
     */
 
-  private static ExecResult exec(String command,
+  private synchronized static ExecResult exec(String command,
                               boolean printResults,
                               boolean wait)
   {
@@ -184,7 +184,7 @@ public class Exec {
 	  return oRet;
   }
   
-	private static ExecResult exec(String[] command, boolean printResults,
+	private synchronized static ExecResult exec(String[] command, boolean printResults,
 			boolean wait)
 	{
 		ExecResult oRet = new ExecResult();

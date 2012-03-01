@@ -6,9 +6,14 @@
 		android:key="execOnSelect"
 		android:summary="A single tap runs the command"
 		android:title="Execute on tap" 
-		android:defaultValue="false"
-    />    
+		android:defaultValue="false"/>    
 
+	<CheckBoxPreference 
+		android:key="autoRunStatus"
+		android:summary="Run status commands in background"
+		android:title="Background commands" 
+		android:defaultValue="true"/>    
+	
 <!-- 	<CheckBoxPreference  -->
 <!-- 		android:key="showOnlyFavorites" -->
 <!-- 		android:summary="Show only favorite commands" -->

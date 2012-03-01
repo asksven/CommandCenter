@@ -16,7 +16,9 @@
 
 package com.asksven.commandcenter;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -114,11 +116,13 @@ public class BasicDetailsFragment extends Fragment
         final CheckBox myProcessResult = (CheckBox) v.findViewById(R.id.CheckBoxProcessResult);
         Button   myButtonSave = (Button) v.findViewById(R.id.ButtonSave);
         
-        
+    	SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+    	boolean updateCache = preferences.getBoolean("autoRunStatus", true);
+
     	CommandCollection commands =
     			CollectionManager.
     			getInstance(getActivity()).
-    			getCollectionByName(getCollectionName());
+    			getCollectionByName(getCollectionName(), false);
 
     	final Command myRecord;
     	if (commands.findById(getShownKey()) != null)

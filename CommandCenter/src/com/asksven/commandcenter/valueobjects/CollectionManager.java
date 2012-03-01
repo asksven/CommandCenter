@@ -83,9 +83,12 @@ public class CollectionManager
      * @param strName the name of a collection
      * @return a command collection or null
      */
-    public CommandCollection getCollectionByName(String strName)
+    public CommandCollection getCollectionByName(String strName, boolean updateCache)
     {
-    	m_collections.get(strName).updateCache();
+    	if (updateCache)
+    	{
+    		m_collections.get(strName).updateCache();
+    	}
     	return m_collections.get(strName);
     }
     

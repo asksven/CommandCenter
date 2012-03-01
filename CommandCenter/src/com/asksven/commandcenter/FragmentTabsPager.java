@@ -129,6 +129,7 @@ public class FragmentTabsPager extends FragmentActivity
 	        	break;	
 
 //	        case R.id.refresh:
+//	        	mTabsAdapter.mContext.
 //            	// Refresh
 ////	        	doRefresh();
 //            	break;

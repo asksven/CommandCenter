@@ -22,7 +22,9 @@ import com.asksven.commandcenter.valueobjects.Command;
 import com.asksven.commandcenter.R;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -61,8 +63,11 @@ public class CommandDetailsActivity extends Activity
         
         if (m_iPosition != -1)
         {
+        	SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        	boolean updateCache = preferences.getBoolean("autoRunStatus", true);
+
         	Command myRecord = CollectionManager
-        			.getInstance(this).getCollectionByName(m_strCollection)
+        			.getInstance(this).getCollectionByName(m_strCollection, updateCache)
         			.findById(m_iPosition);
 //        	CommandDBHelper myDB = new CommandDBHelper(CommandDetailsActivity.this);
 //        	Command myRecord = myDB.fetchCommandByKey(m_iPosition);

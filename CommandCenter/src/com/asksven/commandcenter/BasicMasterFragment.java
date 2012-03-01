@@ -80,6 +80,8 @@ public class BasicMasterFragment extends ListFragment
     static final int CONTEXT_EXECUTE_ID 	= 103;
     static final int CONTEXT_ADDUSER_ID	 	= 104;
     static final int CONTEXT_ADD_ID		 	= 105;
+    static final int CONTEXT_REFRESH	 	= 106;
+    static final int CONTEXT_RELOAD		 	= 107;
     
     /** each frgment gets its own ID for handling the context menu callback */
     int m_iContextMenuId = 0;
@@ -92,7 +94,10 @@ public class BasicMasterFragment extends ListFragment
     public void onActivityCreated(Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
-        
+
+    	SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+    	boolean updateCache = preferences.getBoolean("autoRunStatus", true);
+    	        
 		// detect free/full version and enable/disable ads
 		if (!Configuration.isFullVersion(getActivity()))
 		{
@@ -111,8 +116,9 @@ public class BasicMasterFragment extends ListFragment
         	m_strCollectionName = "commands.json";
         }
         
+        new RefreshCommandsCacheTask().execute("");
         CommandCollection myCollection =
-        		CollectionManager.getInstance(getActivity()).getCollectionByName(m_strCollectionName);
+        		CollectionManager.getInstance(getActivity()).getCollectionByName(m_strCollectionName, false);
      
         m_bEditable = myCollection.isEditable();
         
@@ -131,7 +137,7 @@ public class BasicMasterFragment extends ListFragment
         if (savedInstanceState != null)
         {
             // Restore last state for checked position.
-            mCurCheckPosition = savedInstanceState.getInt("curChoice", 0);
+            mCurCheckPosition = savedInstanceState.getInt(m_strCollectionName + "_curChoice", 0);
         }
 
 //        if (mDualPane)
@@ -147,13 +153,14 @@ public class BasicMasterFragment extends ListFragment
     public void onSaveInstanceState(Bundle outState)
     {
         super.onSaveInstanceState(outState);
-        outState.putInt("curChoice", mCurCheckPosition);
+        outState.putInt(m_strCollectionName + "_curChoice", mCurCheckPosition);
     }
 
     @Override
     public void onResume()
     {
     	super.onResume();
+    	
     	// if editable refresh from database
     	if (m_bEditable)
     	{
@@ -161,12 +168,35 @@ public class BasicMasterFragment extends ListFragment
     	}
     	else
     	{
-    		CommandCollection myCollection =
-            		CollectionManager.getInstance(getActivity()).getCollectionByName(m_strCollectionName);   
-            m_myItems = myCollection.getEntries();
+    		new RefreshCommandsCacheTask().execute("");
+//    		CommandCollection myCollection =
+//            		CollectionManager.getInstance(getActivity()).getCollectionByName(m_strCollectionName, updateCache);   
+//            m_myItems = myCollection.getEntries();
+//            m_myAdapter.notifyDataSetChanged();
          
     	}
     }
+    
+	private class RefreshCommandsCacheTask extends AsyncTask<String, Void, CommandCollection>
+	{
+		protected CommandCollection doInBackground(String... args)
+		{
+			// update Command List cache
+	    	SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+	    	boolean updateCache = preferences.getBoolean("autoRunStatus", true);
+
+    		CommandCollection myCollection =
+            		CollectionManager.getInstance(getActivity()).getCollectionByName(m_strCollectionName, updateCache);
+    		return myCollection;
+
+		}
+
+		protected void onPostExecute(CommandCollection arg)
+		{
+            m_myItems = arg.getEntries();
+            m_myAdapter.notifyDataSetChanged();
+		}
+	}
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id)
@@ -250,6 +280,8 @@ public class BasicMasterFragment extends ListFragment
         	menu.add(m_iContextMenuId, CONTEXT_VIEW_ID, Menu.NONE, "View");
         	menu.add(m_iContextMenuId, CONTEXT_EXECUTE_ID, Menu.NONE, "Execute");
         	menu.add(m_iContextMenuId, CONTEXT_ADDUSER_ID, Menu.NONE, "Copy to User");
+        	menu.add(m_iContextMenuId, CONTEXT_REFRESH, Menu.NONE, "Refresh");
+        	menu.add(m_iContextMenuId, CONTEXT_RELOAD, Menu.NONE, "Reload");
         }
    } 
     
@@ -266,13 +298,12 @@ public class BasicMasterFragment extends ListFragment
     	
 	    	switch(item.getItemId())
 	    	{
-	    		case CONTEXT_ADD_ID:
-    	    	
-    	    	if (m_myCommand != null)
-    	    	{
-    	            showDetails(-1);
-    	    	}
-    			return true;
+	    		case CONTEXT_ADD_ID:    	    	
+	    	    	if (m_myCommand != null)
+	    	    	{
+	    	            showDetails(-1);
+	    	    	}
+	    			return true;
     			
 	    		case CONTEXT_DELETE_ID:
 	    	    	
@@ -299,9 +330,23 @@ public class BasicMasterFragment extends ListFragment
 		    			Log.i(TAG, "Running command");
 		    			executeCommand(m_myCommand);
 		    			refreshList();
+	   	    		}	
+	    			return true;
+	    	    	
+	    		case CONTEXT_RELOAD:
+	    	    	if (m_myCommand != null)
+	    	    	{
+		    			new RefreshCommandsCacheTask().execute("");
+	   	    		}	
+	    			return true;
+	
+	    		case CONTEXT_REFRESH:
+	    	    	if (m_myCommand != null)
+	    	    	{
+		    			refreshList();
 		    			return true;
 	   	    		}	
-	    	    	
+
 	    		case CONTEXT_ADDUSER_ID:
 	    	    	if (m_myCommand != null)
 	    	    	{
@@ -310,7 +355,7 @@ public class BasicMasterFragment extends ListFragment
 		    			refreshList();
 		    			return true;
 	   	    		}	
-	
+
 	    		default:
 	    			return false;
 	    	}
