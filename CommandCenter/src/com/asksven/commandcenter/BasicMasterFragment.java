@@ -116,7 +116,9 @@ public class BasicMasterFragment extends ListFragment
         	m_strCollectionName = "commands.json";
         }
         
-        new RefreshCommandsCacheTask().execute("");
+        // refresh thread
+        this.refreshCommandsCache();
+        
         CommandCollection myCollection =
         		CollectionManager.getInstance(getActivity()).getCollectionByName(m_strCollectionName, false);
      
@@ -168,35 +170,40 @@ public class BasicMasterFragment extends ListFragment
     	}
     	else
     	{
-    		new RefreshCommandsCacheTask().execute("");
-//    		CommandCollection myCollection =
-//            		CollectionManager.getInstance(getActivity()).getCollectionByName(m_strCollectionName, updateCache);   
-//            m_myItems = myCollection.getEntries();
-//            m_myAdapter.notifyDataSetChanged();
-         
+    		// refresh thread
+    		this.refreshCommandsCache();         
     	}
     }
     
-	private class RefreshCommandsCacheTask extends AsyncTask<String, Void, CommandCollection>
-	{
-		protected CommandCollection doInBackground(String... args)
-		{
-			// update Command List cache
-	    	SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-	    	boolean updateCache = preferences.getBoolean("autoRunStatus", true);
+    /**
+     * Run a thread to refresh the cached command status 
+     */
+    private void refreshCommandsCache()
+    {
+    	// we don't use an AsyncTask here because of the limitiation
+    	// see http://stackoverflow.com/questions/4080808/asynctask-doinbackground-does-not-run
+    	Thread myThread = new Thread(new Runnable()
+    	{
+    	    public void run()
+    	    {
+    			// update Command List cache
+    	    	SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+    	    	boolean updateCache = preferences.getBoolean("autoRunStatus", true);
 
-    		CommandCollection myCollection =
-            		CollectionManager.getInstance(getActivity()).getCollectionByName(m_strCollectionName, updateCache);
-    		return myCollection;
+        		CommandCollection myCollection =
+                		CollectionManager.getInstance(getActivity()).getCollectionByName(m_strCollectionName, updateCache);
+                m_myItems = myCollection.getEntries();
+                if (m_myAdapter != null)
+                {
+                	m_myAdapter.notifyDataSetChanged();
+                }
 
-		}
+    	    }
+    	});
+    	getActivity().runOnUiThread(myThread);
+    	
+    }
 
-		protected void onPostExecute(CommandCollection arg)
-		{
-            m_myItems = arg.getEntries();
-            m_myAdapter.notifyDataSetChanged();
-		}
-	}
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id)
@@ -280,8 +287,8 @@ public class BasicMasterFragment extends ListFragment
         	menu.add(m_iContextMenuId, CONTEXT_VIEW_ID, Menu.NONE, "View");
         	menu.add(m_iContextMenuId, CONTEXT_EXECUTE_ID, Menu.NONE, "Execute");
         	menu.add(m_iContextMenuId, CONTEXT_ADDUSER_ID, Menu.NONE, "Copy to User");
-        	menu.add(m_iContextMenuId, CONTEXT_REFRESH, Menu.NONE, "Refresh");
-        	menu.add(m_iContextMenuId, CONTEXT_RELOAD, Menu.NONE, "Reload");
+//        	menu.add(m_iContextMenuId, CONTEXT_REFRESH, Menu.NONE, "Refresh");
+//        	menu.add(m_iContextMenuId, CONTEXT_RELOAD, Menu.NONE, "Reload");
         }
    } 
     
@@ -336,7 +343,8 @@ public class BasicMasterFragment extends ListFragment
 	    		case CONTEXT_RELOAD:
 	    	    	if (m_myCommand != null)
 	    	    	{
-		    			new RefreshCommandsCacheTask().execute("");
+//		    			new RefreshCommandsCacheTask().execute("");
+		    			this.refreshCommandsCache();
 	   	    		}	
 	    			return true;
 	
@@ -450,7 +458,8 @@ public class BasicMasterFragment extends ListFragment
 //				        cmd.execute(strSelection);
 				        new ExecuteCommandTask().execute(strSelection);
 				        Toast.makeText(getActivity(), "Executing " + m_myCommand.getCommand(), Toast.LENGTH_LONG).show();
-		    			refreshList();
+//		    			refreshList();
+		    			refreshCommandsCache();
 				    }
 				});
 				AlertDialog alert = builder.show();
@@ -462,7 +471,8 @@ public class BasicMasterFragment extends ListFragment
 			new ExecuteCommandTask().execute("");
 			Toast.makeText(getActivity(), "Executing " + m_myCommand.getCommand(), Toast.LENGTH_LONG).show();
 //			showDialog(myRes);
-			refreshList();
+			//refreshList();
+			refreshCommandsCache();
 			
 
 		}
