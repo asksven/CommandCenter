@@ -49,13 +49,15 @@ public class BasicDetailsFragment extends Fragment
      * Create a new instance of DetailsFragment, initialized to
      * show the text at 'index'.
      */
-    public static BasicDetailsFragment newInstance(int index)
+    public static BasicDetailsFragment newInstance(int index, String strCollectionName)
     {
         BasicDetailsFragment f = new BasicDetailsFragment();
 
         // Supply index input as an argument.
         Bundle args = new Bundle();
         args.putInt("index", index);
+        args.putString("collection", strCollectionName);
+        
         f.setArguments(args);
 
         return f;
@@ -125,7 +127,7 @@ public class BasicDetailsFragment extends Fragment
     			getCollectionByName(getCollectionName(), false);
 
     	final Command myRecord;
-    	if (commands.findById(getShownKey()) != null)
+    	if ((commands != null) && (commands.findById(getShownKey()) != null))
 		{
     		myRecord = commands.findById(getShownKey());
 		}
@@ -147,7 +149,7 @@ public class BasicDetailsFragment extends Fragment
     	myProcessResult.setChecked(myRecord.getProcessResult()==1);
     	
     	// enable edition if user collection
-    	if (!commands.getTitle().equals(CollectionManager.USER_COLLECTION_NAME))
+    	if ((commands == null) || (!commands.getTitle().equals(CollectionManager.USER_COLLECTION_NAME)))
     	{
         	myName.setEnabled(false);
         	myCommand.setEnabled(false);
@@ -162,7 +164,7 @@ public class BasicDetailsFragment extends Fragment
     	}
     	
     	// enable save button if user collection
-    	if (commands.getTitle().equals(CollectionManager.USER_COLLECTION_NAME))
+    	if ((commands != null) && (commands.getTitle().equals(CollectionManager.USER_COLLECTION_NAME)))
     	{
     		myButtonSave.setVisibility(Button.VISIBLE);
             myButtonSave.setOnClickListener(new View.OnClickListener()

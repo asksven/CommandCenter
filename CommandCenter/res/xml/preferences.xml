@@ -13,7 +13,13 @@
 		android:summary="Run status commands in background"
 		android:title="Background commands" 
 		android:defaultValue="true"/>    
-	
+
+	<CheckBoxPreference 
+		android:key="dualPaneOnSmallScreens"
+		android:summary="Show dual pane on small screens as well"
+		android:title="Force Dual Pane" 
+		android:defaultValue="false"/>    
+		
 <!-- 	<CheckBoxPreference  -->
 <!-- 		android:key="showOnlyFavorites" -->
 <!-- 		android:summary="Show only favorite commands" -->

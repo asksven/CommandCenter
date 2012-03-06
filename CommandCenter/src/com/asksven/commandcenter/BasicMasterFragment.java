@@ -36,10 +36,13 @@ import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+
+import com.asksven.android.system.Devices;
 import com.asksven.commandcenter.utils.Configuration;
 import com.asksven.commandcenter.valueobjects.CollectionManager;
 import com.asksven.commandcenter.valueobjects.Command;
@@ -96,7 +99,8 @@ public class BasicMasterFragment extends ListFragment
         super.onActivityCreated(savedInstanceState);
 
     	SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-    	boolean updateCache = preferences.getBoolean("autoRunStatus", true);
+    	boolean bUpdateCache = preferences.getBoolean("autoRunStatus", true);
+    	boolean bForceDualPane = preferences.getBoolean("dualPaneOnSmallScreens", false);
     	        
 		// detect free/full version and enable/disable ads
 		if (!Configuration.isFullVersion(getActivity()))
@@ -133,8 +137,24 @@ public class BasicMasterFragment extends ListFragment
 		
         // Check to see if we have a frame in which to embed the details
         // fragment directly in the containing UI.
-//        View detailsFrame = getActivity().findViewById(R.id.details);
-//        mDualPane = detailsFrame != null && detailsFrame.getVisibility() == View.VISIBLE;
+        View detailsFrame = getActivity().findViewById(R.id.details);
+        boolean bPortrait = detailsFrame != null && detailsFrame.getVisibility() == View.VISIBLE;
+        if (bPortrait)
+        {
+        	if ( (Devices.isTablet(getActivity())) || bForceDualPane )
+        	{
+        		mDualPane = true;
+        		FrameLayout details = (FrameLayout)getActivity().findViewById(R.id.details);
+        		details.setVisibility(View.VISIBLE);
+
+        	}
+        	else
+        	{
+        		mDualPane = false;
+        		FrameLayout details = (FrameLayout)getActivity().findViewById(R.id.details);
+        		details.setVisibility(View.GONE);
+        	}
+        }
 
         if (savedInstanceState != null)
         {
@@ -142,13 +162,13 @@ public class BasicMasterFragment extends ListFragment
             mCurCheckPosition = savedInstanceState.getInt(m_strCollectionName + "_curChoice", 0);
         }
 
-//        if (mDualPane)
-//        {
-//            // In dual-pane mode, the list view highlights the selected item.
-//            getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-//            // Make sure our UI is in the correct state.
-//            showDetails(mCurCheckPosition);
-//        }
+        if (mDualPane)
+        {
+            // In dual-pane mode, the list view highlights the selected item.
+            getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+            // Make sure our UI is in the correct state.
+            showDetails(mCurCheckPosition);
+        }
     }
 
     @Override
@@ -243,10 +263,11 @@ public class BasicMasterFragment extends ListFragment
             // Check what fragment is currently shown, replace if needed.
             BasicDetailsFragment details = (BasicDetailsFragment)
                     getFragmentManager().findFragmentById(R.id.details);
-            if (details == null || details.getShownKey() != m_myCommand.getId())
+
+            if ((m_myCommand == null) || (details == null) || (details.getShownKey() != m_myCommand.getId()) ) 
             {
                 // Make new fragment to show this selection.
-                details = BasicDetailsFragment.newInstance(key);
+                details = BasicDetailsFragment.newInstance(key, m_strCollectionName);
 
                 // Execute a transaction, replacing any existing fragment
                 // with this one inside the frame.

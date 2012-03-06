@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 asksven
+ * Copyright (C) 2011-2012 asksven
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,8 +16,12 @@
 
 package com.asksven.commandcenter;
 
+import com.asksven.android.system.Devices;
+
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 
 
@@ -34,15 +38,23 @@ public class BasicDetailsActivity extends FragmentActivity
 {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
 
+    	SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+    	boolean bForceDualPane = preferences.getBoolean("dualPaneOnSmallScreens", false);
+
         if (getResources().getConfiguration().orientation
-                == Configuration.ORIENTATION_LANDSCAPE) {
-            // If the screen is now in landscape mode, we can show the
-            // dialog in-line with the list so we don't need this activity.
-            finish();
-            return;
+                == Configuration.ORIENTATION_LANDSCAPE)
+        {
+        	if (bForceDualPane || Devices.isTablet(this))
+        	{
+	            // If the screen is now in landscape mode, we can show the
+	            // dialog in-line with the list so we don't need this activity.
+	            finish();
+	            return;
+        	}
         }
 
         if (savedInstanceState == null) {
