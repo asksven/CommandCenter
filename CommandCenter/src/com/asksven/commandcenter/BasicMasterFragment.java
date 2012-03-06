@@ -206,6 +206,7 @@ public class BasicMasterFragment extends ListFragment
     	{
     	    public void run()
     	    {
+    	    	Log.i(TAG, "Refreshing command cache");
     			// update Command List cache
     	    	SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
     	    	boolean updateCache = preferences.getBoolean("autoRunStatus", true);
@@ -217,6 +218,7 @@ public class BasicMasterFragment extends ListFragment
                 {
                 	m_myAdapter.notifyDataSetChanged();
                 }
+                Log.i(TAG, "Finished refreshing command cache");
 
     	    }
     	});
@@ -479,8 +481,8 @@ public class BasicMasterFragment extends ListFragment
 //				        cmd.execute(strSelection);
 				        new ExecuteCommandTask().execute(strSelection);
 				        Toast.makeText(getActivity(), "Executing " + m_myCommand.getCommand(), Toast.LENGTH_LONG).show();
-//		    			refreshList();
-		    			refreshCommandsCache();
+		    			//refreshList();
+		    			//refreshCommandsCache();
 				    }
 				});
 				AlertDialog alert = builder.show();
@@ -493,7 +495,7 @@ public class BasicMasterFragment extends ListFragment
 			Toast.makeText(getActivity(), "Executing " + m_myCommand.getCommand(), Toast.LENGTH_LONG).show();
 //			showDialog(myRes);
 			//refreshList();
-			refreshCommandsCache();
+			//refreshCommandsCache();
 			
 
 		}
@@ -562,6 +564,7 @@ public class BasicMasterFragment extends ListFragment
 	     {
 	         //mImageView.setImageBitmap(result);
 	    	 showDialog(result);
+	    	 refreshList();
 	     }
 	 }
 

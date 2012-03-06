@@ -257,6 +257,9 @@ public class Command
 				}
 			}			
 		}
+		
+		updateCache();
+		
 		return strRet;
 	}
 
@@ -302,21 +305,21 @@ public class Command
 	private boolean isOn()
 	{
 		boolean bRet = false;
-		if (!this.getStatus().equals(""))
+		if (!this.getStatusCached().equals(""))
 		{
 			if (this.getMatchRegexOn()==1)
 			{
-				bRet = this.getStatus().equals(this.getRegexStatus());
+				bRet = this.getStatusCached().equals(this.getRegexStatus());
 			}
 			else
 			{
-				bRet = !this.getStatus().equals(this.getRegexStatus());
+				bRet = !this.getStatusCached().equals(this.getRegexStatus());
 			}
 		}
 		return bRet;
 	}
 
-	public static String exec(String strCommand, boolean bSu)
+	private static String exec(String strCommand, boolean bSu)
 	{
 		String strCmd = strCommand;
 		if (bSu)

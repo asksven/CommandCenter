@@ -49,8 +49,8 @@ public class IntentHandler extends BroadcastReceiver
         	if ( intent.hasExtra(Intents.EXTRA_COMMAND) )
 			{
         		String strCommand = intent.getStringExtra(Intents.EXTRA_COMMAND);
-        		Log.d(getClass().getSimpleName(), "Executing remotely issued command " + strCommand + " ");
-        		Command.exec(strCommand, true);
+        		//Log.d(getClass().getSimpleName(), "Executing remotely issued command " + strCommand + " ");
+        		//Command.execute(strCommand, true);
 			}
         }
 	}
