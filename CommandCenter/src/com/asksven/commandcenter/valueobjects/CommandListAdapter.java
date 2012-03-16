@@ -23,7 +23,9 @@ import java.util.List;
 import com.asksven.commandcenter.R;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,11 +77,20 @@ public class CommandListAdapter extends BaseAdapter
 		// determine status based on state and regex
 		ToggleButton myCommandStatus=(ToggleButton)convertView.findViewById(R.id.ToggleButton);
 		myCommandStatus.setClickable(false);
-
-		// use state and regex to determine status
-//		new UpdateCommandStatusTask().execute(myCommand);
-		myCommandStatus.setChecked(myCommand.isOnCached());
 		
+    	SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(m_context);
+    	boolean bUpdateCache = preferences.getBoolean("autoRunStatus", true);
+
+    	// if no status commands are to be executed hide the toogle button
+    	if (bUpdateCache)
+    	{
+	   		// use state and regex to determine status
+			myCommandStatus.setChecked(myCommand.isOnCached());
+    	}
+    	else
+    	{
+    		myCommandStatus.setVisibility(View.GONE);
+    	}
 		
 		myCommandText.setClickable(false);
 		myCommandText.setEnabled(true);
@@ -120,32 +131,8 @@ public class CommandListAdapter extends BaseAdapter
     {
 		CommandDBHelper myDB = new CommandDBHelper(m_context);
 		m_myItems = myDB.getCommandCollection().getEntries();
-//		new RefreshCommandsCacheTask().execute("");
 		this.notifyDataSetChanged();
-    }        
-    
-//    public void refresh()
-//    {
-//    	new RefreshCommandsCacheTask().execute("");
-//    }
-//    
-//    private class RefreshCommandsCacheTask extends AsyncTask<String, Void, String> {
-//        protected String doInBackground(String... arg)
-//        {
-//			// update Command List cache
-//			for (int i=0; i < m_myItems.size(); i++)
-//			{
-//				((Command) (m_myItems.get(i))).updateCache();
-//			}
-//			return "";
-//            
-//        }
-//
-//        protected void onPostExecute(String arg)
-//        {
-//            notifyDataSetChanged();
-//        }
-//    }
+    }            
 }
 
 
