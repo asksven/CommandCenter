@@ -30,6 +30,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -40,6 +41,9 @@ public class CommandListAdapter extends BaseAdapter
 
 	private List m_myItems;
 	private Context m_context;
+	private int m_selectedPosition;
+	private boolean m_showResult;
+	private String m_resultText;
 	
 	/** those widgets are populated asxnchronously */
 //	private ToggleButton m_commandStatus; 
@@ -51,7 +55,20 @@ public class CommandListAdapter extends BaseAdapter
 		m_context = context;
 //		new RefreshCommandsCacheTask().execute("");
 	}
-
+	
+	
+	public void setSelection(int position)
+	{
+		m_selectedPosition = position;
+	}
+	
+	public void showResult(String resultText)
+	{
+		m_showResult = true;
+		m_resultText = resultText;
+		notifyDataSetChanged();
+	}
+	
 	public View getView(int position, View convertView, ViewGroup parent)
 	{
         if (convertView == null)
@@ -92,6 +109,21 @@ public class CommandListAdapter extends BaseAdapter
     		myCommandStatus.setVisibility(View.GONE);
     	}
 		
+    	// expand element where result is to be shown
+    	LinearLayout resultLayout = (LinearLayout) convertView.findViewById(R.id.linearLayoutResult);
+		
+    	if ((m_selectedPosition == position) && (m_showResult))
+    	{
+    		m_showResult = false;
+    		resultLayout.setVisibility(View.VISIBLE);
+    		TextView resultText=(TextView)convertView.findViewById(R.id.editTextResult);
+    		resultText.setText(m_resultText);
+    	}
+    	else
+    	{
+    		resultLayout.setVisibility(View.GONE);
+    	}
+    	
 		myCommandText.setClickable(false);
 		myCommandText.setEnabled(true);
 		myCommandText.setFocusable(false);		

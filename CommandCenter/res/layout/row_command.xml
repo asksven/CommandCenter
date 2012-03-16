@@ -20,6 +20,7 @@
         android:layout_height="wrap_content"
         android:textOn=""
         android:textOff="" android:focusable="false"/>
+    
 	<TextView android:text="command"
 		android:id="@+id/TextViewCommand"
 		android:layout_width="wrap_content"
@@ -44,7 +45,32 @@
 		android:layout_marginLeft="20px" android:textColor="#FF0000" android:textStyle="bold"/>
 </LinearLayout>
 
+<LinearLayout
+    android:id="@+id/linearLayoutResult"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:visibility="gone"
+    style="@style/Theme.asksven.light">
 
+    <EditText
+        android:id="@+id/editTextResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:inputType="textMultiLine"
+        android:text="some multiline text"
+        android:maxLines="5"
+        android:typeface="monospace"
+        android:textSize="10sp"
+        android:enabled="false"
+        android:clickable="false"
+        android:focusable="false"
+        style="@style/Theme.asksven.light">
+
+    </EditText>
+
+</LinearLayout>
 
 </LinearLayout>
 

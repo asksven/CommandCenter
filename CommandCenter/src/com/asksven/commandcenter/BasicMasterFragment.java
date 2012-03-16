@@ -232,6 +232,7 @@ public class BasicMasterFragment extends ListFragment
     {
     	SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
     	boolean bexec = preferences.getBoolean("execOnSelect", false);
+    	m_myAdapter.setSelection(position);
     	
     	if (bexec)
     	{
@@ -506,13 +507,26 @@ public class BasicMasterFragment extends ListFragment
     {
     	if ( (myItems != null) && (myItems.size() > 0) )
     	{
-        	Dialog dialog = new Dialog(getActivity());
-        	
-        	dialog.setContentView(R.layout.dialog);
-        	dialog.setTitle("Returned");
+//        	Dialog dialog = new Dialog(getActivity());
+//        	
+//        	dialog.setContentView(R.layout.dialog);
+//        	dialog.setTitle("Returned");
+//
+//        	
+//        	String strText = "";
+//        	if (myItems != null)
+//        	{
+//        		for (int i=0; i<myItems.size(); i++)
+//        		{
+//    				strText = strText + myItems.get(i) + "\n";
+//        		}
+//        	}
+//        	TextView text = (TextView) dialog.findViewById(R.id.text);
+//        	text.setText(strText);
+//        	dialog.show();
 
-        	
-        	String strText = "";
+    		String strText = "";
+
         	if (myItems != null)
         	{
         		for (int i=0; i<myItems.size(); i++)
@@ -520,9 +534,7 @@ public class BasicMasterFragment extends ListFragment
     				strText = strText + myItems.get(i) + "\n";
         		}
         	}
-        	TextView text = (TextView) dialog.findViewById(R.id.text);
-        	text.setText(strText);
-        	dialog.show();
+        	m_myAdapter.showResult(strText);
 
     	}
     }
