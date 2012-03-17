@@ -11,6 +11,8 @@
 
 package com.asksven.commandcenter.localeplugin.ui;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -33,6 +35,7 @@ import android.widget.Toast;
 import com.asksven.commandcenter.localeplugin.Constants;
 import com.asksven.commandcenter.localeplugin.bundle.BundleScrubber;
 import com.asksven.commandcenter.localeplugin.bundle.PluginBundleManager;
+import com.asksven.commandcenter.valueobjects.CollectionManager;
 import com.twofortyfouram.locale.BreadCrumber;
 import com.asksven.commandcenter.R;
 
@@ -107,8 +110,10 @@ public final class EditActivity extends Activity implements AdapterView.OnItemSe
 		Spinner spinnerCommands = (Spinner) findViewById(R.id.spinnerCommands);
 		
 		String colors[] = {"", "Red","Blue","White","Yellow","Black", "Green","Purple","Orange","Grey"};
+		ArrayList<String> myCommands = CollectionManager.getInstance(this).getAvailableCommands();
 
-		ArrayAdapter spinnerCommandAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, colors);
+		ArrayAdapter spinnerCommandAdapter =
+				new ArrayAdapter(this, android.R.layout.simple_spinner_item, myCommands);
 		spinnerCommandAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	    
 		spinnerCommands.setAdapter(spinnerCommandAdapter);

@@ -22,6 +22,8 @@ import com.asksven.commandcenter.localeplugin.Constants;
 import com.asksven.commandcenter.localeplugin.bundle.BundleScrubber;
 import com.asksven.commandcenter.localeplugin.bundle.PluginBundleManager;
 import com.asksven.commandcenter.localeplugin.ui.EditActivity;
+import com.asksven.commandcenter.valueobjects.CollectionManager;
+import com.asksven.commandcenter.valueobjects.Command;
 
 /**
  * This is the "fire" BroadcastReceiver for a Locale Plug-in setting.
@@ -65,6 +67,25 @@ public final class FireReceiver extends BroadcastReceiver
         final Bundle bundle = intent.getBundleExtra(com.twofortyfouram.locale.Intent.EXTRA_BUNDLE);
 
         // TODO add processing code here
-        Toast.makeText(context, "Executing command: " + bundle.getString(PluginBundleManager.BUNDLE_EXTRA_STRING_COMMAND), Toast.LENGTH_LONG).show();
+        Log.i(Constants.LOG_TAG, "Preparing to execute command: bundle.getString(PluginBundleManager.BUNDLE_EXTRA_STRING_COMMAND");
+        Command command = CollectionManager.getInstance(context).getCommandByString(bundle.getString(PluginBundleManager.BUNDLE_EXTRA_STRING_COMMAND));
+        if (command != null)
+        {
+        	Log.i(Constants.LOG_TAG, "Cound command with name " + command.getName() + ", will execute command:" + command.getCommand());
+        	if (command.getCommandValues().equals(""))
+        	{
+        		command.execute();
+        	}
+        	else
+        	{
+        		Log.e(Constants.LOG_TAG, "Error, the command requires values to be set. Aborting");
+        	}
+        }
+        else
+        {
+        	Log.e(Constants.LOG_TAG, "Error, the command could not be found");
+        }
+        
+//        Toast.makeText(context, "Executing command: " + bundle.getString(PluginBundleManager.BUNDLE_EXTRA_STRING_COMMAND), Toast.LENGTH_LONG).show();
     }
 }

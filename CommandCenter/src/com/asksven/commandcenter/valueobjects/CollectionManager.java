@@ -35,6 +35,7 @@ import java.io.Writer;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -101,6 +102,61 @@ public class CollectionManager
     	return m_collections.keySet();
     }
     
+    public ArrayList<String> getAvailableCommands()
+    {
+    	ArrayList<String> myRet = new ArrayList<String>();
+    	
+    	Set<String> collections = this.getCollectionNames();
+    	
+    	Iterator it = collections.iterator();
+    	while (it.hasNext())
+    	{
+    	    // Get element
+    	    String collectionName = (String) it.next();
+    	    CommandCollection collection = this.getCollectionByName(collectionName, false);
+    	    for (int i=0; i<collection.getEntries().size(); i++)
+    	    {
+    	    	Command command = collection.getEntries().get(i);
+    	    	if (command.getCommandValues().equals(""))
+    	    	{
+    	    		myRet.add(command.getCommand());
+    	    	}
+    	    }
+    	}
+
+    	return myRet;
+    }
+    
+    public Command getCommandByString(String strCommand)
+    {
+    	Command myRet = null;
+    	
+    	Set<String> collections = this.getCollectionNames();
+    	
+    	Iterator<String> it = collections.iterator();
+    	while (it.hasNext())
+    	{
+    	    // Get element
+    	    String collectionName = it.next();
+    	    CommandCollection collection = this.getCollectionByName(collectionName, false);
+    	    for (int i=0; i<collection.getEntries().size(); i++)
+    	    {
+    	    	Command command = collection.getEntries().get(i);
+    	    	if (command.getCommand().equals(strCommand))
+    	    	{
+    	    		// return only commands for batch.... they can not contain values
+    	    		if (command.getCommandValues().equals(""))
+    	    		{
+	    	    		myRet = command;
+	    	    		break;
+    	    		}
+    	    	}
+    	    }
+    	}
+
+    	return myRet;
+    }
+
     /**
      * Initialize: read all CommandCollections if some exist, if not initialize the
      * storage with the samples from the project assets

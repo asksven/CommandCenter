@@ -17,31 +17,6 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-      	<TextView
-	    android:text="@string/message_hint"
-	    android:id="@+id/TextView03"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"/>
-    
-    <EditText
-        android:id="@android:id/text1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="top"
-        android:hint="" />
-    
-  	<TextView
-	    android:text="@string/message_hint_saveref"
-	    android:id="@+id/TextView03"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"/>
-	<CheckBox
-	    android:text=""
-	    android:id="@+id/CheckBoxSaveRef"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-	    android:editable="true"/>
-
 	<TextView
 	    android:text="@string/message_hint_sinceref"
 	    android:id="@+id/TextView03"

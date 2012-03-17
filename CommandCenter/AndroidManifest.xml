@@ -2,7 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.asksven.commandcenter"
       android:versionCode="6"
-      android:versionName="0.9.0.0">
+      android:versionName="0.9.0.0"
+      android:installLocation="internalOnly">
+    <!-- internalOnly is required by the Locale plugin architecture -->	  
+    
     <!--  required for writing dump files -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <!-- admob -->
@@ -43,6 +46,32 @@
 		<activity android:name=".ReadmeActivity" android:label="Release Notes"/>
 		<activity android:name="com.google.ads.AdActivity"
               android:configChanges="keyboard|keyboardHidden|orientation"/>
+		<activity
+            android:name="com.asksven.commandcenter.localeplugin.ui.EditActivity"
+            android:exported="true"
+            android:icon="@drawable/icon"
+            android:label="@string/plugin_name"
+            android:theme="@style/Theme.Locale.Dark"
+            android:uiOptions="splitActionBarWhenNarrow" >
+
+            <!-- this Intent filter allows the plug-in to be discovered by Locale -->
+            <intent-filter>
+                <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING" />
+            </intent-filter>
+        </activity>
+        
+        <receiver
+            android:name="com.asksven.commandcenter.localeplugin.receiver.FireReceiver"
+            android:exported="true"
+            android:process=":background" >
+
+            <!-- this Intent filter allows the plug-in to discovered by Locale -->
+            <intent-filter>
+                <action android:name="com.twofortyfouram.locale.intent.action.FIRE_SETTING" />
+            </intent-filter>
+        </receiver>
+		
+		
 <!-- 
 		<receiver android:name=".IntentHandler">
 			<intent-filter>
