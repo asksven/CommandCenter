@@ -525,11 +525,42 @@ public class BasicMasterFragment extends ListFragment
 //        	text.setText(strText);
 //        	dialog.show();
 
+    		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        	boolean bShowTopLines = preferences.getBoolean("show_first_lines", false);
+        	int nLines = 5;
+        	try
+        	{
+            	nLines = Integer.valueOf(preferences.getString("number_lines", "5"));
+        	}
+        	catch (Exception e)
+        	{
+        	}
+
+
     		String strText = "";
 
         	if (myItems != null)
         	{
-        		for (int i=0; i<myItems.size(); i++)
+        		int nFrom = 0;
+        		int nTo = myItems.size();
+        		
+        		// calculate what lines are to be shown depending on prefs
+        		if (bShowTopLines)
+        		{
+        			if (nLines > 0)
+        			{
+        				nTo = nFrom + nLines + 1;
+        			}
+        		}
+        		else
+        		{
+        			if (nLines > 0)
+        			{
+        				nFrom = nTo - nLines;
+        			}
+        		}
+        		
+        		for (int i = nFrom; i < nTo; i++)
         		{
     				strText = strText + myItems.get(i) + "\n";
         		}

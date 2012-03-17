@@ -39,5 +39,24 @@
 <!-- 		android:title="Allow remote commands"  -->
 <!-- 		android:defaultValue="false" -->
 <!--     /> -->
+    <PreferenceCategory android:title="Result">
+	    <PreferenceScreen android:title="Command Result Preferences">	
+			<ListPreference 
+	            android:key="number_lines"
+	            android:title="Number of lines"
+	            android:summary="Number of lines to show for results"
+	            android:defaultValue="5" 
+	            android:entries="@array/resultNumberLinesLabels"
+	            android:entryValues="@array/resultNumberLinesValues"
+	        />
+		    <CheckBoxPreference 
+				android:key="show_first_lines"
+				android:summary="Show beginning"
+				android:title="Show n first lines of result" 
+				android:defaultValue="false"
+		    />
+		   		   
+		</PreferenceScreen>
+	</PreferenceCategory>
     
 </PreferenceScreen>

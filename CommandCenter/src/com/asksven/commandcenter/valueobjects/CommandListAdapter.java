@@ -120,6 +120,19 @@ public class CommandListAdapter extends BaseAdapter
     		m_showResult = false;
     		resultLayout.setVisibility(View.VISIBLE);
     		TextView resultText=(TextView)convertView.findViewById(R.id.editTextResult);
+        	int nLines = 5;
+        	try
+        	{
+            	nLines = Integer.valueOf(preferences.getString("number_lines", "5"));
+        	}
+        	catch (Exception e)
+        	{
+        	}
+
+        	if (nLines > 0)
+        	{
+        		resultText.setMaxLines(nLines);
+        	}
     		resultText.setText(m_resultText);
     	}
     	else
