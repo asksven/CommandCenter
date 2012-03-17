@@ -107,6 +107,9 @@ public class CommandListAdapter extends BaseAdapter
     	else
     	{
     		myCommandStatus.setVisibility(View.GONE);
+    		// hide status command and status as well
+    		convertView.findViewById(R.id.TextViewStateCommand).setVisibility(View.GONE);
+    		convertView.findViewById(R.id.TextViewState).setVisibility(View.GONE);
     	}
 		
     	// expand element where result is to be shown
