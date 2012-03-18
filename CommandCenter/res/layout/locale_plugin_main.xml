@@ -18,30 +18,23 @@
     android:orientation="vertical" >
 
 	<TextView
-	    android:text="@string/message_hint_sinceref"
-	    android:id="@+id/TextView03"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"/>
-	<CheckBox
-	    android:text=""
-	    android:id="@+id/CheckBoxSinceRef"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-	    android:editable="true"/>
-	
-	<TextView
-	    android:text="@string/message_hint_command"
+	    android:text="@string/label_select_command"
 	    android:id="@+id/TextView03"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"/>
 	<Spinner android:id="@+id/spinnerCommands"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"/>
-	<EditText
+	<TextView
+	    android:text="@string/label_saved_command"
+	    android:id="@+id/TextView03"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"/>
+		<EditText
         android:id="@+id/command"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="top"
-        android:hint="" />
+        android:editable="false"/>
 		
 </LinearLayout>

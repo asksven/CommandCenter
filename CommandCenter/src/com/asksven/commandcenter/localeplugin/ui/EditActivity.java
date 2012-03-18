@@ -110,7 +110,7 @@ public final class EditActivity extends Activity implements AdapterView.OnItemSe
 		Spinner spinnerCommands = (Spinner) findViewById(R.id.spinnerCommands);
 		
 		String colors[] = {"", "Red","Blue","White","Yellow","Black", "Green","Purple","Orange","Grey"};
-		ArrayList<String> myCommands = CollectionManager.getInstance(this).getAvailableCommands();
+		ArrayList<String> myCommands = CollectionManager.getInstance(this).getAvailableCommandsForPlugin();
 
 		ArrayAdapter spinnerCommandAdapter =
 				new ArrayAdapter(this, android.R.layout.simple_spinner_item, myCommands);

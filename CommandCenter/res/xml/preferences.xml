@@ -19,7 +19,13 @@
 		android:summary="Show dual pane on small screens as well"
 		android:title="Force Dual Pane" 
 		android:defaultValue="false"/>    
-		
+
+	<CheckBoxPreference 
+		android:key="allowPlugin"
+		android:summary="Allow Tasker/Locale to call commands"
+		android:title="Allow Plugin" 
+		android:defaultValue="false"/>    
+				
 <!-- 	<CheckBoxPreference  -->
 <!-- 		android:key="showOnlyFavorites" -->
 <!-- 		android:summary="Show only favorite commands" -->

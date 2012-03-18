@@ -5,10 +5,8 @@
     <string name="app_author">asksven</string>
     <string name="app_home"><a href="http://somelink" rel="nofollow">http://somelink</a></string>
     <string name="app_about">Execute shell commands (may require root)</string>
-    
     <!-- locale plugin -->
-    <string name="plugin_name">CommandCenter</string>
-    <string name="message_hint_sinceref">Dump Since last Reference</string>
-    <string name="message_hint_command">Command</string>
-    
+    <string name="plugin_name">CommandCenter execute command</string>
+    <string name="label_select_command">Select a Command</string>
+    <string name="label_saved_command">Saved Command</string>
 </resources>

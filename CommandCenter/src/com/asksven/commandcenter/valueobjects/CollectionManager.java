@@ -64,6 +64,8 @@ public class CollectionManager
     
     private static final String TAG = "CollectionManager";
     private static CollectionManager m_instance;
+    private static Context m_context;
+    
     private HashMap<String, CommandCollection> m_collections = null;
      
     public static final String USER_COLLECTION_NAME = "User";
@@ -102,17 +104,31 @@ public class CollectionManager
     	return m_collections.keySet();
     }
     
-    public ArrayList<String> getAvailableCommands()
+    /**
+     * Returns the list of available commands to the Locale plugin (if plugin enabled)
+     * @return a list of allowed commands to be called by the plugin
+     */
+    public ArrayList<String> getAvailableCommandsForPlugin()
     {
     	ArrayList<String> myRet = new ArrayList<String>();
     	
+    	SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(m_context);
+    	boolean bAllowPlugin = preferences.getBoolean("allowPlugin", false);
+
+    	if (!bAllowPlugin)
+    	{
+    		Log.i(TAG, "Plugin accesd is disabled: Returning message");
+    		myRet.add("Plugin access is disabled");
+    		return myRet;
+    	}
+    	
     	Set<String> collections = this.getCollectionNames();
     	
-    	Iterator it = collections.iterator();
+    	Iterator<String> it = collections.iterator();
     	while (it.hasNext())
     	{
     	    // Get element
-    	    String collectionName = (String) it.next();
+    	    String collectionName = it.next();
     	    CommandCollection collection = this.getCollectionByName(collectionName, false);
     	    for (int i=0; i<collection.getEntries().size(); i++)
     	    {
@@ -124,13 +140,28 @@ public class CollectionManager
     	    }
     	}
 
+    	Log.i(TAG, "Returning " + myRet.size() + " commands to plugin");
     	return myRet;
     }
     
+    /**
+     * Returns the command object given a command (if Plugin enabled) 
+     * @param strCommand the command
+     * @return a Command object is any was found
+     */
     public Command getCommandByString(String strCommand)
     {
+    	Log.i(TAG, "Plugin trying to retrieve command: " + strCommand);
     	Command myRet = null;
-    	
+    	SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(m_context);
+    	boolean bAllowPlugin = preferences.getBoolean("allowPlugin", false);
+
+    	if (!bAllowPlugin)
+    	{
+    		Log.i(TAG, "Plugin accesd is disabled: Returning null");
+    		return myRet;
+    	}
+
     	Set<String> collections = this.getCollectionNames();
     	
     	Iterator<String> it = collections.iterator();
@@ -148,6 +179,7 @@ public class CollectionManager
     	    		if (command.getCommandValues().equals(""))
     	    		{
 	    	    		myRet = command;
+	    	    		Log.i(TAG, "Command returned: " + command.toString());
 	    	    		break;
     	    		}
     	    	}
@@ -163,6 +195,7 @@ public class CollectionManager
      */
     private void init(Context ctx)
     {
+    	m_context = ctx;
     	// check if the private storage exists. If not create it
     	if (!CommandsIO.getInstance(ctx).externalStorageEnvironmentReady())
     	{
