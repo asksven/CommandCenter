@@ -3,3 +3,6 @@ this project makes use of google gson (http://code.google.com/p/google-gson/down
 licensed under the terms of the Apache License Version 2.0, http://www.apache.org/licenses/
 See lib LICENSE_GSON
 
+The Locale plugin was implemented following the reference implementation for Locale plugins
+provided by two forty four a.m. LLC <http://www.twofortyfouram.com> unter the terms of the Apache License, Version 2.0
+
