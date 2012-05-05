@@ -16,6 +16,8 @@
 
 package com.asksven.commandcenter;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -110,6 +112,27 @@ public class BasicMasterFragment extends ListFragment
 			if (adView != null)
 			{
 				adView.loadAd(new AdRequest());
+			}
+			
+			// check if an ad-blocker is being used
+			InetAddress inet = null; 
+			String resolvedIP = "";
+			try
+			{
+		        inet = InetAddress.getByName("googleads.g.doubleclick.net");
+		    }
+			catch (UnknownHostException e)
+			{
+		        Log.i(TAG, "googleads.g.doubleclick.net address cannot be resolved");
+		    }
+		    finally
+		    {
+		    	resolvedIP = inet.getHostAddress(); 
+		    }
+			if (resolvedIP.equals("127.0.0.1"))
+			{
+				Log.e(TAG, "Support free apps, don't block ads");
+				Toast.makeText(getActivity(), "Support free apps, don't block ads",	Toast.LENGTH_SHORT).show();
 			}
 		}
 
