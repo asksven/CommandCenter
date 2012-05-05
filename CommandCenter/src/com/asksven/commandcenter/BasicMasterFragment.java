@@ -115,25 +115,7 @@ public class BasicMasterFragment extends ListFragment
 			}
 			
 			// check if an ad-blocker is being used
-			InetAddress inet = null; 
-			String resolvedIP = "";
-			try
-			{
-		        inet = InetAddress.getByName("googleads.g.doubleclick.net");
-		    }
-			catch (UnknownHostException e)
-			{
-		        Log.i(TAG, "googleads.g.doubleclick.net address cannot be resolved");
-		    }
-		    finally
-		    {
-		    	resolvedIP = inet.getHostAddress(); 
-		    }
-			if (resolvedIP.equals("127.0.0.1"))
-			{
-				Log.e(TAG, "Support free apps, don't block ads");
-				Toast.makeText(getActivity(), "Support free apps, don't block ads",	Toast.LENGTH_SHORT).show();
-			}
+			new CheckHost().execute();
 		}
 
         Bundle args = getArguments();
@@ -584,14 +566,14 @@ public class BasicMasterFragment extends ListFragment
         		{
         			if (nLines > 0)
         			{
-        				nTo = nFrom + nLines + 1;
+        				nTo = Math.min(nFrom + nLines + 1, myItems.size());
         			}
         		}
         		else
         		{
         			if (nLines > 0)
         			{
-        				nFrom = nTo - nLines;
+        				nFrom = Math.max(nTo - nLines, 0);
         			}
         		}
         		
@@ -646,5 +628,33 @@ public class BasicMasterFragment extends ListFragment
 	     }
 	 }
 
+	private class CheckHost extends AsyncTask<String, Void, String>
+	{
+	     protected String doInBackground(String... args)
+	     {
+				// check if an ad-blocker is being used
+				InetAddress inet = null; 
+				String resolvedIP = "";
+				try
+				{
+			        inet = InetAddress.getByName("googleads.g.doubleclick.net");
+			        resolvedIP = inet.getHostAddress();
+			    }
+				catch (UnknownHostException e)
+				{
+			        Log.i(TAG, "googleads.g.doubleclick.net address cannot be resolved");
+			    }
+				return resolvedIP;
+	     }
+
+	     protected void onPostExecute(String result)
+	     {
+				if (result.equals("127.0.0.1"))
+				{
+					Log.e(TAG, "Support free apps, don't block ads");
+					Toast.makeText(getActivity(), "Support free apps, don't block ads",	Toast.LENGTH_SHORT).show();
+				}
+	     }
+	 }
 
 }
