@@ -329,7 +329,15 @@ public class BasicMasterFragment extends ListFragment
     	// based on the group id. if not do noting
     	if (item.getGroupId() == m_iContextMenuId)
     	{
-    		m_myCommand = m_myItems.get(menuInfo.position);
+    		try
+    		{
+    			m_myCommand = m_myItems.get(menuInfo.position);
+    		}
+    		catch (Exception e)
+    		{
+    			m_myCommand = null;
+    			Log.e(TAG, "An error occured getting the selected command: " + e.getMessage());
+    		}
     	
 	    	switch(item.getItemId())
 	    	{
