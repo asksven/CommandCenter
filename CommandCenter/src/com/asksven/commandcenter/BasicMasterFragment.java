@@ -106,7 +106,11 @@ public class BasicMasterFragment extends ListFragment
 		if (!Configuration.isFullVersion(getActivity()))
 		{
 			AdView adView = (AdView)getActivity().findViewById(R.id.adView);
-		    adView.loadAd(new AdRequest());
+			// if ads are part of the view 
+			if (adView != null)
+			{
+				adView.loadAd(new AdRequest());
+			}
 		}
 
         Bundle args = getArguments();
