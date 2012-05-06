@@ -15,6 +15,12 @@
 		android:defaultValue="true"/>    
 
 	<CheckBoxPreference 
+		android:key="autoExtractSampleJson"
+		android:summary="Always extract sample JSON files"
+		android:title="Extract samples" 
+		android:defaultValue="false"/>    
+	
+	<CheckBoxPreference 
 		android:key="dualPaneOnSmallScreens"
 		android:summary="Show dual pane on small screens as well"
 		android:title="Force Dual Pane" 
