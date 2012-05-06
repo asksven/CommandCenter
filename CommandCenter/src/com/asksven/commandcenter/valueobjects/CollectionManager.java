@@ -196,14 +196,16 @@ public class CollectionManager
     private void init(Context ctx)
     {
     	m_context = ctx;
-    	// check if the private storage exists. If not create it
+
+    	// check if the private storage exists. If not create it and add samples
     	if (!CommandsIO.getInstance(ctx).externalStorageEnvironmentReady())
     	{
     		CommandsIO.getInstance(ctx).createExternalStorageEnvironment();
+        	
+       		CommandsIO.getInstance(ctx).CopyAssets();
+
     	}
     	
-    	// always populate with samples
-   		CommandsIO.getInstance(ctx).CopyAssets();
     	
     	ArrayList<String> collections = CommandsIO.getInstance(ctx).getCollectionFilenames();
     	m_collections = new HashMap<String, CommandCollection>();
