@@ -23,20 +23,19 @@ import com.asksven.commandcenter.exec.ExecResult;
 
 public class Command
 {
-	private int id;
-	private String name;
-	private String command;
-	private String commandvalues;
-	private String commandstatus;
-	private String regexstatus;
-	private int matchregexison;
-	private String tags;
-	private int suexec;
-	private String description;
-	private int processresult;
+	private int id;								// the command's key
+	private String name;						// the command's name
+	private String command;						// the command that will be executed
+	private String commandvalues;				// the variable values (if the command uses variables)
+	private String commandstatus;				// the command that will be executed to retrieve the status (optional)
+	private String regexstatus;					// the regex that will be executed against the command status result (only relevant together with command status)
+	private int matchregexison;					// 1 to match the commandstatus equal to regexstatus, 0 for non-equal
+	private String tags;						// tags describing the command (for future use)
+	private int suexec;							// 1 if the command should be executed with su rights, else 0
+	private String description;					// a description of the command
+	private int processresult;					// 1 if the result of the command should be displayed, else 0
 	transient private String status_cached;
 	transient private boolean ison_cached;
-	
 	
 	public Command()
 	{

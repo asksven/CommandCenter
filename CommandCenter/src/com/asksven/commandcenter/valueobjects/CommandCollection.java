@@ -25,13 +25,13 @@ import java.util.List;
  */
 public class CommandCollection
 {
-    private String title;
-    private String author;
-    private Long version;
-    private String homepage;
-    private String updaterurl;
-    private String iconfile;
-    private String maintainer;
+    private String title; 			// the name of the command set
+    private String author;			// the author's name
+    private Long version;			// the version number (for future use with the updater)
+    private String homepage;		// the URL of the doc
+    private String updaterurl;		// the URL to check for updates (for future use)
+    private String iconfile;		// an icon (for future use)
+    private String maintainer;		// the maintainer's name
     transient boolean m_bEditable; 
     
     private List<Command> entries;
