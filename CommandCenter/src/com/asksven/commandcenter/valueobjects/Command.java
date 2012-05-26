@@ -26,7 +26,7 @@ public class Command
 	private int id;								// the command's key
 	private String name;						// the command's name
 	private String command;						// the command that will be executed
-	private String commandvalues;				// the variable values (if the command uses variables)
+	private String commandvalues;				// the variable values in the form <value>:<label>|<value>:<label>, e.g. 1:On|0:Off (if the command uses variables)
 	private String commandstatus;				// the command that will be executed to retrieve the status (optional)
 	private String regexstatus;					// the regex that will be executed against the command status result (only relevant together with command status)
 	private int matchregexison;					// 1 to match the commandstatus equal to regexstatus, 0 for non-equal

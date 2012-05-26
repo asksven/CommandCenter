@@ -34,7 +34,7 @@ public class CommandCollection
     private String maintainer;		// the maintainer's name
     transient boolean m_bEditable; 
     
-    private List<Command> entries;
+    private List<Command> entries;	// a list on commands
 
     public String getTitle() { return title; }
     public String getAuthor() { return author; }
