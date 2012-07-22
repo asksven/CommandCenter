@@ -1,3 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lint>
+    <issue id="MissingTranslation" severity="ignore" />
+    <issue id="NewApi">
+        <ignore path="res/layout-land-v14/fragment_tabs.xml" />
+    </issue>
 </lint>

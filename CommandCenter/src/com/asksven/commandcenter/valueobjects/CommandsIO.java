@@ -23,6 +23,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.os.Environment;
@@ -202,7 +203,8 @@ public class CommandsIO
         }
     }
     
-    private File getFileDir(Context ctx)
+    @SuppressLint("NewApi")
+	private File getFileDir(Context ctx)
     {
     	File path = null;
     	try

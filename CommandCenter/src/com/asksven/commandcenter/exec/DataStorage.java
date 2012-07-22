@@ -19,6 +19,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
@@ -57,6 +58,7 @@ public class DataStorage
 		return ( mExternalStorageAvailable && mExternalStorageWriteable );
 	}
 	
+	@SuppressLint("NewApi")
 	public static String getExternalStoragePath(Context ctx)
 	{
     	File path = null;

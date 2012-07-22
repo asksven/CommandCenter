@@ -16,6 +16,7 @@
 
 package com.asksven.commandcenter;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -68,7 +69,8 @@ public class BasicDetailsFragment extends Fragment
         return getArguments().getInt("index", -1);
     }
     
-    public String getCollectionName()
+    @SuppressLint("NewApi")
+	public String getCollectionName()
     {
     	Bundle args = getArguments();
     	try

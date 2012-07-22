@@ -21,6 +21,8 @@ package com.asksven.commandcenter.localeplugin.ui;
 
 import java.util.ArrayList;
 
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -222,7 +224,8 @@ public final class EditActivity extends Activity implements AdapterView.OnItemSe
     /**
      * {@inheritDoc}
      */
-    @Override
+    @SuppressLint("NewApi")
+	@Override
     public boolean onCreateOptionsMenu(final Menu menu)
     {
         super.onCreateOptionsMenu(menu);
@@ -242,7 +245,7 @@ public final class EditActivity extends Activity implements AdapterView.OnItemSe
              */
             new Runnable()
             {
-                public void run()
+				public void run()
                 {
                     getActionBar().setSubtitle(BreadCrumber.generateBreadcrumb(getApplicationContext(), getIntent(), getString(R.string.plugin_name)));
                 }
@@ -260,7 +263,7 @@ public final class EditActivity extends Activity implements AdapterView.OnItemSe
              */
             new Runnable()
             {
-                public void run()
+				public void run()
                 {
                     getActionBar().setDisplayHomeAsUpEnabled(true);
 
