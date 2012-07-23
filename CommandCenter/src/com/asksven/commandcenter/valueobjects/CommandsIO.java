@@ -35,6 +35,7 @@ import com.asksven.commandcenter.exec.DataStorage;
  * @author sven
  *
  */
+@SuppressLint("NewApi")
 public class CommandsIO
 {
 	private static String TAG = "CommandsIo";
@@ -203,7 +204,6 @@ public class CommandsIO
         }
     }
     
-    @SuppressLint("NewApi")
 	private File getFileDir(Context ctx)
     {
     	File path = null;

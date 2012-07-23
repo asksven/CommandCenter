@@ -18,11 +18,14 @@ package com.asksven.commandcenter.valueobjects;
 
 import java.util.ArrayList;
 
+import android.util.Log;
+
 import com.asksven.commandcenter.exec.Exec;
 import com.asksven.commandcenter.exec.ExecResult;
 
 public class Command
 {
+	static transient final String TAG = "CommandCenter::Command";
 	private int id;								// the command's key
 	private String name;						// the command's name
 	private String command;						// the command that will be executed
@@ -349,8 +352,9 @@ public class Command
 	/**
 	 * Update the cached values. Note that this call must happen from a thread
 	 */
-	protected void updateCache()
+	synchronized protected void updateCache()
 	{
+		Log.d(TAG, "updateCache called for command " + command);
 		status_cached = getStatus();
 		ison_cached = isOn();
 	}

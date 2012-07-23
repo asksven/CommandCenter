@@ -58,7 +58,7 @@ public class DataStorage
 		return ( mExternalStorageAvailable && mExternalStorageWriteable );
 	}
 	
-	@SuppressLint("NewApi")
+	@SuppressLint({ "NewApi" })
 	public static String getExternalStoragePath(Context ctx)
 	{
     	File path = null;

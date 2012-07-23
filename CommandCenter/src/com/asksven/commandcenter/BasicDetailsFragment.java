@@ -69,7 +69,7 @@ public class BasicDetailsFragment extends Fragment
         return getArguments().getInt("index", -1);
     }
     
-    @SuppressLint("NewApi")
+    @SuppressLint({ "NewApi", "NewApi" })
 	public String getCollectionName()
     {
     	Bundle args = getArguments();

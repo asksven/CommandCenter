@@ -24,8 +24,11 @@ import java.util.List;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -66,7 +69,7 @@ import com.google.ads.AdView;
  */
 public class BasicMasterFragment extends ListFragment
 {
-	private static final String TAG = "BasicMasterFragment";
+	private static final String TAG = "CommandCenter::BasicMasterFragment";
     boolean mDualPane;
     int mCurCheckPosition = 0;
     
@@ -92,8 +95,7 @@ public class BasicMasterFragment extends ListFragment
     int m_iContextMenuId = 0;
     
     static final int REQUEST_CODE_PICK_FILE_OR_DIRECTORY = 1;
-
-
+    
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState)
@@ -125,10 +127,7 @@ public class BasicMasterFragment extends ListFragment
         {
         	m_strCollectionName = "commands.json";
         }
-        
-        // refresh thread
-        this.refreshCommandsCache();
-        
+                
         CommandCollection myCollection =
         		CollectionManager.getInstance(getActivity()).getCollectionByName(m_strCollectionName, false);
      
@@ -206,6 +205,10 @@ public class BasicMasterFragment extends ListFragment
      */
     private void refreshCommandsCache()
     {
+    	// run the cache updater service
+//		Intent i = new Intent(getActivity(), CacheUpdaterService.class);
+//        getActivity().startService(i);
+
     	// we don't use an AsyncTask here because of the limitiation
     	// see http://stackoverflow.com/questions/4080808/asynctask-doinbackground-does-not-run
     	Thread myThread = new Thread(new Runnable()
@@ -623,5 +626,5 @@ public class BasicMasterFragment extends ListFragment
 	    	 showDialog(result);
 	    	 refreshList();
 	     }
-	 }
+	 }	
 }

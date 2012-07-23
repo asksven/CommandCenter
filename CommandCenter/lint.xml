@@ -3,5 +3,6 @@
     <issue id="MissingTranslation" severity="ignore" />
     <issue id="NewApi">
         <ignore path="res/layout-land-v14/fragment_tabs.xml" />
+        <ignore path="res/layout-land/fragment_tabs.xml" />
     </issue>
 </lint>

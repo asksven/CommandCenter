@@ -52,6 +52,7 @@ import com.asksven.commandcenter.R;
 /**
  * This is the "Edit" activity for a Locale Plug-in.
  */
+@SuppressLint({ "NewApi" })
 public final class EditActivity extends Activity implements AdapterView.OnItemSelectedListener
 {
 

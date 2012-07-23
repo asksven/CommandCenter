@@ -62,7 +62,7 @@ import com.google.gson.Gson;
 public class CollectionManager
 {
     
-    private static final String TAG = "CollectionManager";
+    private static final String TAG = "CommandCenter::CollectionManager";
     private static CollectionManager m_instance;
     private static Context m_context;
     
@@ -86,8 +86,9 @@ public class CollectionManager
      * @param strName the name of a collection
      * @return a command collection or null
      */
-    public CommandCollection getCollectionByName(String strName, boolean updateCache)
+    public synchronized CommandCollection getCollectionByName(String strName, boolean updateCache)
     {
+    	Log.d(TAG, "getCollectionByName called");
     	if (updateCache)
     	{
     		m_collections.get(strName).updateCache();

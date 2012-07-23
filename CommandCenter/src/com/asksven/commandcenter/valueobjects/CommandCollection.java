@@ -17,6 +17,8 @@ package com.asksven.commandcenter.valueobjects;
 
 import java.util.List;
 
+import android.util.Log;
+
 
 
 /**
@@ -25,6 +27,7 @@ import java.util.List;
  */
 public class CommandCollection
 {
+	static transient final String TAG = "CommandCenter::CommandCollection"; 
     private String title; 			// the name of the command set
     private String author;			// the author's name
     private Long version;			// the version number (for future use with the updater)
@@ -108,6 +111,7 @@ public class CommandCollection
 
     protected void updateCache()
     {
+    	Log.d(TAG, "UpdateCache called for collection " + title);
     	for (int i=0; i < entries.size(); i++)
     	{
     		((Command) entries.get(i)).updateCache();
