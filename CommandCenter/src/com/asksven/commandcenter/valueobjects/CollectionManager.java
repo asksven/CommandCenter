@@ -82,6 +82,14 @@ public class CollectionManager
     }
     
     /**
+     * Forces the re-read the assets and reload all tabs
+     */
+    public void reloadAssets(Context ctx)
+    {
+    	this.init(ctx);
+    }
+    
+    /**
      * Returns a CommandCollection for a given name
      * @param strName the name of a collection
      * @return a command collection or null

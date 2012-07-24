@@ -45,24 +45,8 @@ public class FragmentTabsPager extends FragmentActivity
 
         mViewPager = (ViewPager)findViewById(R.id.pager);
 
-        mTabsAdapter = new TabsAdapter(this, mTabHost, mViewPager);
-
-        Set<String> collections = CollectionManager.getInstance(this).getCollectionNames();
-        Iterator<String> myIt = collections.iterator();
-        Bundle tabArgs = null;
-        int iIdForMenu = 0;
-        while (myIt.hasNext())
-        {
-        	
-        	String strName = myIt.next();
-        	tabArgs = new Bundle();
-        	tabArgs.putString("collection", strName);
-        	// required to give each fragment a unique ID
-        	tabArgs.putInt("id", iIdForMenu++);
-        	mTabsAdapter.addTab(mTabHost.newTabSpec(strName).setIndicator(strName),
-                BasicMasterFragment.class, tabArgs);
-        }
-
+        populateTabs();
+        
         if (savedInstanceState != null)
         {
             mTabHost.setCurrentTabByTag(savedInstanceState.getString("tab"));
@@ -99,6 +83,27 @@ public class FragmentTabsPager extends FragmentActivity
 
     }
 
+    void populateTabs()
+    {
+        mTabsAdapter = new TabsAdapter(this, mTabHost, mViewPager);
+        mTabHost.clearAllTabs();
+        Set<String> collections = CollectionManager.getInstance(this).getCollectionNames();
+        Iterator<String> myIt = collections.iterator();
+        Bundle tabArgs = null;
+        int iIdForMenu = 0;
+        while (myIt.hasNext())
+        {
+        	
+        	String strName = myIt.next();
+        	tabArgs = new Bundle();
+        	tabArgs.putString("collection", strName);
+        	// required to give each fragment a unique ID
+        	tabArgs.putInt("id", iIdForMenu++);
+        	mTabsAdapter.addTab(mTabHost.newTabSpec(strName).setIndicator(strName),
+                BasicMasterFragment.class, tabArgs);
+        }
+
+    }
     @Override
     protected void onSaveInstanceState(Bundle outState)
     {
@@ -126,6 +131,11 @@ public class FragmentTabsPager extends FragmentActivity
 	        case R.id.preferences:  
 	        	Intent intentPrefs = new Intent(this, PreferencesActivity.class);
 	            this.startActivity(intentPrefs);
+	        	break;	
+
+	        case R.id.refresh:  
+	        	CollectionManager.getInstance(this).reloadAssets(this);
+	        	populateTabs();
 	        	break;	
 
 //	        case R.id.refresh:
