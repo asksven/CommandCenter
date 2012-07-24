@@ -252,8 +252,11 @@ public class BasicMasterFragment extends ListFragment
     	}
     	else
     	{
-	    	m_myCommand = m_myItems.get(position);
-	        showDetails(m_myCommand.getId());
+    		if (position < m_myItems.size())
+    		{
+		    	m_myCommand = m_myItems.get(position);
+		        showDetails(m_myCommand.getId());
+    		}
     	}
     }
 
