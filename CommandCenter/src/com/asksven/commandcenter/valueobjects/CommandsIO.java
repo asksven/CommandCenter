@@ -68,13 +68,15 @@ public class CommandsIO
 		
 		File path = getFileDir(m_ctx);
 
-		// list the files using our FileFilter
-		File[] files = path.listFiles(new CommandCollectionFileFilter());
-		for (File f : files)
+		if (path != null)
 		{
-			myFiles.add(f.getName());
+			// list the files using our FileFilter
+			File[] files = path.listFiles(new CommandCollectionFileFilter());
+			for (File f : files)
+			{
+				myFiles.add(f.getName());
+			}
 		}
-		
 		return myFiles;
 	}
 
