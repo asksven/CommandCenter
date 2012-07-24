@@ -184,7 +184,7 @@ public class CommandsIO
 	            }
 	            catch(Exception e)
 	            {
-	                Log.e(TAG, "An error occured while reading " + filename +": " + e.getMessage());
+	                Log.e(TAG, "An error occured while reading " + filename);
 	            }
         	}
         }
